@@ -1,0 +1,49 @@
+[
+    {
+        "to": null,
+        "href": "#",
+        "name": "Drop down item 1",
+        "subMenu": {}
+    },
+    {
+        "to": null,
+        "href": "#",
+        "name": "Drop down item 2",
+        "subMenu": null
+    },
+    {
+        "to": null,
+        "href": null,
+        "name": "Drop down item 3",
+        "subMenu": {
+            "title": "Title Menu One",
+            "links": [
+                {
+                    "to": null,
+                    "href": "#",
+                    "name": "Custom Menu"
+                },
+                {
+                    "to": null,
+                    "href": "#",
+                    "name": "Custom Menu"
+                },
+                {
+                    "to": null,
+                    "href": "#",
+                    "name": "Custom Menu"
+                },
+                {
+                    "to": null,
+                    "href": "#",
+                    "name": "Custom Menu"
+                },
+                {
+                    "to": null,
+                    "href": "#",
+                    "name": "Custom Menu"
+                }
+            ]
+        }
+    }
+]
