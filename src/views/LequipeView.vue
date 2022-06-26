@@ -4,8 +4,13 @@
       <div class="col-sm-12 col-md-10 offset-md-1">
         <!-- Article -->
         <div class="card shadow-sm rounded-0">
-          <div class="card-header">
-            <div class="scrollbar">
+          <div :class="{ 'd-flex justify-content-around': isDetailPage }" class="card-header">
+            <div class="back">
+              <span class="badge badge-light text-muted fw-normal border rounded-pill p-2">Accueil</span>
+              <span class="badge badge-light text-muted fw-normal border rounded-pill p-2">Tennis</span>
+            </div>
+
+            <div :class="{ 'w-75': isDetailPage }" class="scrollbar">
               <router-link v-for="i in 15" :key="i" :to="{ name: 'templates_view' }" class="mx-1 h5">
                 <span class="badge badge-light text-muted fw-normal border rounded-pill p-2">
                   {{ `first badge ${i}` }}
@@ -19,20 +24,21 @@
               <div class="col-sm-12 col-md-8">
                 <div class="row">
                   <div class="col-12">
-                    <div class="d-flex justify-content- h-75 fs-small">
-                      <span class="badge badge-primary">Tennis</span>
+                    <div class="d-flex justify-content-left h-75 fs-small align-items-middle">
+                      <div class="badge badge-primary lh-base">Tennis</div>
                       <p class="fw-bold text-muted mx-2">GP France</p>
-                      <p class="text-warning">exclusivité abonnés</p>
+                      <p class="text-warning fw-bold">exclusivité abonnés</p>
                     </div>
                   </div>
 
                   <div class="col-12">
-                    <h2 class="text-uppercase fw-bold mb-2">La pôle pour Kendall devant les Reds</h2>
-                    <p clas="mb-2 fw-normal fs-4">
+                    <h2 class="fw-bold mb-3">La pôle pour Kendall devant les Reds</h2>
+                    <h5 clas="mb-2 fs-4 my-4 fw-normal">
                       Champion de France après une agression samedi, le spécialiste du 400 m haies est passé récupérer
                       sa médaille dimanche, alors qu'il existe encore des zones d'ombre à éclaircir concernant la
                       sécurité notamment.
-                    </p>
+                    </h5>
+
                     <figure class="figure mb-0">
                       <img src="https://picsum.photos/1200/800" class="figure-img img-fluid rounded" alt="Image 1">
                       <figcaption class="figure-caption">
@@ -52,7 +58,8 @@
                   </div>
 
                   <div class="col-12 mb-3">
-                    <button type="button" class="btn btn-primary btn-lg btn-floating" @click="scrollToSection('comments')">
+                    <button type="button" class="btn btn-primary btn-lg btn-floating"
+                      @click="scrollToSection('comments')">
                       <font-awesome-icon icon="fa-solid fa-comment" />
                     </button>
                     <button type="button" class="btn btn-primary btn-lg btn-floating mx-2">
@@ -188,6 +195,9 @@ export default {
       scrollToSection
     }
   },
+  data: () => ({
+    isDetailPage: true
+  }),
   components: {
     DashboardLayoutVue
   },
