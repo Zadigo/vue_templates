@@ -32,7 +32,7 @@ import { inject } from 'vue'
 export default {
   name: 'BaseModal',
   emits: ['close'],
-  setup() {
+  setup () {
     var darkMode = inject('darkMode')
     return {
       darkMode
@@ -64,7 +64,7 @@ export default {
     }
   },
   watch: {
-    show(newValue) {
+    show (newValue) {
       if (newValue) {
         this.$refs.link.classList.add('show')
         this.$refs.link.style.display = 'block'
@@ -79,7 +79,7 @@ export default {
     }
   },
   computed: {
-    modalDialogClasses() {
+    modalDialogClasses () {
       return [
         {
           [`modal-${this.size}`]: true
@@ -88,7 +88,7 @@ export default {
         this.scrollable ? 'modal-dialog-scrollable' : null
       ]
     },
-    modalContentClasses() {
+    modalContentClasses () {
       return [
         this.darkMode ? 'bg-dark text-light' : 'bg-light text-dark',
       ]
@@ -102,19 +102,19 @@ export default {
   //     this.$refs.link.style.display = 'block'
   //   }
   // },
-  mounted() {
+  mounted () {
     // if (this.show) {
     //   this.toggleBody()
     // }
     var body = this.getBody()
     body.addEventListener('click', this.windowListener, { passive: true })
   },
-  unmounted() {
+  unmounted () {
     var body = this.getBody()
     body.removeEventListener('click', this.windowListener, { passive: true })
   },  
   methods: {
-    windowListener(e) {
+    windowListener (e) {
       if (e.target.classList.contains('modal')) {
         if (this.staticBackdrop) {
           this.$refs.link.classList.add('modal-static')
@@ -126,7 +126,7 @@ export default {
         }
       }
     },
-    toggleBody() {
+    toggleBody () {
       var body = document.querySelector('body')
 
       if (body.classList.contains('modal-open')) {
@@ -142,7 +142,7 @@ export default {
         // body.style.paddingRight = '17px'
       }
     },
-    getBody() {
+    getBody () {
       return document.querySelector('body')
     }
   }

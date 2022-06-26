@@ -19,7 +19,7 @@ import { inject } from 'vue'
 export default {
   name: 'BaseOffcanvas',
   emits: ['close'],
-  setup() {
+  setup () {
     var darkMode = inject('darkMode')
     return {
       darkMode
@@ -41,7 +41,7 @@ export default {
     }
   },
   watch: {
-    show(newValue) {
+    show (newValue) {
       var body = document.querySelector('body')
       if (newValue) {
         body.style.overflow = 'hidden'
@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    offcanvasClasses() {
+    offcanvasClasses () {
       return [
         this.show ? 'show' : null,
         this.darkMode ? 'bg-dark text-light' : 'bg-light text-dark',
@@ -68,19 +68,19 @@ export default {
       ]
     }
   }, 
-  mounted() {
+  mounted () {
     var body = this.getBody()
     body.addEventListener('click', this.windowListener, { passive: true })
   },
-  unmounted() {
+  unmounted () {
     var body = this.getBody()
     body.removeEventListener('click', this.windowListener, { passive: true })
   },
   methods: {
-    getBody() {
+    getBody () {
       return document.querySelector('body')
     },
-    windowListener(e) {
+    windowListener (e) {
       // console.log(e.target)
       if (e.target.classList.contains('modal-open')) {
         this.$emit('close')

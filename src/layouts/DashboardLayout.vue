@@ -73,7 +73,7 @@ import BaseFooterVue from './BaseFooter.vue'
 
 export default {
   name: 'DashboardLayout',
-  setup() {
+  setup () {
     var { darkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {

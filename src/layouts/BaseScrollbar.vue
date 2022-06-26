@@ -30,7 +30,7 @@ export default {
     }
   },
   computed: {
-    badgeClasses() {
+    badgeClasses () {
       return [
         this.badges,
         {

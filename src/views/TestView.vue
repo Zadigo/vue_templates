@@ -10,7 +10,7 @@
           <!-- <b-dropdown-button class="mx-2" id="some" buttonName="Some name" color="info" transition="slide"></b-dropdown-button> -->
           
           <!-- Split -->
-          <b-split-drop-button :items="[{ name: 'Google' }, { name: 'Facebook' }]"  class="mx-2" buttonName="My button" color="dark">
+          <b-split-drop-button :items="[{ name: 'Google' }, { name: 'Facebook' }]"  class="mx-2" button-name="My button" color="dark">
             My button
           </b-split-drop-button>
         </div>

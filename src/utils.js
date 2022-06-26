@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-function raiseError(functionName, message) {
+function raiseError (functionName, message) {
     throw Error(`${functionName} - ${message}`)
 }
 
@@ -13,7 +13,7 @@ function raiseError(functionName, message) {
  * @throws Error
  * 
  */
-function indexElements(items) {
+function indexElements (items) {
     return _.map(items, (item, i) => {
         if (!(typeof item == 'object')) {
             throw Error(`indexElements - ${item} should be a dictionnary`)
@@ -34,7 +34,7 @@ function indexElements(items) {
  * @throws Error
  * 
  */
-function incrementLastId(items) {
+function incrementLastId (items) {
     var lastItem = _.last(items)
 
     if (!(typeof lastItem === 'object')) {
@@ -50,7 +50,7 @@ function incrementLastId(items) {
  * @returns {String | ArrayBuffer} data url of the file
  *  
  */
-function readFile(file) {
+function readFile (file) {
     var filePreview = null
 
     if (file && file[0]) {
@@ -72,7 +72,7 @@ function readFile(file) {
  * @returns {Array} data url of the file
  *  
  */
-function readMultipleFiles(files) {
+function readMultipleFiles (files) {
     return files.map((file) => {
         return readFile(file)
     })
@@ -86,7 +86,7 @@ function readMultipleFiles(files) {
  * @returns {String} truncated string
  *  
  */
-function truncate(text, k = 28) {
+function truncate (text, k = 28) {
     if (!(typeof text == 'string')) {
         raiseError('truncate', `${text} should be a string`)
     } else {
@@ -103,7 +103,7 @@ function truncate(text, k = 28) {
  * @returns {String} non-truncated or truncated string
  *  
  */
-function conditionalTruncate(text, limit, k) {
+function conditionalTruncate (text, limit, k) {
     if (text.length >= limit) {
         return truncate(text, k)
     } else {
@@ -119,7 +119,7 @@ function conditionalTruncate(text, limit, k) {
  * @returns {String} limit and offset query parameters
  *  
  */
-function buildLimitOffset(url, limit = 100, offset = 0) {
+function buildLimitOffset (url, limit = 100, offset = 0) {
     if (url) {
         var instance = new URL(url)
         var potentialLimit = instance.searchParams.get('limit')
@@ -140,7 +140,7 @@ function buildLimitOffset(url, limit = 100, offset = 0) {
  * @returns {String} limit and offset query parameters
  *  
  */
-function getPageFromParams(url, page = 1) {
+function getPageFromParams (url, page = 1) {
     if (url) {
         var instance = new URL(url)
         var potentialPage = instance.searchParams.get('page')
@@ -158,7 +158,7 @@ function getPageFromParams(url, page = 1) {
  * @returns {Array} list of items
  * 
  */
-function listManager(items, item) {
+function listManager (items, item) {
     if (items.includes(item)) {
         var index = _.indexOf(items, item)
         items.splice(index, 1)
@@ -178,7 +178,7 @@ function listManager(items, item) {
  * @returns {Number} updated index
  * 
  */
-function increaseIndex(items, initialIndex) {
+function increaseIndex (items, initialIndex) {
     // Base on a list of items and an initial index,
     // increase the index by 1. If the new index is
     // out of bounds, return 0, or, the index of
@@ -201,7 +201,7 @@ function increaseIndex(items, initialIndex) {
  * @returns {Number} updated index
  * 
  */
-function decreaseIndex(items, initialIndex) {
+function decreaseIndex (items, initialIndex) {
     // Base on a list of items and an initial index,
     // increase the index by 1. If the new index is
     // out of bounds, return the index of the last
@@ -225,7 +225,7 @@ function decreaseIndex(items, initialIndex) {
  * @returns {Object} the dictionnary corresponding to the index
  * 
  */
-function getPreviousItemFromList(items, initialItem, field) {
+function getPreviousItemFromList (items, initialItem, field) {
     // Returns the previous item from a given list based on the position
     // of an initial element
     var index = _.findIndex(items, [field, initialItem[field]])
@@ -245,7 +245,7 @@ function getPreviousItemFromList(items, initialItem, field) {
  * @returns {Object} the dictionnary corresponding to the index
  * 
  */
-function getNextItemFromList(items, initialItem, field) {
+function getNextItemFromList (items, initialItem, field) {
     var index = _.findIndex(items, [field, initialItem[field]])
     var newIndex = increaseIndex(items, index)
 
@@ -262,7 +262,7 @@ function getNextItemFromList(items, initialItem, field) {
  * @returns {Array} list of matching items
  * 
  */
-function searchHelper(search, items, fields) {
+function searchHelper (search, items, fields) {
     if (search) {
         return _.filter(items, (item) => {
             var truthArray = _.map(fields, (field) => {
@@ -298,7 +298,7 @@ function searchHelper(search, items, fields) {
  * @param {String} elementId - id of the element on the page
  * 
  */
-function scrollToSection(elementId) {
+function scrollToSection (elementId) {
     document.getElementById(elementId).scrollIntoView()
 }
 
@@ -306,11 +306,11 @@ function scrollToSection(elementId) {
  * Scroll to the top of a page
  * 
  */
-function scrollToTop() {
+function scrollToTop () {
     window.scroll(0, 0)
 }
 
-function getAutoComplete(fieldName) {
+function getAutoComplete (fieldName) {
     var autocomplete = null
 
     switch (fieldName) {
@@ -331,7 +331,7 @@ function getAutoComplete(fieldName) {
     return autocomplete
 }
 
-function getFieldType(fieldName, defaultType) {
+function getFieldType (fieldName, defaultType) {
     var fieldType = null
 
     switch (fieldType) {
@@ -358,7 +358,7 @@ function getFieldType(fieldName, defaultType) {
  * @param {String} component - component path
  * 
  */
-function loadView(component) {
+function loadView (component) {
     return () => import(`@/views/${component}.vue`)
 }
 
@@ -368,7 +368,7 @@ function loadView(component) {
  * @param {String} component - component path
  * 
  */
-function loadLayout(component) {
+function loadLayout (component) {
     return () => import(`@/layouts/${component}.vue`)
 }
 
@@ -378,7 +378,7 @@ function loadLayout(component) {
  * @param {String} component - component path
  * 
  */
-function loadComponent(component) {
+function loadComponent (component) {
     return () => import(`@/components/${component}.vue`)
 }
 
@@ -389,7 +389,7 @@ function loadComponent(component) {
  * @returns {String} capitalized text
  * 
  */
-function capitalizeFirstLetter(value) {
+function capitalizeFirstLetter (value) {
     if (!value) { return value }
     return value.charAt(0).toUpperCase() + value.slice(1)
 }
@@ -402,7 +402,7 @@ function capitalizeFirstLetter(value) {
  * @returns {String} capitalized text
  * 
  */
-function capitalizeLetters(value) {
+function capitalizeLetters (value) {
     var tokens = value.split(" ")
     var result = tokens.map((token) => {
         return capitalizeFirstLetter(token)
@@ -420,7 +420,7 @@ function capitalizeLetters(value) {
  * @returns {String} formated text
  * 
  */
-function formatAsPercentage(value, negative = false) {
+function formatAsPercentage (value, negative = false) {
     return negative ? `-${value}%` : `${value}%`
 }
 
@@ -431,7 +431,7 @@ function formatAsPercentage(value, negative = false) {
  * @returns {String} url
  * 
  */
-function mediaUrl(path) {
+function mediaUrl (path) {
     var rootUrl = process.env.rootUrl || 'http://127.0.0.1:8000'
     return new URL(path, rootUrl).toString()
 }
@@ -444,7 +444,7 @@ function mediaUrl(path) {
  * @returns {Number} - percentage scrolled
  * 
  */
-function getVerticalScrollPercentage(el) {
+function getVerticalScrollPercentage (el) {
     var parent = el.parentNode
     return (el.scrollTop || parent.scrollTop) / (parent.scrollHeight - parent.clientHeight) * 100
 }
@@ -456,7 +456,7 @@ function getVerticalScrollPercentage(el) {
  * @returns {Array} sorted list of a items
  * 
  */
-function quickSort(items) {
+function quickSort (items) {
     return items.sort((a, b) => {
         return a - b
     })
@@ -469,7 +469,7 @@ function quickSort(items) {
  * @returns {String} ws:// or wss://
  * 
  */
-function getWebsocketProtocole() {
+function getWebsocketProtocole () {
     var protocol = window.location.protocol
     return protocol === 'https' ? 'wss://' : 'ws://'
 }
@@ -480,7 +480,7 @@ function getWebsocketProtocole() {
  * @returns {String} url
  * 
  */
-function websocketRootAddress(path) {
+function websocketRootAddress (path) {
     var protocol = getWebsocketProtocole()
     var host = process.env.HOST_ADDRESS || '127.0.0.1:8000'
     return new URL(path, protocol + host).toString()
@@ -495,7 +495,7 @@ function websocketRootAddress(path) {
  * @returns {WebSocket} websocket instance
  * 
  */
-function createWebsocket(path, listeners = {}) {
+function createWebsocket (path, listeners = {}) {
     console.log(websocketRootAddress(path))
     var socket = new WebSocket(websocketRootAddress(path))
 
@@ -515,7 +515,7 @@ function createWebsocket(path, listeners = {}) {
  * @returns {String} url
  * 
  */
-function socketSendMessage(type, items = {}) {
+function socketSendMessage (type, items = {}) {
     return JSON.stringify({ type: type, ...items })
 }
 
@@ -526,7 +526,7 @@ function socketSendMessage(type, items = {}) {
  * @returns {String} url
  * 
  */
-function rebuildPath(path) {
+function rebuildPath (path) {
     var instance = new URL(path, window.location.href)
     return instance.toString()
 }
@@ -538,7 +538,7 @@ function rebuildPath(path) {
  * @returns {Boolean} true or false
  * 
  */
-function hasNull(items) {
+function hasNull (items) {
     if (typeof items == 'object') {
         items = Object.values(items)
     }
@@ -554,7 +554,7 @@ function hasNull(items) {
  * @returns {Object} install object
  * 
  */
-function createUtils() {
+function createUtils () {
     return {
         install: (app) => {
             app.mixin({

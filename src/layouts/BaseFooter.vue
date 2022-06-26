@@ -42,13 +42,13 @@ import footer from '../data/footer.json'
 
 export default {
   name: 'BaseFooter',
-  setup() {
+  setup () {
     return {
       footer: footer
     }
   },
   methods: {
-    getColor(name) {
+    getColor (name) {
       var colors = {
         'Facebook': '#3b5998',
         'Google': '#dd4b39',

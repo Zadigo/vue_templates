@@ -33,7 +33,7 @@ import { inject } from 'vue'
 
 export default {
   name: 'BaseNavbar',
-  setup() {
+  setup () {
     var darkMode = inject('darkMode', () => false)
     return {
       megamenu,
@@ -48,7 +48,7 @@ export default {
     collapsed: true
   }),
   computed: {
-    navbarClasses() {
+    navbarClasses () {
       return [
         this.darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'
       ]

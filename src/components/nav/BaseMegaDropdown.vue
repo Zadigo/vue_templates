@@ -33,7 +33,7 @@ import { inject } from 'vue'
 export default {
   name: 'BaseMegaDropdown',
   emits: ['click'],
-  setup() {
+  setup () {
     var darkMode = inject('darkMode')
     return {
       darkMode
@@ -48,12 +48,12 @@ export default {
   data: () => ({
     show: false
   }),
-  mounted() {
+  mounted () {
     var body = document.querySelector('body')
     body.addEventListener('click', this.windowListener)
   },
   computed: {
-    dropdownClasses() {
+    dropdownClasses () {
       return [
         this.show ? 'show' : null,
         this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark'
@@ -61,7 +61,7 @@ export default {
     }
   },
   methods: {
-    windowListener(e) {
+    windowListener (e) {
       if (e.target.classList.contains('dropdown-toggle')) {
         if (e.target.parentElement.classList.contains('has-megamenu')) {
           console.log(e.target)

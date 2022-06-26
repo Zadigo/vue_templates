@@ -68,14 +68,14 @@ export default {
     showReplies: false
   }),
   methods: {
-    async likeComment() {
+    async likeComment () {
       // pass
     },
-    async createComment() {
+    async createComment () {
       var id = incrementLastId(this.comments)
       this.comments.push({ id: id, replies: [] })
     },
-    async createReply() {
+    async createReply () {
       // pass
     }
   }

@@ -80,7 +80,7 @@ const useOnClickOutside = function (rootEl, callback) {
 const useDropdown = function () {
     const items = ref([])
     const show = ref(false)
-    function toggleDropdown() {
+    function toggleDropdown () {
         show.value = ! show.value
         // el.style.position = 'absolute'
     }
@@ -108,7 +108,7 @@ const BButton = {
         }
     },
     computed: {
-        buttonClasses() {
+        buttonClasses () {
             return [
                 'btn',
                 {
@@ -117,7 +117,7 @@ const BButton = {
             ]
         },
     },
-    render(vm) {
+    render (vm) {
         return h(this.to ? RouterLink : 'button', {
             type: 'button',
             class: this.buttonClasses,
@@ -149,7 +149,7 @@ const BSplitDropButton = {
             type: Array
         }
     },
-    setup() {
+    setup () {
         const { show, toggleDropdown } = useDropdown()
         var buttonRef = null
         useOnClickOutside(buttonRef, toggleDropdown)
@@ -160,7 +160,7 @@ const BSplitDropButton = {
         }
     },
     watch: {
-        show(current) {
+        show (current) {
             if (current) {
                 this.$refs.link.style.position = 'absolute'
                 this.$refs.link.style.top = '38px'
@@ -173,7 +173,7 @@ const BSplitDropButton = {
         }
     },
     computed: {
-        dropdownClasses() {
+        dropdownClasses () {
             return [
                 'dropdown-menu',
                 this.show ? 'show' : null,
@@ -182,7 +182,7 @@ const BSplitDropButton = {
         }
     },
     methods: {
-        getLink(item) {
+        getLink (item) {
             // if (item.to) {
             //     return h(RouterLink, {
             //         to: item.to
@@ -208,7 +208,7 @@ const BSplitDropButton = {
                 item.name
             ])
         },
-        getDropdown() {
+        getDropdown () {
             return h('ul', {
                 'aria-lalledby': 'something',
                 ref: 'link',
@@ -232,7 +232,7 @@ const BSplitDropButton = {
             // ])
         }
     },
-    render() {
+    render () {
         return h('div', {
             class: 'btn-group',
             // 'aria-expanded': this.show
@@ -301,7 +301,7 @@ const BDropdownButton = {
         show: false
     }),
     computed: {
-        buttonClasses() {
+        buttonClasses () {
             return [
                 'btn dropdown-toggle',
                 {
@@ -310,7 +310,7 @@ const BDropdownButton = {
                 this.show ? 'show' : null
             ]
         },
-        dropdownClasses() {
+        dropdownClasses () {
             return [
                 'dropdown-menu',
                 this.show ? 'show': null,
@@ -318,23 +318,23 @@ const BDropdownButton = {
             ]
         }
     },
-    mounted() {
+    mounted () {
         var body = document.querySelector('body')
         body.addEventListener('click', this.windowListener)
     },
-    unmounted() {
+    unmounted () {
         var body = document.querySelector('body')
         body.removeEventListener('click', this.windowListener)
     },
     methods: {
-        expandDropdown() {
+        expandDropdown () {
             this.show = !this.show
             this.$emit('dropdown-expanded', this.show)
         },
-        windowListener(e) {
+        windowListener (e) {
             console.log(e)
         },
-        getLink(item) {
+        getLink (item) {
             if (item.href) {
                 return h('a', {
                     class: 'dropdown-item',
@@ -352,11 +352,11 @@ const BDropdownButton = {
                 })
             }
         },
-        linkClick(index) {
+        linkClick (index) {
             this.$emit('dropdown-click', index)
         }
     },
-    render() {
+    render () {
         return h('div', {
             class: 'dropdown',
         }, [

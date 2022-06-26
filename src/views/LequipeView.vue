@@ -106,9 +106,22 @@
                       </div>
 
                       <div class="card-footer border-0">
-                        <button class="btn btn-light shadow-none">Like</button>
-                        <button class="btn btn-light shadow-none mx-2">Dislike</button>
-                        <button class="btn btn-light shadow-none">Signal</button>
+                        <button type="button" class="btn btn-light shadow-none" @click="answer">
+                          <font-awesome-icon icon="fa-solid fa-comment" class="me-2" />
+                          Répondre
+                        </button>
+                        <button type="button" class="btn btn-light shadow-none mx-1 text-success" @click="like">
+                          <font-awesome-icon icon="fa-solid fa-thumbs-up" class="me-2" />
+                          Like <span>15</span>
+                        </button>
+                        <button type="button" class="btn btn-light shadow-none mx-1 text-danger" @click="dislike">
+                          <font-awesome-icon icon="fa-solid fa-thumbs-down" class="me-2" />
+                          Dislike <span>15</span>
+                        </button>
+                        <button type="button" class="btn btn-light shadow-none" @click="reportt">
+                          <font-awesome-icon icon="fa-solid fa-flag" class="me-2" />
+                          Signal
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -146,7 +159,32 @@ export default {
   components: {
     DashboardLayoutVue
   },
-  mounted() {
+  methods: {
+    async answer () {
+      setTimeout(() => {
+        // Pass
+      }, 1000)
+    },
+
+    async like () {
+      setTimeout(() => {
+        // Pass
+      }, 1000)
+    },
+
+    async dislike () {
+      setTimeout(() => {
+        // Pass
+      }, 1000)
+    },
+
+    async report () {
+      setTimeout(() => {
+        // Pass
+      }, 1000)
+    }
+  },
+  mounted () {
     var script = document.createElement('script')
 
     var src = document.createAttribute('src')

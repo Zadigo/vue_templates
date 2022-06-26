@@ -70,7 +70,7 @@ export default {
   //   this.getAudioDetails()
   // },
   watch: {
-    src(current, previous) {
+    src (current, previous) {
       if (current !== previous) {
         this.$refs.link.src = current
         this.updateAudioDetails()
@@ -78,18 +78,18 @@ export default {
     }
   },
   computed: {
-    formattedDuration() {
+    formattedDuration () {
       return this.formatTime(this.duration)
     },
-    formattedCurrentTime() {
+    formattedCurrentTime () {
       return this.formatTime(this.currentTime)
     },
-    progressPercentage() {
+    progressPercentage () {
       return (this.currentTime / this.duration) * 100;
     }
   },
   methods: {
-    toggleAudioPlay() {
+    toggleAudioPlay () {
       try {
         if (this.$refs.link.paused) {
           this.isPlaying = true
@@ -104,7 +104,7 @@ export default {
         console.error(error)
       }
     },
-    updateAudioDetails() {
+    updateAudioDetails () {
       try {
         this.duration = this.$refs.link.duration
         this.currentTime = this.$refs.link.currentTime
@@ -120,7 +120,7 @@ export default {
         console.log(error)
       }
     },
-    handleSkipPrevious() {
+    handleSkipPrevious () {
       try {
         this.$emit('skipped-backwards', this.formattedCurrentTime)
         this.$refs.link.currentTime = 0
@@ -128,11 +128,11 @@ export default {
         console.error(error)
       }
     },
-    handleSkipNext() {
+    handleSkipNext () {
       // Get the next song
       this.$emit('next-song')
     },
-    handleProgressBarClick(e) {
+    handleProgressBarClick (e) {
       var previousTime = this.currentTime
       const currentTime = (this.duration * e.offsetX) / this.$refs.progress.offsetWidth
 
@@ -140,7 +140,7 @@ export default {
       this.$refs.link.currentTime = currentTime
       this.$emit('skipped', [previousTime, this.currentTime])
     },
-    handleDrag(e) {
+    handleDrag (e) {
       if (e.x !== 0 && e.y !== 0) {
         var track = this.$refs.progress
         if (track) {
@@ -160,7 +160,7 @@ export default {
         }
       }
     },
-    formatTime(value) {
+    formatTime (value) {
       var hours = Math.floor(value / 3600)
       var minutes = Math.floor((value % 3600 / 60))
       var seconds = Math.floor(value % 60)

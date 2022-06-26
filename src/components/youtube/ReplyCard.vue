@@ -49,7 +49,7 @@ export default {
     showReplyInput: false
   }),
   methods: {
-    async likeReply() {
+    async likeReply () {
       // pass
     }
   }

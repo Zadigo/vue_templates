@@ -72,12 +72,12 @@ export default {
     ]
   }),
   computed: {
-    currentSong() {
+    currentSong () {
       return this.playlist[this.cursor]
     }
   },
   methods: {
-    nextSong() {
+    nextSong () {
       var result = this.cursor + 1 
       if (result > this.playlist.length) {
         result = this.playlist.length

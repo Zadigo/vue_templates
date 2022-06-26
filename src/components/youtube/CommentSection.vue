@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <p class="fw-bold fs-5">{{ currentVideo.comments.count }} Comments</p>
-        <base-dropdown-button-vue :items="[{ name: 'Newest' }, { name: 'Oldest' }]" icon="sort" buttonName="Sort"
+        <base-dropdown-button-vue :items="[{ name: 'Newest' }, { name: 'Oldest' }]" icon="sort" button-name="Sort"
           @dropdown-click="setSort" />
         <!-- <button class="btn btn-info"><span class="mdi mdi-sort me-2"></span>Sort</button> -->
         <!-- <button class="btn btn-info"><span class="mdi mdi-filter me-2"></span>Filter</button> -->
@@ -66,7 +66,7 @@ import CommentCard from './CommentCard.vue'
 
 export default {
   name: 'CommentSection',
-  setup() {
+  setup () {
     var isLoading = inject('isLoading')
     return {
       isLoading
@@ -86,7 +86,7 @@ export default {
   data: () => ({
     comments: [],
   }),
-  sortedComments() {
+  sortedComments () {
     // if (this.sortMethod === 'Newest') {
     //   return this.comments.sort((a, b) => {
     //     return dayjs(a.created_on) - dayjs(b.created_on)
@@ -100,14 +100,14 @@ export default {
     // }
     return this.comments
   },
-  mounted() {
+  mounted () {
     this.getComments()
   },
   methods: {
-    async likeVideo() {
+    async likeVideo () {
       this.$emit('like-video', true)
     },
-    async getComments() {
+    async getComments () {
       this.isLoading = true
       setTimeout(() => {
         var d = dayjs('2022-1-1')
@@ -126,7 +126,7 @@ export default {
         this.isLoadingRecommendations = false
       }, 1000)
     },
-    setSort(params) {
+    setSort (params) {
       this.sortMethod = params[1]
     }
   }

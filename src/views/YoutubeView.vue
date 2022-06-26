@@ -2,7 +2,7 @@
   <dashboard-layout-vue>
     <section id="youtube">
       <div class="container-fluid p-0">
-        <base-video-player-vue :videoUrl="require('../assets/video1.mp4')"></base-video-player-vue>
+        <base-video-player-vue :video-url="require('../assets/video1.mp4')"></base-video-player-vue>
         <!-- Information -->
         <div class="row">
           <div class="col-12">
@@ -26,7 +26,7 @@
                       </button>
                     </div>
 
-                    <base-dropdown-button-vue :buttonName="'More'" :color="'secondary'"
+                    <base-dropdown-button-vue :button-name="'More'" :color="'secondary'"
                       :items="[{ name: 'Store', icon: 'store' }, { name: 'Download', icon: 'download' }, { name: 'Save', icon: 'content-save' }, { name: 'Gift', icon: 'gift' }, { name: 'Donate', icon: 'cash' }, { name: 'Share', icon: 'share' }, { name: 'Recommendation', icon: 'star-remove-outline' }, { name: 'Report', icon: 'alert' }]"
                       class="mx-2" @dropdown-click="dropdownClick" />
 
@@ -77,7 +77,7 @@
 
         <!-- Comments -->
         <div class="row">
-          <comment-section :currentVideo="currentVideo" />
+          <comment-section :current-video="currentVideo" />
 
           <!-- Recommendations -->
           <div class="col-4">
@@ -297,7 +297,7 @@ import CommentSection from '@/components/youtube/CommentSection.vue'
 
 export default {
   name: 'YoutubeTemplate',
-  setup() {
+  setup () {
     const isLoading = ref(true)
     provide('isLoading', isLoading)
     return {
@@ -336,7 +336,7 @@ export default {
     recommendationLimit: 5,
     cachedRecommendations: []
   }),
-  beforeMount() {
+  beforeMount () {
     this.getVideo()
     // TODO: totalLimit does not get set - we need to determine
     // how much groups of videos we need e.g. 100/5 = 20 per group
@@ -344,18 +344,18 @@ export default {
     // this.totalLimit = this.cachedRecommendations.length / this.recommendationLimit
     // this.upperLimit = this.totalLimit
   },
-  mounted() {
+  mounted () {
     this.isLoadingRecommendations = false
   },
   watch: {
-    '$route.query.video'(current, previous) {
+    '$route.query.video' (current, previous) {
       if (current !== previous) {
         this.getVideo()
       }
     }
   },
   computed: {
-    recommendations() {
+    recommendations () {
       // We load a set of recommendations e.g. a 100 
       // that we will then slice to the user. This
       // prevents from making constant API calls to
@@ -364,7 +364,7 @@ export default {
     }
   },
   methods: {
-    getVideo() {
+    getVideo () {
       setTimeout(() => {
         this.currentVideo = video
         this.cachedRecommendations = video.recommendations
@@ -373,7 +373,7 @@ export default {
         // }
       }, 1000)
     },
-    updateRecommendations() {
+    updateRecommendations () {
       // 0-20 -> 21-... -> 41-...
       var lowerLimit = this.lowerLimit + this.totalLimit + 1
       // ...-20 -> ...-40 -> ...-60
@@ -393,7 +393,7 @@ export default {
         this.upperLimit = upperLimit
       }
     },
-    dropdownClick(params) {
+    dropdownClick (params) {
       var index = params[0]
       switch (index) {
         case 0:

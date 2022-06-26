@@ -45,7 +45,7 @@ export default {
     show: false
   }),
   watch: {
-    show(newValue) {
+    show (newValue) {
       if (newValue) {
         this.$refs.link.style.position = 'absolute'
         // this.$refs.link.style.inset = 'auto auto 0px 0px'
@@ -61,7 +61,7 @@ export default {
     }
   },
   computed: {
-    buttonClasses() {
+    buttonClasses () {
       return [
         this.show ? 'show' : null,
         {
@@ -81,7 +81,7 @@ export default {
   //   })
   // },
   methods: {
-    toggle() {
+    toggle () {
       this.show = !this.show
       this.$emit('click')
     }

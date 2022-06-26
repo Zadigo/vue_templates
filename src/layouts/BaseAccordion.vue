@@ -20,6 +20,7 @@
 <script>
 export default {
   name: 'BaseAccordion',
+  emits: ['click'],
   props: {
     items: {
       type: Array
@@ -28,14 +29,14 @@ export default {
   data: () => ({
     computedItems: []
   }),
-  beforeMount() {
+  beforeMount () {
     this.computedItems = this.items.map((item) => {
       item['show'] = false
       return item
     })
   },
   methods: {
-    expandItem(item) {
+    expandItem (item) {
       // this.computedItems.forEach((item) => {
       //   item['show'] = false
       // })

@@ -110,32 +110,32 @@ export default {
     showProgressBar: true
   }),
   computed: {
-    currentTimeFormatted() {
+    currentTimeFormatted () {
       return this.formatTime(this.currentTime);
     },
 
-    durationFormatted() {
+    durationFormatted () {
       return this.formatTime(this.duration);
     },
     
-    progress() {
+    progress () {
       return (this.currentTime / this.duration) * 100;
     }
   },
   watch: {
-    videoUrl(val) {
+    videoUrl (val) {
       if (!!val && val !== this.videoSrc) {
         this.videoSrc = val;
         this.$forceUpdate();
       }
     },
   },
-  mounted() {
+  mounted () {
     this.updateVideoDetails()
     this.videoSrc = this.videoUrl
   },
   methods: {
-    toggleVideoPlay() {
+    toggleVideoPlay () {
       if (this.$refs?.videoPlayer.paused) {
         this.isPlaying = true
         this.$refs.videoPlayer.play()
@@ -148,7 +148,7 @@ export default {
         this.$emit('pause', this.progress)
       }
     },
-    handleVolumeClick(event) {
+    handleVolumeClick (event) {
       const volume = this.$refs.videoVolumeTrack
       const currentVolume = (volume.getBoundingClientRect().top - event.pageY + volume.offsetHeight) / 100
 
@@ -163,7 +163,7 @@ export default {
         this.$refs.videoPlayer.volume = currentVolume
       }
     },
-    updateVideoDetails() {
+    updateVideoDetails () {
       if (this.$refs.videoPlayer) {
         if (!Number.isNaN(this.$refs.videoPlayer.duration)) {
           this.duration = this.$refs.videoPlayer.duration
@@ -182,7 +182,7 @@ export default {
         // this.$emit('player-ready')
       }
     },
-    formatTime(num) {
+    formatTime (num) {
       let hours = Math.floor(num / 3600)
       let minutes = Math.floor((num % 3600) / 60)
       let seconds = Math.floor(num % 60)
@@ -196,14 +196,14 @@ export default {
       }
       return minutes + ":" + seconds;
     },
-    handleProgressClick(event) {
+    handleProgressClick (event) {
       const currentTime = (this.duration * event.offsetX) / this.$refs.videoPlayerProgress.offsetWidth
       this.currentTime = currentTime
       this.$refs.videoPlayer.currentTime = currentTime
 
       this.$emit('progress', currentTime)
     },
-    handleTrackOnDrag(event) {
+    handleTrackOnDrag (event) {
       if (event.x !== 0 && event.y !== 0) {
         const track = this.$refs.videoPlayerProgress
 
@@ -226,18 +226,18 @@ export default {
         }
       }
     },
-    handleVideoPlaybackRate(speed) {
+    handleVideoPlaybackRate (speed) {
       this.speed = `${speed}x`
       this.$refs.videoPlayer.playbackRate = speed
       if (this.speedOpen) {
         this.speedOpen = false
       }
     },
-    handleShowFunctions() {
+    handleShowFunctions () {
       this.showFunctions = true
       this.showProgressBar = true
     },
-    setTimeoutFunction() {
+    setTimeoutFunction () {
       const self = this
 
       setTimeout(() => {

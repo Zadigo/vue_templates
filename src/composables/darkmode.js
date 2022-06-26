@@ -24,7 +24,7 @@ export function useDarkMode () {
         }
     })
     
-    function toggleDarkMode() {
+    function toggleDarkMode () {
         darkMode.value = !darkMode.value
     }
 

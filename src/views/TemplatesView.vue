@@ -67,7 +67,7 @@ import { provide } from 'vue'
 
 export default {
   name: 'TemplatesView',
-  setup() {
+  setup () {
     var { darkMode, toggleDarkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {

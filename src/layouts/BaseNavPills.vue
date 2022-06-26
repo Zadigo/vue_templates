@@ -28,21 +28,21 @@ export default {
     selected: 0
   }),
   watch: {
-    selected(newValue, oldValue) {
+    selected (newValue, oldValue) {
       this.$emit('change', { previous: oldValue, new: newValue })
     }
   },
   computed: {
-    hasDefault() {
+    hasDefault () {
       return this.$slots.default ? true : false
     }
   },
-  beforeMount() {
+  beforeMount () {
     this.items.forEach(item => { item['active'] = false })
     // this.items[0].active = true
   },
   methods: {
-    selectItem(i, item) {
+    selectItem (i, item) {
       this.items.forEach(item => {
         item.active = false
       })

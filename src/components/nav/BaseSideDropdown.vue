@@ -72,7 +72,7 @@ import sidedropdown from '../../data/sidedropdown.json'
 
 export default {
   name: 'BaseSideDropdown',
-  setup() {
+  setup () {
     return {
       items: sidedropdown
     }
@@ -81,10 +81,10 @@ export default {
     show: false
   }),
   methods: {
-    showDropdown() {
+    showDropdown () {
       this.show = !this.show
     },
-    hasSubmenu(items) {
+    hasSubmenu (items) {
       if (!items) {
         return false
       } else {
