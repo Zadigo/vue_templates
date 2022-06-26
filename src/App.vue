@@ -9,6 +9,8 @@ export default {
 </script>
 
 <style>
+@import url('./assets/style.css');
+
 * {
   font-family: 'Ubuntu', 'Roboto', sans-serif;
 }

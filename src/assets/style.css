@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .intro-image {
     background-position: center;
     background-repeat: no-repeat;

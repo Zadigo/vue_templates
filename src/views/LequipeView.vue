@@ -2,6 +2,7 @@
   <dashboard-layout-vue>
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1">
+        <!-- Article -->
         <div class="card shadow-sm rounded-0">
           <div class="card-header">
             <div class="scrollbar">
@@ -26,7 +27,12 @@
                   </div>
 
                   <div class="col-12">
-                    <h2 class="text-uppercase fw-bold mb-4">La pôle pour Kendall devant les Reds</h2>
+                    <h2 class="text-uppercase fw-bold mb-2">La pôle pour Kendall devant les Reds</h2>
+                    <p clas="mb-2 fw-normal fs-4">
+                      Champion de France après une agression samedi, le spécialiste du 400 m haies est passé récupérer
+                      sa médaille dimanche, alors qu'il existe encore des zones d'ombre à éclaircir concernant la
+                      sécurité notamment.
+                    </p>
                     <figure class="figure mb-0">
                       <img src="https://picsum.photos/1200/800" class="figure-img img-fluid rounded" alt="Image 1">
                       <figcaption class="figure-caption">
@@ -46,8 +52,12 @@
                   </div>
 
                   <div class="col-12 mb-3">
-                    <button class="btn btn-primary btn-lg btn-floating">1</button>
-                    <button class="btn btn-primary btn-lg btn-floating mx-2">2</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-floating" @click="scrollToSection('comments')">
+                      <font-awesome-icon icon="fa-solid fa-comment" />
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg btn-floating mx-2">
+                      <font-awesome-icon icon="fa-solid fa-share" />
+                    </button>
                   </div>
 
                   <div class="col-12 fw-light">
@@ -91,7 +101,7 @@
 
                   <hr class="my-3">
 
-                  <div class="col-12 p-0">
+                  <div id="comments" class="col-12 p-0">
                     <div class="card bg-light shadow-none mb-3">
                       <div class="card-body p-2 fw-bold">
                         Commentaires (34)
@@ -146,6 +156,22 @@
             </div>
           </div>
         </div>
+
+        <!-- More -->
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="row">
+              <div v-for="i in 8" :key="i" class="col-3">
+                <div class="card mb-2 shadow-none">
+                  <img src="https://via.placeholder.com/600x600" class="card-img-top rounded" alt="Som image">
+                  <div class="card-body p-0 py-3">
+                    <h5 class="card-title m-0">Une joueuse change de nationalité</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </dashboard-layout-vue>
@@ -153,9 +179,15 @@
 
 <script>
 import DashboardLayoutVue from '../layouts/DashboardLayout.vue'
+import { scrollToSection } from '@/utils'
 
 export default {
   name: 'LequipeTemplate',
+  setup () {
+    return {
+      scrollToSection
+    }
+  },
   components: {
     DashboardLayoutVue
   },

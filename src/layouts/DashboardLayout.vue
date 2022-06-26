@@ -52,8 +52,8 @@
       </div>
     </main>
 
-    <button id="back-to-top" class="btn btn-primary btn-floating">
-      Top
+    <button id="back-to-top" class="btn btn-primary btn-floating" @click="scrollToTop">
+      <font-awesome-icon icon="fa-solid fa-arrow-up" />
     </button>
 
     <!-- Footer -->
@@ -70,6 +70,7 @@
 import { provide } from 'vue'
 import { useDarkMode } from '../composables/darkmode'
 import BaseFooterVue from './BaseFooter.vue'
+import { scrollToTop } from '../utils'
 
 export default {
   name: 'DashboardLayout',
@@ -77,7 +78,8 @@ export default {
     var { darkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {
-      darkMode
+      darkMode,
+      scrollToTop
     }
   },
   components: {
