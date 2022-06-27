@@ -268,13 +268,16 @@ export default {
   position: relative;
   cursor: pointer;
   background: #000;
-  min-width: 600px;
-  min-height: 340px;
+  /* min-width: 600px; */
+  /* min-height: 340px; */
   margin: 0 auto;
 }
 
 .video__player {
-  border-radius: 6px;
+  /* border-radius: 6px; */
+  width: 100%;
+  height: 100%;
+  touch-action: manipulation;
 }
 
 .spinner {

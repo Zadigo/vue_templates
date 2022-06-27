@@ -1,5 +1,5 @@
 <template>
-  <div class="col-8">
+  <div class="col-sm-12 col-md-8">
     <div class="card">
       <div class="card-body">
         <p class="fw-bold fs-5">{{ currentVideo.comments.count }} Comments</p>

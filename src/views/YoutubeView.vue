@@ -2,124 +2,132 @@
   <dashboard-layout-vue>
     <section id="youtube">
       <div class="container-fluid p-0">
-        <base-video-player-vue :video-url="require('../assets/video1.mp4')"></base-video-player-vue>
-        <!-- Information -->
-        <div class="row">
-          <div class="col-12">
-            <div class="card mt-2">
-              <div class="card-body">
-                <h5 class="card-title">
-                  {{ currentVideo.title }}
-                </h5>
+        <!-- Player -->
+        <base-video-player-vue :video-url="require('@/assets/video1.mp4')"></base-video-player-vue>
 
-                <div class="d-flex justify-content-between">
-                  <span class="text-muted">{{ currentVideo.views }} views - {{ currentVideo.created_on }}</span>
+        <div class="position-relative">
+          <!-- Information -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card mt-2">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ currentVideo.title }}
+                  </h5>
 
-                  <div class="d-flex jusify-content-around">
-                    <div class="btn-group">
-                      <button class="btn btn-lg btn-primary" @click="likeVideo">
-                        <span class="mdi mdi-thumb-up me-2"></span>{{ currentVideo.likes }}
-                      </button>
+                  <div :class="{ 'flex-column': breakpoints.isSmaller('md') }" class="d-flex justify-content-between">
+                    <span :class="{ 'mb-2':  breakpoints.isSmaller('md') }" class="text-muted">{{ currentVideo.views }}
+                      views - {{ currentVideo.created_on }}</span>
 
-                      <button class="btn btn-lg btn-primary" @click="likeVideo">
-                        <span class="mdi mdi-thumb-down me-2"></span>{{ currentVideo.dislikes }}
+                    <!-- Actions -->
+                    <div class="d-flex justify-content-around">
+                      <div class="btn-group">
+                        <button class="btn btn-lg btn-primary" @click="likeVideo">
+                          <span class="mdi mdi-thumb-up me-2"></span>{{ currentVideo.likes }}
+                        </button>
+
+                        <button class="btn btn-lg btn-primary" @click="likeVideo">
+                          <span class="mdi mdi-thumb-down me-2"></span>{{ currentVideo.dislikes }}
+                        </button>
+                      </div>
+
+                      <base-dropdown-button-vue :button-name="'More'" :color="'secondary'"
+                        :items="[{ name: 'Store', icon: 'store' }, { name: 'Download', icon: 'download' }, { name: 'Save', icon: 'content-save' }, { name: 'Gift', icon: 'gift' }, { name: 'Donate', icon: 'cash' }, { name: 'Share', icon: 'share' }, { name: 'Recommendation', icon: 'star-remove-outline' }, { name: 'Report', icon: 'alert' }]"
+                        class="mx-2" @dropdown-click="dropdownClick" />
+
+                      <button class="btn btn-primary btn-lg"
+                        @click="currentVideo.channel.subscribed = !currentVideo.channel.subscribed">
+                        <span v-if="currentVideo.channel.subscribed">Unsubscribe</span>
+                        <span v-else>Subscribe</span>
                       </button>
                     </div>
-
-                    <base-dropdown-button-vue :button-name="'More'" :color="'secondary'"
-                      :items="[{ name: 'Store', icon: 'store' }, { name: 'Download', icon: 'download' }, { name: 'Save', icon: 'content-save' }, { name: 'Gift', icon: 'gift' }, { name: 'Donate', icon: 'cash' }, { name: 'Share', icon: 'share' }, { name: 'Recommendation', icon: 'star-remove-outline' }, { name: 'Report', icon: 'alert' }]"
-                      class="mx-2" @dropdown-click="dropdownClick" />
-
-                    <button class="btn btn-primary btn-lg"
-                      @click="currentVideo.channel.subscribed = !currentVideo.channel.subscribed">
-                      <span v-if="currentVideo.channel.subscribed">Unsubscribe</span>
-                      <span v-else>Subscribe</span>
-                    </button>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="card my-2">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-2">
-                    <img src="http://via.placeholder.com/100x100" class="img-fluid rounded-circle" alt="Image 6">
-                  </div>
+              <div class="card my-2">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-2">
+                      <img src="http://via.placeholder.com/100x100" class="img-fluid rounded-circle" alt="Image 6">
+                    </div>
 
-                  <div class="col-10">
-                    <router-link :to="{ name: 'templates_view' }" class="fw-bold mb-0">
-                      {{ currentVideo.channel.name }}
-                    </router-link>
+                    <div class="col-10">
+                      <router-link :to="{ name: 'templates_view' }" class="fw-bold mb-0">
+                        {{ currentVideo.channel.name }}
+                      </router-link>
 
-                    <p class="text-muted fw-light m-0">{{ currentVideo.channel.subscribers }} subscribers</p>
+                      <p class="text-muted fw-light m-0">{{ currentVideo.channel.subscribers }} subscribers</p>
 
-                    <base-scrollbar-vue :items="currentVideo.categories" class="my-3" />
+                      <base-scrollbar-vue :items="currentVideo.categories" class="my-3" />
 
-                    <p id="description">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Sequi porro iure repellat optio, ipsum ducimus veniam natus ipsam dolor,
-                      suscipit distinctio vero? Labore repellendus ipsum et cumque fuga?
-                      Ullam, nam!
+                      <p id="description">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Sequi porro iure repellat optio, ipsum ducimus veniam natus ipsam dolor,
+                        suscipit distinctio vero? Labore repellendus ipsum et cumque fuga?
+                        Ullam, nam!
 
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates id pariatur
-                      fuga molestiae aperiam inventore repellendus, dolorum ducimus saepe fugiat minima
-                      quisquam. Deleniti, ratione? Quis et harum ullam ab nam.
-                    </p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates id pariatur
+                        fuga molestiae aperiam inventore repellendus, dolorum ducimus saepe fugiat minima
+                        quisquam. Deleniti, ratione? Quis et harum ullam ab nam.
+                      </p>
 
-                    <button class="btn btn-light shadow-none">Show more</button>
+                      <button class="btn btn-light shadow-none">Show more</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Comments -->
-        <div class="row">
-          <comment-section :current-video="currentVideo" />
+          <div class="row">
+            <!-- Comments -->
+            <comment-section :current-video="currentVideo" />
 
-          <!-- Recommendations -->
-          <div class="col-4">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <button type="button" class="btn btn-sm btn-secondary" @click="updateRecommendations">
-                    Load more
-                  </button>
+            <!-- Recommendations -->
+            <div v-if="breakpoints.isGreater('sm')" class="col-sm-12 col-md-4">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-secondary" @click="updateRecommendations">
+                      Load more
+                    </button>
 
-                  <router-link :to="{ name: 'youtube_view' }" class="btn btn-sm btn-secondary">
-                    See all
-                  </router-link>
+                    <router-link :to="{ name: 'youtube_view' }" class="btn btn-sm btn-secondary">
+                      See all
+                    </router-link>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div v-if="isLoadingRecommendations" class="text-center my-4">
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+              <div v-if="isLoadingRecommendations" class="text-center my-4">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
               </div>
-            </div>
 
-            <transition-group v-else name="opacity" id="recommendations" tag="div" mode="out-in">
-              <div v-for="recommendation in recommendations" :key="recommendation.id" class="card mb-2">
-                <router-link :to="{ name: 'youtube_view', query: { video: recommendation.id } }">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="http://via.placeholder.com/400x400" class="img-fluid rounded-start" alt="Image 7">
-                    </div>
+              <transition-group v-else name="opacity" id="recommendations" tag="div" mode="out-in">
+                <div v-for="recommendation in recommendations" :key="recommendation.id" class="card mb-2">
+                  <router-link :to="{ name: 'youtube_view', query: { video: recommendation.id } }">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="http://via.placeholder.com/400x400" class="img-fluid rounded-start" alt="Image 7">
+                      </div>
 
-                    <div class="col-md-8">
-                      <div class="card-body p-2">
-                        <h5 class="card-title fs-6">Golden State warriors vs Celtics Game 6 on the way</h5>
-                        <p class="text-muted m-0 fs-7">Vikapower</p>
-                        <p class="text-muted m-0 fs-7">911K views - 15 hours ago</p>
+                      <div class="col-md-8">
+                        <div class="card-body p-2">
+                          <h5 class="card-title fs-6">Golden State warriors vs Celtics Game 6 on the way</h5>
+                          <p class="text-muted m-0 fs-7">Vikapower</p>
+                          <p class="text-muted m-0 fs-7">911K views - 15 hours ago</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </router-link>
-              </div>
-            </transition-group>
+                  </router-link>
+                </div>
+              </transition-group>
+            </div>
+
+            <recommendation-drawer-vue v-else :show="showRecommendationsDrawer" :recommendations="recommendations" />
           </div>
         </div>
       </div>
@@ -281,26 +289,32 @@
 </template>
 
 <script>
-// import _ from 'lodash'
-import reports from '../data/reports'
+import reports from '@/data/reports'
 import video from '@/data/video'
+
 import { ref, provide } from 'vue'
+
+// import BaseDropGroupVue from '@/layouts/BaseDropGroup.vue'
 import BaseVideoPlayerVue from '../layouts/BaseVideoPlayer.vue'
 import BaseScrollbarVue from '../layouts/BaseScrollbar.vue'
 import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
 import BaseModalVue from '@/layouts/BaseModal.vue'
 import BaseOffcanvasVue from '@/layouts/BaseOffcanvas.vue'
 import BaseAccordionVue from '@/layouts/BaseAccordion.vue'
-import DashboardLayoutVue from '../layouts/DashboardLayout.vue'
 import CommentSection from '@/components/youtube/CommentSection.vue'
-// import BaseDropGroupVue from '@/layouts/BaseDropGroup.vue'
+import DashboardLayoutVue from '../layouts/DashboardLayout.vue'
+import RecommendationDrawerVue from '../components/youtube/RecommendationDrawer.vue'
+
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 export default {
   name: 'YoutubeTemplate',
   setup () {
     const isLoading = ref(true)
+    const breakpoints = useBreakpoints(breakpointsTailwind)
     provide('isLoading', isLoading)
     return {
+      breakpoints,
       reports
     }
   },
@@ -313,7 +327,8 @@ export default {
     BaseOffcanvasVue,
     BaseScrollbarVue,
     DashboardLayoutVue,
-    CommentSection
+    CommentSection,
+    RecommendationDrawerVue
 },
   data: () => ({
     // isLoading: true,
@@ -325,6 +340,7 @@ export default {
     showGifts: false,
     showReport: false,
     showRecommendationReport: false,
+    showRecommendationsDrawer: false,
 
     sortMethod: 'Newest',
 
