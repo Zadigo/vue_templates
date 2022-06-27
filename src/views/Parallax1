@@ -1,0 +1,195 @@
+<template>
+  <section ref="link" id="parallax">
+    <section class="background">
+      <div class="container text-center text-white py-5 mt-5">
+        <h1 class="display-1">First slide</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s
+            most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system,
+            extensive prebuilt components, and powerful JavaScript plugins.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="background">
+      <div class="content-wrapper">
+        <p class="content-title">Cras lacinia non eros nec semper.</p>
+        <p class="content-subtitle">Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+          himenaeos. Cras ut massa mattis nibh semper pretium.</p>
+      </div>
+    </section>
+    
+    <section class="background">
+      <div class="content-wrapper">
+        <p class="content-title">Etiam consequat lectus.</p>
+        <p class="content-subtitle">Nullam tristique urna sed tellus ornare congue. Etiam vitae erat at nibh aliquam
+          dapibus.</p>
+      </div>
+    </section>
+  </section>
+</template>
+
+<script>
+import { useScroll } from '@vueuse/core'
+import { ref } from 'vue'
+
+export default {
+  name: 'ParallaxWebsite',
+  setup () {
+    const slides = ref(null)
+    const target = ref(null)
+    const { isScrolling, directions } = useScroll()
+    return {
+      slides,
+      target,
+      isScrolling,
+      directions
+    }
+  },
+  data: () => ({
+    cursor: 0,
+    totalNumberOfSlides: 0,
+    scrollSensitivity: 80,
+    slideDurationSetting: 600
+  }),
+  mounted () {
+    this.target = window.document
+    this.slides = document.querySelectorAll('.background')
+    this.totalNumberOfSlides = this.slides.length
+
+    this.$refs.link.addEventListener('wheel', this.increase)
+    this.$refs.link.addEventListener('wheel', this.decrease)
+  },
+  beforeUnmount () {
+    this.$refs.link.removeEventListener('wheel', this.increase)
+    this.$refs.link.removeEventListener('wheel', this.decrease)
+  },
+  methods: {
+    decrease (e) {
+      const delta = this.wheelDelta(e)
+      if (delta >= this.scrollSensitivity) {
+        if (this.cursor !== 0) {
+          this.cursor -= 1
+
+          const currentSlide = this.slides[this.cursor]
+          currentSlide.classList.remove('down-scroll')
+          currentSlide.classList.add('up-scroll')
+        }
+      }
+    },
+    increase (e) {
+      const delta = this.wheelDelta(e)
+      if (delta <= -this.scrollSensitivity) {
+        if (this.cursor !== this.totalNumberOfSlides - 1) {
+          this.cursor += 1
+
+          const previousSlide = this.slides[this.cursor - 1]
+          previousSlide.classList.remove('up-scroll')
+          previousSlide.classList.add('down-scroll')
+        }
+      }
+    },
+    wheelDelta (e) {
+      return e.wheelDelta
+    }
+  }
+}
+</script>
+
+<style scoped>
+.background {
+  position: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow: hidden;
+  will-change: transform;
+  backface-visibility: hidden;
+  /* height: 130vh; */
+  height: 130vh;
+  width: 100%;
+  transform: translateY(30vh);
+  transition: all 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+
+  /* padding: 10rem; */
+}
+
+.background 
+
+.background:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: rgba(0, 0, 0, 0.3); */
+}
+.background:first-child {
+  background-image: url('../assets/hero1.jpg');
+  transform: translateY(-15vh);
+}
+
+.background:first-child .content-wrapper {
+  transform: translateY(15vh);
+}
+
+.background:nth-child(2) {
+  background-image: url('../assets/hero3.jpg');
+}
+
+.background:nth-child(3) {
+  background-image: url(https://i.postimg.cc/TY0xQ41T/photo-1433840496881-cbd845929862.jpg);
+}
+
+/* Set stacking context of slides */
+.background:nth-child(1) {
+  z-index: 3;
+}
+
+.background:nth-child(2) {
+  z-index: 2;
+}
+
+.background:nth-child(3) {
+  z-index: 1;
+}
+
+.background.up-scroll {
+  transform: translate3d(0, -15vh, 0);
+}
+
+.background.up-scroll .content-wrapper {
+  transform: translateY(15vh);
+}
+
+.background.up-scroll+.background {
+  transform: translate3d(0, 30vh, 0);
+}
+
+.background.up-scroll+.background .content-wrapper {
+  transform: translateY(30vh);
+}
+
+.background.down-scroll {
+  transform: translate3d(0, -130vh, 0);
+}
+
+.background.down-scroll .content-wrapper {
+  transform: translateY(40vh);
+}
+
+.background.down-scroll+.background:not(.down-scroll) {
+  transform: translate3d(0, -15vh, 0);
+}
+
+.background.down-scroll+.background:not(.down-scroll) .content-wrapper {
+  transform: translateY(15vh);
+}
+</style>

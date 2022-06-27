@@ -51,10 +51,12 @@
         <slot></slot>
       </div>
     </main>
-
-    <button id="back-to-top" class="btn btn-primary btn-floating" @click="scrollToTop">
-      <font-awesome-icon icon="fa-solid fa-arrow-up" />
-    </button>
+    
+    <transition name="pop">
+      <button v-if="!arrivedState.top" id="back-to-top" class="btn btn-primary btn-floating" @click="scrollToTop">
+        <font-awesome-icon icon="fa-solid fa-arrow-up" />
+      </button>
+    </transition>
 
     <!-- Footer -->
     <base-footer-vue />
@@ -67,34 +69,39 @@
  * components via the slot or by using a router view
  * 
  **/ 
-import { provide } from 'vue'
-import { useDarkMode } from '../composables/darkmode'
+import { provide, ref } from 'vue'
+
 import BaseFooterVue from './BaseFooter.vue'
+
+import { useDarkMode } from '../composables/darkmode'
 import { scrollToTop } from '../utils'
+import { useScroll } from '@vueuse/core'
 
 export default {
   name: 'DashboardLayout',
   setup () {
-    var { darkMode } = useDarkMode()
+    const target = ref(null)
+    const { y, arrivedState } = useScroll(target)
+    const { darkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {
       darkMode,
-      scrollToTop
+      target,
+      scrollToTop,
+      scrollY: y,
+      arrivedState
     }
   },
   components: {
     BaseFooterVue
+  },
+  mounted () {
+    this.target = window.document
   }
 }
 </script>
 
 <style scoped>
-
-
-
-
-
-
 body {
   background-color: #fbfbfb;
 }
@@ -160,5 +167,22 @@ main {
   z-index: 1000;
   top: 90%;
   right: 2%;
+}
+
+.pop-enter-active
+.pop-leave-active {
+  transition: opacity .4s ease;
+  transition: scale .2s ease;
+}
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(1.2, 1.2);
+}
+
+.pop-enter-to,
+.pop-leave-from {
+  opacity: 1;
+  transform: scale(1, 1);
 }
 </style>

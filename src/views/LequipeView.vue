@@ -19,6 +19,7 @@
             </div>
           </div>
 
+          <!-- Article -->
           <div class="card-body">
             <div class="row">
               <div class="col-sm-12 col-md-8">
@@ -107,7 +108,8 @@
                   </div>
 
                   <hr class="my-3">
-
+                  
+                  <!-- Comments -->
                   <div id="comments" class="col-12 p-0">
                     <div class="card bg-light shadow-none mb-3">
                       <div class="card-body p-2 fw-bold">
@@ -168,13 +170,13 @@
         <div class="card mt-2">
           <div class="card-body">
             <div class="row">
-              <div v-for="i in 8" :key="i" class="col-3">
-                <div class="card mb-2 shadow-none">
+              <div v-for="i in 8" :key="i" class="col-sm-12 col-md-3">
+                <article class="card mb-2 shadow-none">
                   <img src="https://via.placeholder.com/600x600" class="card-img-top rounded" alt="Som image">
                   <div class="card-body p-0 py-3">
                     <h5 class="card-title m-0">Une joueuse change de nationalité</h5>
                   </div>
-                </div>
+                </article>
               </div>
             </div>
           </div>
@@ -186,13 +188,23 @@
 
 <script>
 import DashboardLayoutVue from '../layouts/DashboardLayout.vue'
+
 import { scrollToSection } from '@/utils'
+import { breakpointsTailwind, useBreakpoints, useScroll } from '@vueuse/core'
+import { ref } from 'vue'
 
 export default {
   name: 'LequipeTemplate',
   setup () {
+    const target = ref(null)
+    const breakpoints = useBreakpoints(breakpointsTailwind)
+    const { y, arrivedState } = useScroll(target)
     return {
-      scrollToSection
+      target,
+      breakpoints,
+      scrollToSection,
+      scrollY: y,
+      arrivedState
     }
   },
   data: () => ({
@@ -227,11 +239,13 @@ export default {
     }
   },
   mounted () {
-    var script = document.createElement('script')
+    this.target = window.document
 
-    var src = document.createAttribute('src')
-    var charset = document.createAttribute('charset')
-    var async = document.createAttribute('async')
+    const script = document.createElement('script')
+
+    const src = document.createAttribute('src')
+    const charset = document.createAttribute('charset')
+    const async = document.createAttribute('async')
 
     src.value = 'https://platform.twitter.com/widgets.js'
     charset.value = 'utf-8'

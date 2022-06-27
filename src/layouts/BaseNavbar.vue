@@ -11,6 +11,12 @@
       <div :class="{ 'collapse show': !collapsed }" class="navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
+            <router-link :to="{ name: 'parallax_view' }" class="nav-link">
+              Parallax
+            </router-link>
+          </li>
+          
+          <li class="nav-item">
             <router-link :to="{ name: 'youtube_view' }" class="nav-link">
               Dashboard
             </router-link>

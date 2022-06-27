@@ -25,6 +25,11 @@ const routes = [
         path: '/test',
         name: 'test_view',
         component: () => import('../views/TestView.vue')
+    },
+    {
+        path: '/parallax',
+        name: 'parallax_view',
+        component: () => import('../views/ParallaxWebsite.vue')
     }
 ]
 
