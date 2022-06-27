@@ -6,15 +6,46 @@ html {
     scroll-behavior: smooth;
 }
 
+.intro {
+    height: 50vh;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+.mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-attachment: fixed;
+}
+
+.mask-gradient::before {
+    content: "";
+    background: linear-gradient(180deg, transparent, #000);
+    bottom: 0;
+    height: 50%;
+    left: 0;
+    opacity: .8;
+    position: absolute;
+    right: 0;
+}
+
+.bg-image {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+}
+
 /* 
  * Dropdown menus
  */
-
-.intro-image {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-position-y: top;
-}
 
 .dropdown-menu.megamenu {
     animation: menuSlide .5s cubic-bezier(0.86, 0, 0.07, 1) normal;
