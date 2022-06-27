@@ -1,12 +1,12 @@
 <template>
   <li class="nav-item dropdown has-megamenu">
-    <a ref="link" :class="{ show: show }" :aria-expanded="show" class="nav-link dropdown-toggle" href @mouseenter="show = true" @click.prevent="show = true, $emit('click', show)">
+    <a ref="link" :class="{ show: show }" :aria-expanded="show" class="nav-link dropdown-toggle" href @mouseenter="show = true, $emit('show', true)" @click.prevent="show = true, $emit('click', show)">
       Mega menu
     </a>
 
     <div v-if="show" class="screen-darken"></div>
 
-    <div :class="dropdownClasses" class="dropdown-menu megamenu" role="menu" @mouseleave="show = false">
+    <div ref="megamenu" :class="dropdownClasses" class="dropdown-menu megamenu" role="menu" @mouseleave="show = false, $emit('show', false)">
       <div class="row g-3">
         <div v-for="(item, i) in items" :key="i" class="col-lg-3 col-6">
           <div class="col-megamenu">
@@ -32,9 +32,9 @@ import { inject } from 'vue'
 
 export default {
   name: 'BaseMegaDropdown',
-  emits: ['click'],
+  emits: ['click', 'show'],
   setup () {
-    var darkMode = inject('darkMode')
+    const darkMode = inject('darkMode')
     return {
       darkMode
     }
@@ -48,10 +48,10 @@ export default {
   data: () => ({
     show: false
   }),
-  mounted () {
-    var body = document.querySelector('body')
-    body.addEventListener('click', this.windowListener)
-  },
+  // mounted () {
+  //   var body = document.querySelector('body')
+  //   body.addEventListener('click', this.windowListener)
+  // },
   computed: {
     dropdownClasses () {
       return [
@@ -59,16 +59,16 @@ export default {
         this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark'
       ]
     }
-  },
-  methods: {
-    windowListener (e) {
-      if (e.target.classList.contains('dropdown-toggle')) {
-        if (e.target.parentElement.classList.contains('has-megamenu')) {
-          console.log(e.target)
-        }
-      }
-    }
   }
+  // methods: {
+  //   windowListener (e) {
+  //     if (e.target.classList.contains('dropdown-toggle')) {
+  //       if (e.target.parentElement.classList.contains('has-megamenu')) {
+  //         console.log(e.target)
+  //       }
+  //     }
+  //   }
+  // }
 }
 </script>
 

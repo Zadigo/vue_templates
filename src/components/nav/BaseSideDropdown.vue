@@ -4,20 +4,21 @@
       Menu item
     </a>
 
-    <ul :class="{ show: show }" class="dropdown-menu">
+    <ul ref="link" :class="{ show: show, 'bg-dark' : darkMode }" class="dropdown-menu"
+      @mouseleave="show = false">
       <template v-for="(item, i) in items" :key="i">
         <li v-if="hasSubmenu(item.subMenu)" class="has-submenu">
           <a class="dropdown-item dropdown-toggle" href @click.prevent>
             {{ item.name }}
           </a>
 
-          <div class="megasubmenu dropdown-menu">
+          <div :class="{ 'bg-dark text-light': darkMode }" class="megasubmenu dropdown-menu">
             <div class="row">
               <div class="col-12">
                 <h6 class="title">{{ item.subMenu.title }}</h6>
                 <ul class="list-unstyled">
                   <li v-for="(link, t) in item.subMenu.links" :key="t">
-                    <a :href="link.href">{{ link.name }}</a>
+                    <a :href="link.href" :class="{ 'text-light': darkMode, 'text-dark': !darkMode }">{{ link.name }}</a>
                   </li>
                 </ul>
               </div>
@@ -26,7 +27,7 @@
         </li>
 
         <li v-else>
-          <a :href="item.href" class="dropdown-item">
+          <a :href="item.href" :class="{ 'text-light': darkMode }" class="dropdown-item">
             {{ item.name }}
           </a>
         </li>
@@ -68,18 +69,23 @@
 </template>
 
 <script>
+import { inject, ref } from 'vue'
 import sidedropdown from '../../data/sidedropdown.json'
 
 export default {
   name: 'BaseSideDropdown',
   setup () {
+    const show = ref(false)
+    const darkMode = inject('darkMode')
     return {
+      show,
+      darkMode,
       items: sidedropdown
     }
   },
-  data: () => ({
-    show: false
-  }),
+  mounted () {
+    this.target = this.$refs.link
+  },  
   methods: {
     showDropdown () {
       this.show = !this.show
