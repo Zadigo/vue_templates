@@ -1,7 +1,6 @@
 <template>
   <div class="dropdown">
-    <button :class="buttonClasses" :aria-expanded="show" id="dropdownMenuButton1" class="btn btn-lg dropdown-toggle"
-      type="button" @click="toggle">
+    <button :class="buttonClasses" :aria-expanded="show" id="dropdownMenuButton1" class="btn btn-lg dropdown-toggle" type="button" @click="toggle">
       <span v-if="icon" :class="{ [`mdi-${icon}`]: true }" class="mdi me-2"></span>
       {{ buttonName }}
     </button>
@@ -18,8 +17,22 @@
 </template>
 
 <script>
+import { onClickOutside } from '@vueuse/core'
+import { ref } from 'vue'
+
 export default {
   name: 'BaseDropdownButton',
+  setup () {
+    const target = ref(null)
+    const show = ref(false)
+    onClickOutside(target, () => {
+      show.value = false
+    })
+    return {
+      show,
+      target
+    }
+  },
   emits: ['click', 'dropdown-click'],
   props: {
     animation: {
@@ -41,12 +54,9 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    show: false
-  }),
   watch: {
-    show (newValue) {
-      if (newValue) {
+    show (current) {
+      if (current) {
         this.$refs.link.style.position = 'absolute'
         // this.$refs.link.style.inset = 'auto auto 0px 0px'
         // this.$refs.link.style.margin = '0px'
@@ -57,7 +67,7 @@ export default {
           this.$refs.link.style = null
         }
       }
-      this.show = newValue
+      this.show = current
     }
   },
   computed: {
@@ -70,16 +80,17 @@ export default {
       ]
     }
   },
-  // mounted() {
-  //   this.$refs.link.style.animation = `${this.animation} .3s ease`
-  //   var body = document.querySelector('body')
-  //   body.addEventListener('click', (e) => {
-  //       // console.log(e)
-  //       if (!e.target.classList.contains('dropdown')) {
-  //           this.show = !this.show
-  //       }
-  //   })
-  // },
+  mounted () {
+    this.target = this.$refs.link
+    //   this.$refs.link.style.animation = `${this.animation} .3s ease`
+    //   var body = document.querySelector('body')
+    //   body.addEventListener('click', (e) => {
+    //       // console.log(e)
+    //       if (!e.target.classList.contains('dropdown')) {
+    //           this.show = !this.show
+    //       }
+    //   })
+  },
   methods: {
     toggle () {
       this.show = !this.show

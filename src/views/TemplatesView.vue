@@ -14,9 +14,9 @@
         </p>
 
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <base-dropdown-button-vue :items="drops" />
-          <button class="btn btn-lg btn-primary mx-2" @click="showModal = !showModal">Open modal</button>
-          <button class="btn btn-lg btn-primary" @click="showOffcanvas = !showOffcanvas">Open offcanvas</button>
+          <base-dropdown-button-vue :items="drops" :button-name="'Dropown button'" />
+          <button class="btn btn-lg btn-secondary mx-2" @click="showModal = !showModal">Open modal</button>
+          <button class="btn btn-lg btn-dark" @click="showOffcanvas = !showOffcanvas">Open offcanvas</button>
         </div>
       </div>
 
