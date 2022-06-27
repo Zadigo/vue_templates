@@ -20,7 +20,10 @@
         </div>
       </div>
 
-      <base-modal-vue :show="showModal" :centered="true" :static-backdrop="false" @close="showModal = false" />
+      <teleport to='body'>
+        <base-modal-vue :show="showModal" :centered="false" :static-backdrop="true" position="" size="md" @close="showModal = false" />
+      </teleport>
+
       <base-offcanvas-vue :show="showOffcanvas" @close="showOffcanvas = false" />
     </div>
 

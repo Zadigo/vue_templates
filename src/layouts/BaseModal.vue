@@ -1,5 +1,5 @@
 <template>
-  <div ref="link" :id="id" :class="{ show: show }" class="modal" role="dialog" tabindex="-1">
+  <div ref="link" :id="id" :class="modalClasses" class="modal" role="dialog" tabindex="-1">
     <div :class="modalDialogClasses" class="modal-dialog">
       <div :class="modalContentClasses" class="modal-content">
         <div class="modal-header">
@@ -13,10 +13,10 @@
           <slot></slot>
         </div>
 
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -61,6 +61,10 @@ export default {
     },
     staticBackdrop: {
       type: Boolean
+    },
+    position: {
+      type: String,
+      default: null
     }
   },
   watch: {
@@ -79,7 +83,37 @@ export default {
     }
   },
   computed: {
+    modalClasses () {
+      let position = this.position
+      
+      if (position === 'top-left' || position === 'bottom-left') {
+        position = 'left'
+      } else if (position === 'top-right' || position === 'bottom-right') {
+        position = 'right'
+      }  
+
+      return [
+        this.show ? 'show' : null,
+        position
+      ]
+    },
     modalDialogClasses () {
+      if (this.hasPositionX) {
+        return [
+          {
+            [`modal-side modal-${this.position}`]: true
+          }
+        ]
+      }
+
+      if (this.hasPositionY) {
+        return [
+          {
+            [`modal-frame modal-${this.position}`]: true
+          }
+        ]
+      }
+
       return [
         {
           [`modal-${this.size}`]: true
@@ -90,8 +124,16 @@ export default {
     },
     modalContentClasses () {
       return [
-        this.darkMode ? 'bg-dark text-light' : 'bg-light text-dark',
+        this.hasPositionY ? 'rounded-0' : null,
+        this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
       ]
+    },
+    hasPositionX () {
+      const positions = ['right', 'left', 'top-right', 'top-left', 'bottom-left', 'bottom-right']
+      return this.position && positions.includes(this.position)
+    },
+    hasPositionY () {
+      return this.position && this.position === 'top' || this.position === 'bottom'
     }
   },
   // updated() {

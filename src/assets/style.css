@@ -1,6 +1,14 @@
+* {
+    font-family: Ubuntu, Roboto, sans-serif;
+}
+
 html {
     scroll-behavior: smooth;
 }
+
+/* 
+ * Dropdown menus
+ */
 
 .intro-image {
     background-position: center;
@@ -24,14 +32,13 @@ html {
     }
 }
 
-.modal-dialog {
-    transition: all .2s ease;
-    animation: slide .5s cubic-bezier(0.86, 0, 0.07, 1) normal;
-}
+/* 
+ * Modals
+ */
 
-.modal-close .modal-dialog {
-    transition: all .2s ease;
-    animation: reverseSlide .5s cubic-bezier(0.86, 0, 0.07, 1) normal;
+.modal-dialog {
+    transition: all .15s linear;
+    animation: slide .5s cubic-bezier(0.86, 0, 0.07, 1) normal;
 }
 
 @keyframes slide {
@@ -43,18 +50,6 @@ html {
     99% {
         opacity: 1;
         transform: translateY(0px);
-    }
-}
-
-@keyframes reverseSlide {
-    0% {
-        /* opacity: 1; */
-        transform: translateY(0px);
-    }
-
-    99% {
-        /* opacity: 0; */
-        transform: translateY(-100px);
     }
 }
 
@@ -74,6 +69,7 @@ html {
         transform: scale(1, 1);
     }
 }
+
 .modal-open {
   transition: all .3s ease;
 }
@@ -90,6 +86,73 @@ html {
   left: 0;
 }
 
+@media (min-width: 992px) {
+    .modal .modal-side {
+        position: absolute;
+        width: 100%;
+        right: 10px;
+        bottom: 10px;
+        margin: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal .modal-frame {
+        position: absolute;
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+.modal.fade.top:not(.show) .modal-dialog {
+    transform: translate3d(0, -25%, 0);
+}
+
+@media (min-width: 768px) {
+    .modal .modal-dialog.modal-top {
+        top: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal .modal-dialog.modal-bottom {
+        bottom: 0;
+    }
+}
+
+@media (min-width: 768px) { 
+    .modal .modal-dialog.modal-top-right {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal .modal-dialog.modal-top-left {
+        top: 10px;
+        left: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal .modal-dialog.modal-bottom-right {
+        right: 10px;
+        bottom: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal .modal-dialog.modal-bottom-left {
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+
+/* 
+ * Mégamenu
+ */
 
 .navbar .megamenu {
     padding: 2rem;
@@ -116,6 +179,10 @@ html {
         margin-top: 10px;
     }
 }
+
+/* 
+ * Megasubmenu
+ */
 
 .nav-item .megasubmenu {
     padding: 1rem;
@@ -159,19 +226,19 @@ html {
     }
 }
 
+/* 
+ * Scrollbar
+ */
+
 ::-webkit-scrollbar {
     width: 10px;
-    /* Mostly for vertical scrollbars */
     height: 10px;
-    /* Mostly for horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-thumb {
-    /* Foreground */
     background: #6c757d;
 }
 
 ::-webkit-scrollbar-track {
-    /* Background */
     background: #F5F5F5;
 }
