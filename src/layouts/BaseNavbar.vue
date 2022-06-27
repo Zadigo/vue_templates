@@ -18,7 +18,6 @@
 
           <base-mega-dropdown-vue :items="megamenu" />
           <base-side-dropdown-vue />
-          <base-side-dropdown-vue />
         </ul>
       </div>
     </div>
@@ -58,7 +57,6 @@ export default {
 </script>
 
 <style scoped>
-
 .navbar-collapse {
   transition: all .3s ease;
   animation: collapsing .4s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -68,6 +66,7 @@ export default {
   0% {
     height: 50%;
   }
+  
   99% {
     height: 100%;
   }
