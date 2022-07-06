@@ -1,7 +1,6 @@
 <template>
-  <div class="video__container" @click="toggleVideoPlay" @mouseover="handleShowFunctions"
-    @mouseleave="setTimeoutFunction">
-    <div class="spinner" v-if="spinner">
+  <div class="video__container" @click="toggleVideoPlay" @mouseover="handleShowFunctions" @mouseleave="setTimeoutFunction">
+    <div v-if="spinner" class="spinner">
       <!-- <v-progress-circular indeterminate color="var(--primary-color)"></v-progress-circular> -->
       <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -9,18 +8,16 @@
     </div>
 
     <!-- Source -->
-    <video ref="videoPlayer" class="video__player" @loadedmetadata="updateVideoDetails" @timeupdate="updateVideoDetails"
-      controlslist="nodownload" oncontextmenu="return false;" @waiting="spinner = true" @canplay="spinner = false">
+    <video ref="videoPlayer" class="video__player" controlslist="nodownload" oncontextmenu="return false;" @loadedmetadata="updateVideoDetails" @timeupdate="updateVideoDetails" @waiting="spinner = true" @canplay="spinner = false">
       <source :src="videoSrc" type="video/mp4" />
     </video>
 
     <!-- Controls -->
-    <div class="video__controls" v-if="showProgressBar">
+    <div v-if="showProgressBar" class="video__controls">
       <div class="video__controls__progress__container" :style="`margin-bottom:${showFunctions ? '20px' : '0'}`">
         <div ref="videoPlayerProgress" class="video__controls__progress" @click.prevent.stop="handleProgressClick">
           <div class="video__controls__progress__track" :style="{ width: progress + '%' }">
-            <div :style="{ left: progress + '%' }" class="video__controls__progress__track--watching" draggable
-              @drag.stop.prevent="handleTrackOnDrag"></div>
+            <div :style="{ left: progress + '%' }" class="video__controls__progress__track--watching" draggable @drag.stop.prevent="handleTrackOnDrag"></div>
           </div>
         </div>
       </div>
@@ -51,19 +48,17 @@
               <span v-else-if="volume >= 0.8" class="mdi mdi-volume-high"></span>
             </button>
 
-            <div ref="videoVolumeTrack" v-if="volumeOptionsOpen" class="video__controls__volume--options"
-              @click.stop="handleVolumeClick">
+            <div v-if="volumeOptionsOpen" ref="videoVolumeTrack" class="video__controls__volume--options" @click.stop="handleVolumeClick">
               <div class="video__controls__volume--track">
                 <div class="video__controls__volume--track-current" :style="{ height: `${volume * 100}%` }" />
 
-                <div class="video__controls__volume--track-ball"
-                  :style="{ bottom: `Calc(${volume * 100}% - 0.25rem)`, }" />
+                <div class="video__controls__volume--track-ball" :style="{ bottom: `Calc(${volume * 100}% - 0.25rem)`, }" />
               </div>
             </div>
           </div>
 
           <div class="video__controls__speed">
-            <button ref="speed" @click.stop="speedOpen = !speedOpen" class="btn btn-light">
+            <button ref="speed" class="btn btn-light" @click.stop="speedOpen = !speedOpen">
               <span>
                 <!-- <v-icon style="color: #fff">mdi-speedometer</v-icon> -->
                 <span class="mdi mdi-speedometer"></span>
@@ -71,12 +66,12 @@
             </button>
 
             <div v-if="speedOpen" class="video__controls__speed__options">
-              <div @click.stop="handleVideoPlaybackRate(2.0)" :class="{ active: !!(speed === '2x') }">2x</div>
-              <div @click.stop="handleVideoPlaybackRate(1.75)" :class="{ active: !!(speed === '1.75x') }">1.75x</div>
-              <div @click.stop="handleVideoPlaybackRate(1.5)" :class="{ active: !!(speed === '1.5x') }">1.5x</div>
-              <div @click.stop="handleVideoPlaybackRate(1.0)" :class="{ active: !!(speed === '1x') }">1x</div>
-              <div @click.stop="handleVideoPlaybackRate(0.75)" :class="{ active: !!(speed === '0.75x') }">0.75x</div>
-              <div @click.stop="handleVideoPlaybackRate(0.5)" :class="{ active: !!(speed === '0.5x') }">0.5x</div>
+              <div :class="{ active: !!(speed === '2x') }" @click.stop="handleVideoPlaybackRate(2.0)">2x</div>
+              <div :class="{ active: !!(speed === '1.75x') }" @click.stop="handleVideoPlaybackRate(1.75)">1.75x</div>
+              <div :class="{ active: !!(speed === '1.5x') }" @click.stop="handleVideoPlaybackRate(1.5)">1.5x</div>
+              <div :class="{ active: !!(speed === '1x') }" @click.stop="handleVideoPlaybackRate(1.0)">1x</div>
+              <div :class="{ active: !!(speed === '0.75x') }" @click.stop="handleVideoPlaybackRate(0.75)">0.75x</div>
+              <div :class="{ active: !!(speed === '0.5x') }" @click.stop="handleVideoPlaybackRate(0.5)">0.5x</div>
             </div>
           </div>
         </div>
@@ -88,13 +83,13 @@
 <script>
 export default {
   name: 'BaseVideoPlayer',
-  emits: ['play', 'pause', 'player-ready', 'dragged', 'progress'],
   props: {
     videoUrl: {
       type: String,
       required: true,
     },
   },
+  emits: ['play', 'pause', 'player-ready', 'dragged', 'progress'],
   data: () => ({
     volumeOptionsOpen: false,
     volume: 0.3,

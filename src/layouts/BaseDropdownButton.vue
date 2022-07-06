@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown">
-    <button :class="buttonClasses" :aria-expanded="show" id="dropdownMenuButton1" class="btn btn-lg dropdown-toggle" type="button" @click="toggle">
+    <button id="dropdownMenuButton1" :class="buttonClasses" :aria-expanded="show" class="btn btn-lg dropdown-toggle" type="button" @click="toggle">
       <span v-if="icon" :class="{ [`mdi-${icon}`]: true }" class="mdi me-2"></span>
       {{ buttonName }}
     </button>
@@ -22,18 +22,6 @@ import { ref } from 'vue'
 
 export default {
   name: 'BaseDropdownButton',
-  setup () {
-    const target = ref(null)
-    const show = ref(false)
-    onClickOutside(target, () => {
-      show.value = false
-    })
-    return {
-      show,
-      target
-    }
-  },
-  emits: ['click', 'dropdown-click'],
   props: {
     animation: {
       type: String,
@@ -54,6 +42,28 @@ export default {
       required: true
     }
   },
+  emits: ['click', 'dropdown-click'],
+  setup () {
+    const target = ref(null)
+    const show = ref(false)
+    onClickOutside(target, () => {
+      show.value = false
+    })
+    return {
+      show,
+      target
+    }
+  },
+  computed: {
+    buttonClasses () {
+      return [
+        this.show ? 'show' : null,
+        {
+          [`btn-${this.color}`]: true
+        }
+      ]
+    }
+  },
   watch: {
     show (current) {
       if (current) {
@@ -68,16 +78,6 @@ export default {
         }
       }
       this.show = current
-    }
-  },
-  computed: {
-    buttonClasses () {
-      return [
-        this.show ? 'show' : null,
-        {
-          [`btn-${this.color}`]: true
-        }
-      ]
     }
   },
   mounted () {

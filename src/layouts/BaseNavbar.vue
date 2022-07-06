@@ -8,14 +8,14 @@
       </button>
 
       <!-- collapse show -->
-      <div :class="{ 'collapse show': !collapsed }" class="navbar-collapse" id="navbarNav">
+      <div id="navbarNav" :class="{ 'collapse show': !collapsed }" class="navbar-collapse">
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link :to="{ name: 'parallax_view' }" class="nav-link">
               Parallax
             </router-link>
           </li>
-          
+
           <li class="nav-item">
             <router-link :to="{ name: 'youtube_view' }" class="nav-link">
               Dashboard
@@ -38,16 +38,16 @@ import { inject } from 'vue'
 
 export default {
   name: 'BaseNavbar',
+  components: {
+    BaseMegaDropdownVue,
+    BaseSideDropdownVue
+  },
   setup () {
     var darkMode = inject('darkMode', () => false)
     return {
       megamenu,
       darkMode
     }
-  },
-  components: {
-    BaseMegaDropdownVue,
-    BaseSideDropdownVue
   },
   data: () => ({
     collapsed: true

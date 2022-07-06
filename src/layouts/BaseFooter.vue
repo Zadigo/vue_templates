@@ -2,8 +2,7 @@
   <footer class="bg-light">
     <div class="container p-4">
       <section class="mb-4 text-center">
-        <a v-for="(social, i) in footer.socials" :key="i" :href="social.href"
-          :style="`background-color: #${getColor(social.name)}`" class="btn btn-primary btn-floating m-1" role="button">
+        <a v-for="(social, i) in footer.socials" :key="i" :href="social.href" :style="`background-color: #${getColor(social.name)}`" class="btn btn-primary btn-floating m-1" role="button">
           <i class="fab fa-facebook-f"></i>
         </a>
       </section>

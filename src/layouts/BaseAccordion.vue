@@ -1,14 +1,13 @@
 <template>
   <div :id="'accordionExample'" class="accordion">
     <div v-for="(item, i) in computedItems" :key="i" class="accordion-item" @click="expandItem(item)">
-      <h2 class="accordion-header" id="headingOne">
+      <h2 id="headingOne" class="accordion-header">
         <button :class="{ collapsed: !item.show }" :aria-expanded="item.show" :aria-controls="'collapseOne'" class="accordion-button" type="button">
           {{ item.title }}
         </button>
       </h2>
 
-      <div v-if="item.show" :class="{ show: item.show }" :id="'collapseOne'" class="accordion-collapse collapse"
-        aria-labelledby="headingOne">
+      <div v-if="item.show" :id="'collapseOne'" :class="{ show: item.show }" class="accordion-collapse collapse" aria-labelledby="headingOne">
         <div class="accordion-body">
           {{ item.content }}
         </div>

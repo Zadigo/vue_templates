@@ -4,8 +4,7 @@
       Share
     </button>
 
-    <button :class="buttonClasses" :aria-expanded="show" id="dropdownMenuButton1" type="button"
-      class="btn btn-primary dropdown-toggle dropdown-toggle-split" @click="toggle">
+    <button id="dropdownMenuButton1" :class="buttonClasses" :aria-expanded="show" type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" @click="toggle">
       <span class="visually-hidden">Toggle Dropdown</span>
     </button>
 
@@ -24,7 +23,6 @@
 <script>
 export default {
   name: 'BaseDropGroup',
-  emits: ['click', 'dropdown-click'],
   props: {
     animation: {
       type: String,
@@ -42,9 +40,20 @@ export default {
       required: true
     }
   },
+  emits: ['click', 'dropdown-click'],
   data: () => ({
     show: false
   }),
+  computed: {
+    buttonClasses () {
+      return [
+        this.show ? 'show' : null,
+        {
+          [`btn-${this.color}`]: true
+        }
+      ]
+    }
+  },
   watch: {
     show (newValue) {
       if (newValue) {
@@ -59,16 +68,6 @@ export default {
         }
       }
       this.show = newValue
-    }
-  },
-  computed: {
-    buttonClasses () {
-      return [
-        this.show ? 'show' : null,
-        {
-          [`btn-${this.color}`]: true
-        }
-      ]
     }
   },
   // mounted() {

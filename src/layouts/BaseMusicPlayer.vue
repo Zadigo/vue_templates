@@ -1,8 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body position-relative">
-      <audio ref="link" preload="auto" @loadedmetadata="updateAudioDetails" @timeupdate="updateAudioDetails"
-        @waiting="showSpinner = true" @canplay="showSpinner = false">
+      <audio ref="link" preload="auto" @loadedmetadata="updateAudioDetails" @timeupdate="updateAudioDetails" @waiting="showSpinner = true" @canplay="showSpinner = false">
         <!-- <source :src="require('../assets/music1.wav')" type="audio/mpeg"> -->
         <source :src="src" type="audio/mpeg">
       </audio>
@@ -11,8 +10,7 @@
         <div class="progress-bar-container">
           <div ref="progress" class="progress-bar" @click.prevent.stop="handleProgressBarClick">
             <div :style="{ width: progressPercentage + '%' }" class="progress-bar-completed">
-              <div :style="{ left: progressPercentage + '%' }" class="progress-indicator" draggable
-                @mousedown="handleDrag">
+              <div :style="{ left: progressPercentage + '%' }" class="progress-indicator" draggable @mousedown="handleDrag">
               </div>
             </div>
           </div>
@@ -53,13 +51,13 @@
 <script>
 export default {
   name: 'BaseMusicPlayer',
-  emits: ['player-ready', 'playing', 'paused', 'skipped-backwards', 'skipped', 'next-song'],
   props: {
     src: {
       type: String,
       required: true
     }
   },
+  emits: ['player-ready', 'playing', 'paused', 'skipped-backwards', 'skipped', 'next-song'],
   data: () => ({
     showSpinner: true,
     duration: 0,
@@ -69,14 +67,6 @@ export default {
   // mounted() {
   //   this.getAudioDetails()
   // },
-  watch: {
-    src (current, previous) {
-      if (current !== previous) {
-        this.$refs.link.src = current
-        this.updateAudioDetails()
-      }
-    }
-  },
   computed: {
     formattedDuration () {
       return this.formatTime(this.duration)
@@ -86,6 +76,14 @@ export default {
     },
     progressPercentage () {
       return (this.currentTime / this.duration) * 100;
+    }
+  },
+  watch: {
+    src (current, previous) {
+      if (current !== previous) {
+        this.$refs.link.src = current
+        this.updateAudioDetails()
+      }
     }
   },
   methods: {
@@ -142,10 +140,10 @@ export default {
     },
     handleDrag (e) {
       if (e.x !== 0 && e.y !== 0) {
-        var track = this.$refs.progress
+        const track = this.$refs.progress
         if (track) {
-          var drag = 0
-          var left = e.pageX - track.getBoundingClientRect().left
+          let drag = 0
+          const left = e.pageX - track.getBoundingClientRect().left
           drag = left
 
           if (left < 0) {

@@ -2,12 +2,11 @@
   <section>
     <header>
       <!-- Sidebar -->
-      <nav link="sidebar" id="sidebar" class="collapse d-lg-block sidebar collapse bg-white">
+      <nav id="sidebar" link="sidebar" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
           <div class="list-group list-group-flush mx-3 mt-4">
             <!-- NOTE: Pass links to props -->
-            <router-link :to="{ name: 'youtube_view' }" class="list-group-item list-group-item-action py-2 ripple"
-              aria-current="true">
+            <router-link :to="{ name: 'youtube_view' }" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
               <span class="mdi mdi-youtube me-3"></span>
               <span>Youtube</span>
             </router-link>
@@ -16,7 +15,7 @@
               <span class="mdi mdi-wikipedia me-3"></span>
               <span>L'équipe</span>
             </router-link>
-            
+
             <router-link :to="{ name: 'spotify_view' }" class="list-group-item list-group-item-action py-2 ripple">
               <span class="mdi mdi-spotify me-3"></span>
               <span>Spotify</span>
@@ -28,14 +27,12 @@
       <!-- Navbar -->
       <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" aria-controls="sidebarMenu" aria-expanded="false"
-            aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
           </button>
 
           <router-link :to="{ name: 'templates_view' }" class="navbar-brand">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" loading="lazy"
-              alt="Image 4" />
+            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" loading="lazy" alt="Image 4" />
           </router-link>
 
           <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -51,7 +48,7 @@
         <slot></slot>
       </div>
     </main>
-    
+
     <transition name="pop">
       <button v-if="!arrivedState.top" id="back-to-top" class="btn btn-primary btn-floating" @click="scrollToTop">
         <font-awesome-icon icon="fa-solid fa-arrow-up" />
@@ -79,6 +76,9 @@ import { useScroll } from '@vueuse/core'
 
 export default {
   name: 'DashboardLayout',
+  components: {
+    BaseFooterVue
+  },
   setup () {
     const target = ref(null)
     const { y, arrivedState } = useScroll(target)
@@ -91,9 +91,6 @@ export default {
       scrollY: y,
       arrivedState
     }
-  },
-  components: {
-    BaseFooterVue
   },
   mounted () {
     this.target = window.document

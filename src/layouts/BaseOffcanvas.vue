@@ -1,7 +1,7 @@
 <template>
-  <div ref="link" :id="id" :class="offcanvasClasses" class="offcanvas" tabindex="-1" aria-labelledby="offcanvasLabel">
+  <div :id="id" ref="link" :class="offcanvasClasses" class="offcanvas" tabindex="-1" aria-labelledby="offcanvasLabel">
     <div class="offcanvas-header">
-      <h5 v-if="title" class="offcanvas-title" id="offcanvasLabel">
+      <h5 v-if="title" id="offcanvasLabel" class="offcanvas-title">
         {{ title }}
       </h5>
       <button type="button" class="btn-close text-reset" aria-label="Close" @click="$emit('close')"></button>
@@ -18,13 +18,6 @@ import { inject } from 'vue'
 
 export default {
   name: 'BaseOffcanvas',
-  emits: ['close'],
-  setup () {
-    var darkMode = inject('darkMode')
-    return {
-      darkMode
-    }
-  },
   props: {
     id: {
       type: String
@@ -38,6 +31,24 @@ export default {
     },
     title: {
       type: String
+    }
+  },
+  emits: ['close'],
+  setup () {
+    var darkMode = inject('darkMode')
+    return {
+      darkMode
+    }
+  },
+  computed: {
+    offcanvasClasses () {
+      return [
+        this.show ? 'show' : null,
+        this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
+        {
+          [`offcanvas-${this.position}`]: true
+        }
+      ]
     }
   },
   watch: {
@@ -57,17 +68,6 @@ export default {
       }
     }
   },
-  computed: {
-    offcanvasClasses () {
-      return [
-        this.show ? 'show' : null,
-        this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
-        {
-          [`offcanvas-${this.position}`]: true
-        }
-      ]
-    }
-  }, 
   mounted () {
     var body = this.getBody()
     body.addEventListener('click', this.windowListener, { passive: true })

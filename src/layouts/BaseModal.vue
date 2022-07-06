@@ -1,5 +1,5 @@
 <template>
-  <div ref="link" :id="id" :class="modalClasses" class="modal" role="dialog" tabindex="-1">
+  <div :id="id" ref="link" :class="modalClasses" class="modal" role="dialog" tabindex="-1">
     <div :class="modalDialogClasses" class="modal-dialog">
       <div :class="modalContentClasses" class="modal-content">
         <div class="modal-header">
@@ -31,13 +31,6 @@ import { inject } from 'vue'
 
 export default {
   name: 'BaseModal',
-  emits: ['close'],
-  setup () {
-    var darkMode = inject('darkMode')
-    return {
-      darkMode
-    }
-  },
   props: {
     id: {
       type: String,
@@ -67,19 +60,11 @@ export default {
       default: null
     }
   },
-  watch: {
-    show (newValue) {
-      if (newValue) {
-        this.$refs.link.classList.add('show')
-        this.$refs.link.style.display = 'block'
-        this.$refs.link.ariaModal = true
-      } else {
-        this.$refs.link.classList.remove('show')
-        this.$refs.link.style.display = 'none'
-        this.$refs.link.ariaModal = null
-        this.$refs.link.ariaHidden = true
-      }
-      this.toggleBody()
+  emits: ['close'],
+  setup () {
+    var darkMode = inject('darkMode')
+    return {
+      darkMode
     }
   },
   computed: {
@@ -134,6 +119,21 @@ export default {
     },
     hasPositionY () {
       return this.position && this.position === 'top' || this.position === 'bottom'
+    }
+  },
+  watch: {
+    show (newValue) {
+      if (newValue) {
+        this.$refs.link.classList.add('show')
+        this.$refs.link.style.display = 'block'
+        this.$refs.link.ariaModal = true
+      } else {
+        this.$refs.link.classList.remove('show')
+        this.$refs.link.style.display = 'none'
+        this.$refs.link.ariaModal = null
+        this.$refs.link.ariaHidden = true
+      }
+      this.toggleBody()
     }
   },
   // updated() {
