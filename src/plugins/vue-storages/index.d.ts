@@ -11,7 +11,7 @@ export declare function createVueSession(options: VueSessionOptions): VueSession
 export declare interface BaseOptions {
     /** The default session key (default: vue-session) */
     sessionKey?: string
-    /** Initial with which to init the storage */
+    /** Initial values with which to initialize the storage */
     initial?: Object
 }
 

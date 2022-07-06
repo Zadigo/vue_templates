@@ -16,7 +16,10 @@ loadFonts()
 
 const app = createApp(App)
 const session = createVueSession({
-  
+  sessionKey: 'past-passions',
+  initial: {
+    'user': 'Gooogles'
+  }
 })
 const localstorage = createLocalStorage({
 
