@@ -17,8 +17,7 @@
           <div class="card">
             <div class="card-body">
               <div class="list-group">
-                <a v-for="(song, i) in playlist" :key="song.id" :class="{ active: song.id === currentSong.id }" href
-                  class="list-group-item d-flex justify-content-between" @click.prevent="cursor = i">
+                <a v-for="(song, i) in playlist" :key="song.id" :class="{ active: song.id === currentSong.id }" href class="list-group-item d-flex justify-content-between" @click.prevent="cursor = i">
                   <span v-if="song.id === currentSong.id" class="mdi mdi-play"></span>
                   <span v-else class="mdi mdi-pause"></span>
                   <span>{{ song.artist.name }}</span>

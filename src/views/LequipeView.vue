@@ -59,8 +59,7 @@
                   </div>
 
                   <div class="col-12 mb-3">
-                    <button type="button" class="btn btn-primary btn-lg btn-floating"
-                      @click="scrollToSection('comments')">
+                    <button type="button" class="btn btn-primary btn-lg btn-floating" @click="scrollToSection('comments')">
                       <font-awesome-icon icon="fa-solid fa-comment" />
                     </button>
                     <button type="button" class="btn btn-primary btn-lg btn-floating mx-2">
@@ -195,6 +194,9 @@ import { ref } from 'vue'
 
 export default {
   name: 'LequipeTemplate',
+  components: {
+    DashboardLayoutVue
+  },
   setup () {
     const target = ref(null)
     const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -210,8 +212,24 @@ export default {
   data: () => ({
     isDetailPage: true
   }),
-  components: {
-    DashboardLayoutVue
+  mounted () {
+    this.target = window.document
+
+    const script = document.createElement('script')
+
+    const src = document.createAttribute('src')
+    const charset = document.createAttribute('charset')
+    const async = document.createAttribute('async')
+
+    src.value = 'https://platform.twitter.com/widgets.js'
+    charset.value = 'utf-8'
+
+    script.setAttributeNode(src)
+    script.setAttributeNode(async)
+    script.setAttributeNode(charset)
+
+    const body = document.querySelector('body')
+    body.append(script)
   },
   methods: {
     async answer () {
@@ -237,25 +255,6 @@ export default {
         // Pass
       }, 1000)
     }
-  },
-  mounted () {
-    this.target = window.document
-
-    const script = document.createElement('script')
-
-    const src = document.createAttribute('src')
-    const charset = document.createAttribute('charset')
-    const async = document.createAttribute('async')
-
-    src.value = 'https://platform.twitter.com/widgets.js'
-    charset.value = 'utf-8'
-
-    script.setAttributeNode(src)
-    script.setAttributeNode(async)
-    script.setAttributeNode(charset)
-
-    var body = document.querySelector('body')
-    body.append(script)
   }
 }
 </script>
