@@ -5,10 +5,8 @@
 <script>
 export default {
   name: 'App'
-  // methods: {
-  //   google () {
-  //     this.$session.create()
-  //   }
+  // mounted () {
+  //   this.$session.create('something', 1)
   // }
 }
 </script>
