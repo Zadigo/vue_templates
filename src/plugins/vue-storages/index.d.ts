@@ -3,15 +3,25 @@ import { App, ComponentCustomProperties, Ref } from 'vue'
 declare type DictionnaryKey = string
 
 /** Creates a VueLocalStorage instance that can be used by a Vue app */
-export declare function createLocalStorage(): VueLocalStorage
+export declare function createLocalStorage(options: BaseOptions): VueLocalStorage
 
 /** Creates a VueSession instance that can be used by a Vue app */
 export declare function createVueSession(options: VueSessionOptions): VueSession
 
-/** VueLocalStorage instance */
+export declare interface BaseOptions {
+    /** The default session key (default: vue-session) */
+    sessionKey?: string
+    /** Initial with which to init the storage */
+    initial?: Object
+}
+
+/** 
+ * VueLocalStorage allows serializing and deserializing
+ * data in the base Window locale storage
+ */
 export declare interface VueLocalStorage {
     /** The default session key (defaults: vue-session) */
-    readonly VUE_SESSION_KEY: string
+    readonly DEFAULT_KEY_NAME: string
     /**
      * Returns all items saved in the localStorage
      *
@@ -60,18 +70,18 @@ export declare interface VueLocalStorage {
 }
 
 /** Possible options for VueSession */
-export declare interface VueSessionOptions {
+export declare interface VueSessionOptions extends BaseOptions {
     /** Persist the data in the local storage */
-    persisent?: boolean
-    /** Initial with which to init the storage */
-    initial?: Object
+    persistent?: boolean
 }
 
 /** 
  * VueSession allows serializing and deserializing
- * data in the base Window session storage
+ * data easily in the base Window session storage
  */
 export declare interface VueSession {
+    /** The default session key (defaults: vue-session) */
+    readonly DEFAULT_KEY_NAME: string
     /**
      * Returns all items saved in the storage
      *
@@ -137,6 +147,12 @@ export declare interface VueSession {
      * @param value - value to add
      */
     updateArray(key: DictionnaryKey, value: any)
+    /**
+     * Toggle a boolean stored under a given key
+     * 
+     * @param key - key of the element to toggle
+     */
+    toggle(key: DictionnaryKey): void
 
     install(app: App): void
 }
@@ -145,7 +161,8 @@ declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
         /** Current data saved under the VUE_SESSION_KEY */
         localStorage: Object
-        /** Current data saved under VUE_STORAGE */
+        /** Current data saved under VUE_SESSION_KEY */
+        sessionStorage: Object
         /** The VueLocalStorage instance */
         $localstorage: VueLocalStorage
         /** The VueSession instance */

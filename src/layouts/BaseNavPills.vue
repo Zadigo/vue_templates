@@ -17,28 +17,30 @@
 <script>
 export default {
   name: 'NavPills',
-  emits: ['change', 'click'],
   props: {
     items: {
       type: Array,
       default: () => []
     }
   },
+  emits: ['change', 'click'],
   data: () => ({
     selected: 0
   }),
+  computed: {
+    hasDefault () {
+      return this.$slots.default || false
+    }
+  },
   watch: {
     selected (newValue, oldValue) {
       this.$emit('change', { previous: oldValue, new: newValue })
     }
   },
-  computed: {
-    hasDefault () {
-      return this.$slots.default ? true : false
-    }
-  },
   beforeMount () {
-    this.items.forEach(item => { item['active'] = false })
+    this.items.forEach(item => {
+      item.active = false
+    })
     // this.items[0].active = true
   },
   methods: {

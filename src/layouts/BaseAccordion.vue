@@ -20,18 +20,18 @@
 <script>
 export default {
   name: 'BaseAccordion',
-  emits: ['click'],
   props: {
     items: {
       type: Array
     }
   },
+  emits: ['click'],
   data: () => ({
     computedItems: []
   }),
   beforeMount () {
     this.computedItems = this.items.map((item) => {
-      item['show'] = false
+      item.show = false
       return item
     })
   },

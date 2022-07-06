@@ -43,7 +43,7 @@ class VueSession {
         const defaultOptions = options || {}
         const { persistent, initial } = defaultOptions
 
-        this.VUE_SESSION_KEY = 'vue-session'
+        this.DEFAULT_KEY_NAME = 'vue-session'
         this.storage = sessionStorage
 
         this._history = []
@@ -52,28 +52,28 @@ class VueSession {
         // and for implementing initial data
         this.isPersistent = persistent || false
         if (initial && typeof initial !== 'object') {
-            throw new Error('Initial should be a dictionnary')
+            throw new Error('Initial for VueSession should be a dictionnary')
         }
         this.initial = initial
     }
     
     get data() {
-        return JSON.parse(this.storage.getItem(this.VUE_SESSION_KEY))
+        return JSON.parse(this.storage.getItem(this.DEFAULT_KEY_NAME))
     }
 
     _precheck() {
         // Ensures that the session key above
         // is always present before doing any
         // operations
-        if (!(this.VUE_SESSION_KEY in this.storage)) {
+        if (!(this.DEFAULT_KEY_NAME in this.storage)) {
             const sessionData = { 'session-id': Date.now() }
-            this.storage.setItem(this.VUE_SESSION_KEY, JSON.stringify(sessionData))
+            this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(sessionData))
         }
     }
 
     _save(data) {
         this._precheck()
-        this.storage.setItem(this.VUE_SESSION_KEY, JSON.stringify(data))
+        this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
         this._history.push(['save', data])
     }
 
@@ -105,7 +105,7 @@ class VueSession {
         try {
             const storedData = this.data
             storedData['session-id'] = Date.now()
-            this.storage.setItem(this.VUE_SESSION_KEY, JSON.stringify(storedData))
+            this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(storedData))
             return true
         } catch {
             return false
@@ -117,7 +117,7 @@ class VueSession {
         // session in the storage
         try {
             const sessionId = this.data['session-id']
-            this.storage.setItem(this.VUE_SESSION_KEY, JSON.stringify({ 'session-id': sessionId }))
+            this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify({ 'session-id': sessionId }))
             return true
         } catch {
             return false
@@ -154,6 +154,14 @@ class VueSession {
         }
         result.push(value)
         this.create(key, result)
+    }
+
+    toggle(key) {
+        this._precheck()
+        const result = this.data[key]
+        if (typeof result === 'boolean') {
+            this.data[key] = !result
+        }
     }
 
     install(app) {
