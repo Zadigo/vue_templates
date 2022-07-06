@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
@@ -30,6 +30,11 @@ const routes = [
         path: '/parallax',
         name: 'parallax_view',
         component: () => import('../views/ParallaxWebsite.vue')
+    },
+    {
+        path: '/graph',
+        name: 'graph_view',
+        component: () => import('../views/GraphView.vue')
     }
 ]
 

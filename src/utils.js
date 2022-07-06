@@ -15,10 +15,10 @@ function raiseError (functionName, message) {
  */
 function indexElements (items) {
     return _.map(items, (item, i) => {
-        if (!(typeof item == 'object')) {
+        if (!(typeof item === 'object')) {
             throw Error(`indexElements - ${item} should be a dictionnary`)
         } else {
-            item['id'] = i
+            item.id = i
             return item
         }
 
@@ -40,7 +40,7 @@ function incrementLastId (items) {
     if (!(typeof lastItem === 'object')) {
         throw Error(`incrementLastId - ${lastItem} should be a dictionnary`)
     }
-    return lastItem['id'] + 1
+    return lastItem.id + 1
 }
 
 /**
@@ -54,7 +54,7 @@ function readFile (file) {
     var filePreview = null
 
     if (file && file[0]) {
-        let reader = new FileReader
+        const reader = new FileReader
 
         reader.onload = e => {
             filePreview = e.target.result
@@ -87,8 +87,9 @@ function readMultipleFiles (files) {
  *  
  */
 function truncate (text, k = 28) {
-    if (!(typeof text == 'string')) {
+    if (!(typeof text === 'string')) {
         raiseError('truncate', `${text} should be a string`)
+        return ''
     } else {
         return `${text.slice(0, k)}...`
     }
@@ -120,15 +121,19 @@ function conditionalTruncate (text, limit, k) {
  *  
  */
 function buildLimitOffset (url, limit = 100, offset = 0) {
-    if (url) {
-        var instance = new URL(url)
-        var potentialLimit = instance.searchParams.get('limit')
-        var potentialOffset = instance.searchParams.get('offset')
+    let defaultLimit = 100
+    let defaultOffset = 0
 
-        limit = potentialLimit ? potentialLimit : limit
-        offset = potentialOffset ? potentialOffset : offset
+    if (url) {
+        const instance = new URL(url)
+        const potentialLimit = instance.searchParams.get('limit')
+        const potentialOffset = instance.searchParams.get('offset')
+
+        defaultLimit = potentialLimit || limit
+        defaultOffset = potentialOffset || offset
     }
-    return new URLSearchParams({ limit: limit, offset: offset })
+
+    return new URLSearchParams({ limit: defaultLimit, offset: defaultOffset })
 }
 
 /**
@@ -141,12 +146,14 @@ function buildLimitOffset (url, limit = 100, offset = 0) {
  *  
  */
 function getPageFromParams (url, page = 1) {
+    let defaultPage = 1
+
     if (url) {
-        var instance = new URL(url)
-        var potentialPage = instance.searchParams.get('page')
-        page = potentialPage ? potentialPage : 1
+        const instance = new URL(url)
+        const potentialPage = instance.searchParams.get('page')
+        defaultPage = potentialPage || page
     }
-    return new URLSearchParams({ page: page })
+    return new URLSearchParams({ page: defaultPage })
 }
 
 /**
@@ -160,7 +167,7 @@ function getPageFromParams (url, page = 1) {
  */
 function listManager (items, item) {
     if (items.includes(item)) {
-        var index = _.indexOf(items, item)
+        const index = _.indexOf(items, item)
         items.splice(index, 1)
     } else {
         items.push(item)
@@ -273,7 +280,7 @@ function searchHelper (search, items, fields) {
                 }
 
                 if (typeof itemValue === 'string') {
-                    var lowercasedItem = item[field].toLowerCase()
+                    const lowercasedItem = item[field].toLowerCase()
 
                     return itemValue === search || itemValue.includes(search) || lowercasedItem.includes(search) || lowercasedItem === search
                 }
@@ -390,7 +397,9 @@ function loadComponent (component) {
  * 
  */
 function capitalizeFirstLetter (value) {
-    if (!value) { return value }
+    if (!value) {
+        return value
+    }
     return value.charAt(0).toUpperCase() + value.slice(1)
 }
 
@@ -496,13 +505,12 @@ function websocketRootAddress (path) {
  * 
  */
 function createWebsocket (path, listeners = {}) {
-    console.log(websocketRootAddress(path))
-    var socket = new WebSocket(websocketRootAddress(path))
+    const socket = new WebSocket(websocketRootAddress(path))
 
-    socket.onopen = listeners['onopen']
-    socket.onclose = listeners['onclose']
-    socket.onmessage = listeners['onmessage']
-    socket.onerror = listeners['onerror']
+    socket.onopen = listeners.onopen
+    socket.onclose = listeners.onclose
+    socket.onmessage = listeners.onmessage
+    socket.onerror = listeners.onerror
 
     return socket
 }
@@ -539,12 +547,14 @@ function rebuildPath (path) {
  * 
  */
 function hasNull (items) {
-    if (typeof items == 'object') {
-        items = Object.values(items)
+    let itemsValues = []
+
+    if (typeof items === 'object') {
+        itemsValues = Object.values(items)
     }
 
-    return _.some(items, (item) => {
-        return item == null || item == undefined || item == ""
+    return _.some(itemsValues, (item) => {
+        return item === null || item === ""
     })
 }
 
