@@ -1,11 +1,10 @@
 <template>
   <li class="nav-item dropdown">
-    <a :class="{ show: show }" class="nav-link dropdown-toggle" href @click.prevent="showDropdown">
+    <a :class="{ show }" class="nav-link dropdown-toggle" href @click.prevent="showDropdown">
       Menu item
     </a>
 
-    <ul ref="link" :class="{ show: show, 'bg-dark' : darkMode }" class="dropdown-menu"
-      @mouseleave="show = false">
+    <ul ref="link" :class="{ show, 'bg-dark' : darkMode }" class="dropdown-menu" @mouseleave="show = false">
       <template v-for="(item, i) in items" :key="i">
         <li v-if="hasSubmenu(item.subMenu)" class="has-submenu">
           <a class="dropdown-item dropdown-toggle" href @click.prevent>

@@ -3,7 +3,7 @@
     <div class="container">
       <a class="navbar-brand fw-bold text-uppercase" href="#">Navbar</a>
 
-      <button :class="{ collapsed: collapsed }" class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" @click="collapsed = !collapsed">
+      <button :class="{ collapsed }" type="button" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" @click="collapsed = !collapsed">
         <span class="navbar-toggler-icon"></span>
       </button>
 

@@ -8,7 +8,7 @@
       <span class="visually-hidden">Toggle Dropdown</span>
     </button>
 
-    <ul ref="link" :class="{ show: show }" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+    <ul ref="link" :class="{ show }" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
       <li><a class="dropdown-item" href="#">Action</a></li>
       <li><a class="dropdown-item" href="#">Another action</a></li>
       <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -24,23 +24,25 @@
 export default {
   name: 'BaseDropGroup',
   props: {
-    animation: {
-      type: String,
-      default: 'scale'
-    },
-    buttonName: {
-      type: String
-    },
+    // animation: {
+    //   type: String,
+    //   default: 'scale'
+    // },
+    // buttonName: {
+    //   type: String
+    // },
     color: {
       type: String,
       default: 'primary'
-    },
-    items: {
-      type: Array,
-      required: true
     }
+    // items: {
+    //   type: Array,
+    //   required: true
+    // }
   },
-  emits: ['click', 'dropdown-click'],
+  emits: {
+    click: () => true
+  },
   data: () => ({
     show: false
   }),

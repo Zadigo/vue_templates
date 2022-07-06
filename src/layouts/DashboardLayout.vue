@@ -50,7 +50,7 @@
     </main>
 
     <transition name="pop">
-      <button v-if="!arrivedState.top" id="back-to-top" class="btn btn-primary btn-floating" @click="scrollToTop">
+      <button v-if="!arrivedState.top" id="back-to-top" class="btn btn-primary btn-floating" type="button" @click="scrollToTop">
         <font-awesome-icon icon="fa-solid fa-arrow-up" />
       </button>
     </transition>

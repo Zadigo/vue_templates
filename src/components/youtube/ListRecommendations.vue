@@ -1,5 +1,5 @@
 <template>
-  <transition-group name="opacity" id="recommendations" tag="div" mode="out-in">
+  <transition-group id="recommendations" name="opacity" tag="div" mode="out-in">
     <div v-for="recommendation in recommendations" :key="recommendation.id" class="card mb-2">
       <router-link :to="{ name: 'youtube_view', query: { video: recommendation.id } }">
         <div class="row g-0">

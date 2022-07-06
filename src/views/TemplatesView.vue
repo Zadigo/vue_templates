@@ -1,3 +1,7 @@
+<docs>
+ifnoinfoienfoeenifoei
+</docs>
+
 <template>
   <section>
     <!-- Navbar -->
@@ -25,11 +29,11 @@
         </div>
 
         <teleport to="body">
-          <base-modal-vue :show="showModal" :centered="false" :static-backdrop="true" position="" size="md" @close="showModal = false" />
+          <base-modal-vue id="test-modal" :show="showModal" :centered="false" :static-backdrop="true" position="" size="md" @close="showModal = false" />
         </teleport>
 
         <teleport to="body">
-          <base-offcanvas-vue :show="showOffcanvas" @close="showOffcanvas = false" />
+          <base-offcanvas-vue id="test-offcanvas" :show="showOffcanvas" @close="showOffcanvas = false" />
         </teleport>
       </div>
       <!-- <div class="d-flex justify-content-center align-items-center">

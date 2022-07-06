@@ -5,7 +5,7 @@
       {{ buttonName }}
     </button>
 
-    <ul ref="link" :class="{ show: show }" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+    <ul ref="link" :class="{ show }" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
       <li v-for="(item, i) in items" :key="item.name">
         <a class="dropdown-item" href @click.prevent="show = !show, $emit('dropdown-click', [i, item])">
           <span v-if="item.icon" :class="{ [`mdi-${item.icon}`]: true }" class="mdi me-2"></span>
@@ -23,10 +23,10 @@ import { ref } from 'vue'
 export default {
   name: 'BaseDropdownButton',
   props: {
-    animation: {
-      type: String,
-      default: 'scale'
-    },
+    // animation: {
+    //   type: String,
+    //   default: 'scale'
+    // },
     buttonName: {
       type: String
     },

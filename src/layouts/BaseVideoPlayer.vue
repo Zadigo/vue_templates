@@ -24,7 +24,7 @@
 
       <div v-if="showFunctions" class="video__controls__functions">
         <div>
-          <button class="video__controls__button btn btn-light" @click.stop="toggleVideoPlay">
+          <button type="button" class="video__controls__button btn btn-light" @click.stop="toggleVideoPlay">
             <!-- <v-icon v-if="isPlaying" style="color: #fff">mdi-pause</v-icon> -->
             <!-- <v-icon v-else style="color: #fff">mdi-play</v-icon> -->
             <span v-if="isPlaying" class="mdi mdi-pause"></span>
@@ -39,7 +39,7 @@
 
         <div class="video__controls__configs">
           <div class="video__controls__volume">
-            <button ref="volumeTrack" class="btn btn-light" @click.stop="volumeOptionsOpen = !volumeOptionsOpen">
+            <button ref="volumeTrack" type="button" class="btn btn-light" @click.stop="volumeOptionsOpen = !volumeOptionsOpen">
               <!-- <v-icon v-if="volume < 0.1" style="color: #fff">mdi-volume-low</v-icon>
               <v-icon v-else-if="volume >= 0.1 && volume < 0.8" style="color: #fff">mdi-volume-medium</v-icon>
               <v-icon v-else-if="volume >= 0.8" style="color: #fff">mdi-volume-high</v-icon> -->
@@ -58,7 +58,7 @@
           </div>
 
           <div class="video__controls__speed">
-            <button ref="speed" class="btn btn-light" @click.stop="speedOpen = !speedOpen">
+            <button ref="speed" type="button" class="btn btn-light" @click.stop="speedOpen = !speedOpen">
               <span>
                 <!-- <v-icon style="color: #fff">mdi-speedometer</v-icon> -->
                 <span class="mdi mdi-speedometer"></span>

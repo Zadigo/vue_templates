@@ -26,20 +26,20 @@
     </div>
 
     <div class="card-footer text-center">
-      <button class="btn btn-primary mx-2" @click="handleSkipPrevious">
+      <button type="button" class="btn btn-primary mx-2" @click="handleSkipPrevious">
         <span class="mdi mdi-skip-previous"></span>
       </button>
 
-      <button class="btn btn-primary mx-2" @click="toggleAudioPlay">
+      <button type="button" class="btn btn-primary mx-2" @click="toggleAudioPlay">
         <span v-if="isPlaying" class="mdi mdi-pause"></span>
         <span v-else class="mdi mdi-play"></span>
       </button>
 
-      <button class="btn btn-primary mx-2" @click="handleSkipNext">
+      <button type="button" class="btn btn-primary mx-2" @click="handleSkipNext">
         <span class="mdi mdi-skip-next"></span>
       </button>
 
-      <button class="btn btn-info">
+      <button type="button" class="btn btn-info">
         <!-- <span class="mdi mdi-volume-high"></span> -->
         <!-- <span class="mdi mdi-volume-low"></span> -->
         <span class="mdi mdi-volume-medium"></span>

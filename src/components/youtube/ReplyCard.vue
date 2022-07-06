@@ -19,12 +19,9 @@
             </p>
 
             <div class="btn-group shadow-none">
-              <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeReply"><span
-                  class="mdi mdi-thumb-up me-2"></span>12.3k</button>
-              <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeReply"><span
-                  class="mdi mdi-thumb-down me-2"></span>26</button>
-              <button type="button" class="btn btn-info btn-sm shadow-none"
-                @click="showReplyInput = !showReplyInput">Reply</button>
+              <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeReply"><span class="mdi mdi-thumb-up me-2"></span>12.3k</button>
+              <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeReply"><span class="mdi mdi-thumb-down me-2"></span>26</button>
+              <button type="button" class="btn btn-info btn-sm shadow-none" @click="showReplyInput = !showReplyInput">Reply</button>
             </div>
 
             <input v-if="showReplyInput" :placeholder="`Reply to`" type="text" class="form-control mt-2">
@@ -38,12 +35,12 @@
 <script>
 export default {
   name: 'ReplyCard',
-  props: {
-    reply: {
-      type: Object,
-      required: true
-    }
-  },
+  // props: {
+  //   reply: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
   data: () => ({
     showReplies: false,
     showReplyInput: false

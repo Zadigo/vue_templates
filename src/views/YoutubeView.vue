@@ -16,25 +16,25 @@
                   </h5>
 
                   <div :class="{ 'flex-column': breakpoints.isSmaller('md') }" class="d-flex justify-content-between">
-                    <span :class="{ 'mb-2':  breakpoints.isSmaller('md') }" class="text-muted">
+                    <span :class="{ 'mb-2': breakpoints.isSmaller('md') }" class="text-muted">
                       {{ currentVideo.views }} views - {{ currentVideo.created_on }}
                     </span>
 
                     <!-- Actions -->
                     <div class="d-flex justify-content-around">
                       <div class="btn-group">
-                        <button class="btn btn-lg btn-primary" @click="likeVideo">
+                        <button type="button" class="btn btn-lg btn-primary" @click="likeVideo">
                           <span class="mdi mdi-thumb-up me-2"></span>{{ currentVideo.likes }}
                         </button>
 
-                        <button class="btn btn-lg btn-primary" @click="likeVideo">
+                        <button type="button" class="btn btn-lg btn-primary" @click="likeVideo">
                           <span class="mdi mdi-thumb-down me-2"></span>{{ currentVideo.dislikes }}
                         </button>
                       </div>
 
                       <base-dropdown-button-vue :button-name="'More'" :color="'secondary'" :items="[{ name: 'Store', icon: 'store' }, { name: 'Download', icon: 'download' }, { name: 'Save', icon: 'content-save' }, { name: 'Gift', icon: 'gift' }, { name: 'Donate', icon: 'cash' }, { name: 'Share', icon: 'share' }, { name: 'Recommendation', icon: 'star-remove-outline' }, { name: 'Report', icon: 'alert' }]" class="mx-2" @dropdown-click="dropdownClick" />
 
-                      <button class="btn btn-primary btn-lg" @click="currentVideo.channel.subscribed = !currentVideo.channel.subscribed">
+                      <button type="button" class="btn btn-primary btn-lg" @click="currentVideo.channel.subscribed = !currentVideo.channel.subscribed">
                         <span v-if="currentVideo.channel.subscribed">Unsubscribe</span>
                         <span v-else>Subscribe</span>
                       </button>
@@ -70,7 +70,7 @@
                         quisquam. Deleniti, ratione? Quis et harum ullam ab nam.
                       </p>
 
-                      <button class="btn btn-light shadow-none">Show more</button>
+                      <button type="button" class="btn btn-light shadow-none">Show more</button>
                     </div>
                   </div>
                 </div>

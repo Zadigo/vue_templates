@@ -21,16 +21,15 @@
           </p>
 
           <div class="btn-group shadow-none">
-            <button class="btn btn-primary btn-sm shadow-none" @click="likeComment"><span class="mdi mdi-thumb-up me-2"></span>12.3k</button>
-            <button class="btn btn-primary btn-sm shadow-none" @click="likeComment"><span class="mdi mdi-thumb-up me-2"></span>24</button>
-            <button class="btn btn-info btn-sm shadow-none" @click="showReplyInput = !showReplyInput">Reply</button>
+            <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeComment"><span class="mdi mdi-thumb-up me-2"></span>12.3k</button>
+            <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeComment"><span class="mdi mdi-thumb-up me-2"></span>24</button>
+            <button type="button" class="btn btn-info btn-sm shadow-none" @click="showReplyInput = !showReplyInput">Reply</button>
           </div>
 
-          <input v-if="showReplyInput" :placeholder="`Reply to ${comment.user.username}`" type="text"
-            class="form-control mt-2" @keypress.enter="createComment">
+          <input v-if="showReplyInput" :placeholder="`Reply to ${comment.user.username}`" type="text" class="form-control mt-2" @keypress.enter="createComment">
 
           <div class="mt-2">
-            <button class="btn btn-light shadow-none" @click="showReplies = !showReplies">
+            <button type="button" class="btn btn-light shadow-none" @click="showReplies = !showReplies">
               <span v-if="showReplies">{{ `Hide ${comment.replies.length} replies` }}</span>
               <span v-else>{{ `View ${comment.replies.length} replies` }}</span>
             </button>
@@ -54,14 +53,14 @@ import ReplyCardVue from './ReplyCard.vue'
 
 export default {
   name: 'CommentCard',
+  components: {
+    ReplyCardVue
+  },
   props: {
     comment: {
       type: Object,
       required: true
     }
-  },
-  components: {
-    ReplyCardVue
   },
   data: () => ({
     showReplyInput: false,

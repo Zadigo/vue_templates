@@ -3,8 +3,7 @@
     <div class="card">
       <div class="card-body">
         <p class="fw-bold fs-5">{{ currentVideo.comments.count }} Comments</p>
-        <base-dropdown-button-vue :items="[{ name: 'Newest' }, { name: 'Oldest' }]" icon="sort" button-name="Sort"
-          @dropdown-click="setSort" />
+        <base-dropdown-button-vue :items="[{ name: 'Newest' }, { name: 'Oldest' }]" icon="sort" button-name="Sort" @dropdown-click="setSort" />
         <!-- <button class="btn btn-info"><span class="mdi mdi-sort me-2"></span>Sort</button> -->
         <!-- <button class="btn btn-info"><span class="mdi mdi-filter me-2"></span>Filter</button> -->
         <!-- <div class="btn-group">
@@ -24,9 +23,10 @@
                 <textarea cols="30" rows="2" class="form-control" style="resize: none;"></textarea>
 
                 <div class="btn-group shadow-none my-2">
-                  <button class="btn btn-sm btn-light" @click="showReplies = !showReplies">Cancel</button>
-                  <button class="btn btn-sm btn-light" @click="createComment"><span
-                      class="mdi mdi-comment me-2"></span>Comment</button>
+                  <button type="button" class="btn btn-sm btn-light" @click="showReplies = !showReplies">Cancel</button>
+                  <button type="button" class="btn btn-sm btn-light" @click="createComment">
+                    <span class="mdi mdi-comment me-2"></span>Comment
+                  </button>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="card-footer text-center">
-        <button class="btn btn-primary btn-lg" @click="getComments">
+        <button type="button" class="btn btn-primary btn-lg" @click="getComments">
           <span class="mdi mdi-refresh me-2"></span>
           Load more
         </button>
@@ -66,23 +66,23 @@ import CommentCard from './CommentCard.vue'
 
 export default {
   name: 'CommentSection',
-  setup () {
-    var isLoading = inject('isLoading')
-    return {
-      isLoading
-    }
+  components: {
+    BaseDropdownButtonVue,
+    CommentCard
   },
-  emits: ['like-video'],
   props: {
     currentVideo: {
       type: Object,
       required: true
     }
   },
-  components: {
-    BaseDropdownButtonVue,
-    CommentCard
-},
+  emits: ['like-video'],
+  setup () {
+    var isLoading = inject('isLoading')
+    return {
+      isLoading
+    }
+  },
   data: () => ({
     comments: [],
   }),
@@ -112,7 +112,7 @@ export default {
       setTimeout(() => {
         var d = dayjs('2022-1-1')
         for (let i = 0; i < 3; i++) {
-          var createdOn = d.add(dayjs.duration({ days: Math.random() * (1, 30) + 1 }))
+          const createdOn = d.add(dayjs.duration({ days: Math.random() * (1, 30) + 1 }))
           this.comments.push({
             id: i,
             replies: [{ id: 1 }, { id: 2 }],

@@ -18,6 +18,9 @@ import ListRecommendationsVue from './ListRecommendations.vue'
 
 export default {
   name: 'ListRecommendations',
+  components: {
+    ListRecommendationsVue
+  },
   props: {
     show: {
       type: Boolean
@@ -26,9 +29,6 @@ export default {
       type: Array,
       required: true
     }
-  },
-  components: {
-    ListRecommendationsVue
   }
 }
 </script>
