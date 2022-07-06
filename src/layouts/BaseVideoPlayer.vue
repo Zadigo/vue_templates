@@ -52,7 +52,7 @@
               <div class="video__controls__volume--track">
                 <div class="video__controls__volume--track-current" :style="{ height: `${volume * 100}%` }" />
 
-                <div class="video__controls__volume--track-ball" :style="{ bottom: `Calc(${volume * 100}% - 0.25rem)`, }" />
+                <div class="video__controls__volume--track-ball" :style="{ bottom: `Calc(${volume * 100}% - 0.25rem)` }" />
               </div>
             </div>
           </div>
