@@ -58,6 +58,8 @@ function setupDevtools(app, storage) {
             label: 'VueSession',
             color: 0x92A2BF
         })
+
+        // api.sendInspectorState('vue-session-storage')
     })
 
     return devtools

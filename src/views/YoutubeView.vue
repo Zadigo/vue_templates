@@ -16,8 +16,9 @@
                   </h5>
 
                   <div :class="{ 'flex-column': breakpoints.isSmaller('md') }" class="d-flex justify-content-between">
-                    <span :class="{ 'mb-2':  breakpoints.isSmaller('md') }" class="text-muted">{{ currentVideo.views }}
-                      views - {{ currentVideo.created_on }}</span>
+                    <span :class="{ 'mb-2':  breakpoints.isSmaller('md') }" class="text-muted">
+                      {{ currentVideo.views }} views - {{ currentVideo.created_on }}
+                    </span>
 
                     <!-- Actions -->
                     <div class="d-flex justify-content-around">
@@ -31,12 +32,9 @@
                         </button>
                       </div>
 
-                      <base-dropdown-button-vue :button-name="'More'" :color="'secondary'"
-                        :items="[{ name: 'Store', icon: 'store' }, { name: 'Download', icon: 'download' }, { name: 'Save', icon: 'content-save' }, { name: 'Gift', icon: 'gift' }, { name: 'Donate', icon: 'cash' }, { name: 'Share', icon: 'share' }, { name: 'Recommendation', icon: 'star-remove-outline' }, { name: 'Report', icon: 'alert' }]"
-                        class="mx-2" @dropdown-click="dropdownClick" />
+                      <base-dropdown-button-vue :button-name="'More'" :color="'secondary'" :items="[{ name: 'Store', icon: 'store' }, { name: 'Download', icon: 'download' }, { name: 'Save', icon: 'content-save' }, { name: 'Gift', icon: 'gift' }, { name: 'Donate', icon: 'cash' }, { name: 'Share', icon: 'share' }, { name: 'Recommendation', icon: 'star-remove-outline' }, { name: 'Report', icon: 'alert' }]" class="mx-2" @dropdown-click="dropdownClick" />
 
-                      <button class="btn btn-primary btn-lg"
-                        @click="currentVideo.channel.subscribed = !currentVideo.channel.subscribed">
+                      <button class="btn btn-primary btn-lg" @click="currentVideo.channel.subscribed = !currentVideo.channel.subscribed">
                         <span v-if="currentVideo.channel.subscribed">Unsubscribe</span>
                         <span v-else>Subscribe</span>
                       </button>
@@ -115,7 +113,7 @@
       </div>
 
       <!-- Modals -->
-      <base-modal-vue :show="showDonationModal" id="donation" @close="showDonationModal = false">
+      <base-modal-vue id="donation" :show="showDonationModal" @close="showDonationModal = false">
         <div class="row">
           <div class="col-12">
             <div class="alert alert-info">
@@ -128,7 +126,7 @@
               <input type="number" min="0" max="100" step="5" class="form-control">
 
               <div class="form-check my-2">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                <input id="flexCheckChecked" class="form-check-input" type="checkbox" value="">
                 <label class="form-check-label" for="flexCheckChecked">
                   Super donate
                 </label>
@@ -145,7 +143,7 @@
               </div>
 
               <div class="form-check my-2">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                <input id="flexCheckChecked" class="form-check-input" type="checkbox" value="">
                 <label class="form-check-label" for="flexCheckChecked">
                   I consent to x an y and agree to donate $15 to this channel
                 </label>
@@ -155,7 +153,7 @@
         </div>
       </base-modal-vue>
 
-      <base-modal-vue :show="showStore" :scrollable="true" id="store" size="xl" @close="showStore = false">
+      <base-modal-vue id="store" :show="showStore" :scrollable="true" size="xl" @close="showStore = false">
         <div class="row">
           <div class="col-12">
             <div class="row mb-3">
@@ -186,7 +184,7 @@
         </div>
       </base-modal-vue>
 
-      <base-modal-vue :show="showGifts" :scrollable="true" id="gift" size="sm" @close="showGifts = false">
+      <base-modal-vue id="gift" :show="showGifts" :scrollable="true" size="sm" @close="showGifts = false">
         <div class="row">
           <div class="col-12">
             <div class="alert alert-danger">
@@ -204,7 +202,7 @@
         </div>
       </base-modal-vue>
 
-      <base-modal-vue :show="showReport" :scrollable="true" id="report" size="sm" @close="showReport = false">
+      <base-modal-vue id="report" :show="showReport" :scrollable="true" size="sm" @close="showReport = false">
         <div class="row">
           <div class="col-12">
             <base-accordion-vue :items="reports" />
@@ -220,12 +218,11 @@
         </div>
       </base-modal-vue>
 
-      <base-offcanvas-vue :show="showPlaylists" id="playlists" title="Playlists" position="end"
-        @close="showPlaylists = false">
+      <base-offcanvas-vue id="playlists" :show="showPlaylists" title="Playlists" position="end" @close="showPlaylists = false">
         <div class="list-group">
           <a v-for="i in 5" :key="i" href class="list-group-item d-flex justify-content-between" @click.prevent>
             <div class="form-check my-2">
-              <input class="form-check-input" type="checkbox" id="flexCheckChecked">
+              <input id="flexCheckChecked" class="form-check-input" type="checkbox">
               <label class="form-check-label" for="flexCheckChecked">
                 {{ i }}
               </label>
@@ -234,8 +231,7 @@
         </div>
       </base-offcanvas-vue>
 
-      <base-offcanvas-vue :show="showRecommendationReport" id="recommendation" title="Recommendation" position="end"
-        @close="showRecommendationReport = false">
+      <base-offcanvas-vue id="recommendation" :show="showRecommendationReport" title="Recommendation" position="end" @close="showRecommendationReport = false">
         <div class="row">
           <div class="col-12">
             <div class="alert alert-warning">
@@ -244,7 +240,7 @@
             </div>
 
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="flexCheckChecked">
+              <input id="flexCheckChecked" class="form-check-input" type="checkbox">
               <label class="form-check-label" for="flexCheckChecked">
                 Indicate that the video was not properly categorized
               </label>
@@ -258,7 +254,7 @@
             </select>
 
             <div class="form-check mt-4">
-              <input class="form-check-input" type="checkbox" id="flexCheckChecked">
+              <input id="flexCheckChecked" class="form-check-input" type="checkbox">
               <label class="form-check-label" for="flexCheckChecked">
                 Block channel from future recommendations
               </label>
@@ -291,15 +287,6 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 export default {
   name: 'YoutubeTemplate',
-  setup () {
-    const isLoading = ref(true)
-    const breakpoints = useBreakpoints(breakpointsTailwind)
-    provide('isLoading', isLoading)
-    return {
-      breakpoints,
-      reports
-    }
-  },
   components: {
     BaseVideoPlayerVue,
     BaseDropdownButtonVue,
@@ -312,7 +299,16 @@ export default {
     CommentSection,
     ListRecommendationsVue,
     RecommendationDrawerVue
-},
+  },
+  setup () {
+    const isLoading = ref(true)
+    const breakpoints = useBreakpoints(breakpointsTailwind)
+    provide('isLoading', isLoading)
+    return {
+      breakpoints,
+      reports
+    }
+  },
   data: () => ({
     // isLoading: true,
     isLoadingRecommendations: true,
@@ -335,6 +331,22 @@ export default {
     recommendationLimit: 5,
     cachedRecommendations: []
   }),
+  computed: {
+    recommendations () {
+      // We load a set of recommendations e.g. a 100 
+      // that we will then slice to the user. This
+      // prevents from making constant API calls to
+      // the backend
+      return this.cachedRecommendations.slice(this.lowerLimit, this.upperLimit)
+    }
+  },
+  watch: {
+    '$route.query.video' (current, previous) {
+      if (current !== previous) {
+        this.getVideo()
+      }
+    }
+  },
   beforeMount () {
     this.getVideo()
     // TODO: totalLimit does not get set - we need to determine
@@ -345,22 +357,6 @@ export default {
   },
   mounted () {
     this.isLoadingRecommendations = false
-  },
-  watch: {
-    '$route.query.video' (current, previous) {
-      if (current !== previous) {
-        this.getVideo()
-      }
-    }
-  },
-  computed: {
-    recommendations () {
-      // We load a set of recommendations e.g. a 100 
-      // that we will then slice to the user. This
-      // prevents from making constant API calls to
-      // the backend
-      return this.cachedRecommendations.slice(this.lowerLimit, this.upperLimit)
-    }
   },
   methods: {
     getVideo () {
