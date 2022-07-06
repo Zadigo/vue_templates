@@ -2,6 +2,10 @@
 
 const { setupDevtoolsPlugin } = require('@vue/devtools-api')
 
+const DEBUG = (process.env.NODE_ENV !== 'production')
+
+// const storageSymbol = (DEBUG ? Symbol('vue-local-storage') : Symbol())
+
 // const storageSymbol = /*#__PURE__*/ Symbol('local')
 
 function setupDevtools(app, storage) {
@@ -46,6 +50,10 @@ function setupDevtools(app, storage) {
                 ]
             }
         })
+
+        // api.notifyComponentUpdate('vue-local-storage')
+        // api.sendInspectorTree('vue-local-storage')
+        // api.sendInspectorState('vue-local-storage')
     })
 
     return devtools
@@ -99,13 +107,17 @@ class VueLocalStorage {
 
     install(app) {
         setupDevtools(app, this)
+        // app.provide(storageSymbol, this)
         app.config.globalProperties.$localstorage = this
         app.mixin({
             data: () => ({
-                storage: this.data
+                localStorage: this.data
             })
         })
-        window.VueLocalStorage = this
+
+        if (DEBUG) {
+            window.VueLocalStorage = this
+        }
     }
 }
 

@@ -4,7 +4,12 @@
 
 <script>
 export default {
-  name: 'App',
+  name: 'App'
+  // methods: {
+  //   google () {
+  //     this.$session.create()
+  //   }
+  // }
 }
 </script>
 

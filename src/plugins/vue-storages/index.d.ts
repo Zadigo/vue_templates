@@ -1,18 +1,20 @@
 import { App, ComponentCustomProperties, Ref } from 'vue'
 
-declare type DictionnaryKey = string
+declare type DictionnaryKey = {
+    key: string
+}
 
 /** Creates a VueLocalStorage instance that can be used by a Vue app */
-export declare function createLocalStorage(options: BaseOptions): VueLocalStorage
+export declare function createLocalStorage(options?: BaseOptions): VueLocalStorage
 
 /** Creates a VueSession instance that can be used by a Vue app */
-export declare function createVueSession(options: VueSessionOptions): VueSession
+export declare function createVueSession(options?: VueSessionOptions): VueSession
 
 export declare interface BaseOptions {
     /** The default session key (default: vue-session) */
-    sessionKey?: string
+    sessionKey?: number
     /** Initial values with which to initialize the storage */
-    initial?: Object
+    initial?: object
 }
 
 /** 
@@ -27,22 +29,24 @@ export declare interface VueLocalStorage {
      *
      * @returns dictionnary
      */
-    readonly data: Object
+    readonly data: object
+
+    constructor(options?: BaseOptions): void
     /**
      * Returns the value store under a given key
      *
      * @param key - key to use
-     * @returns an object, a string or an array
+     * @returns an object, a number or an array
      */
-    retrieve (key: DictionnaryKey): Object | String | Number | Array
+    retrieve (key: DictionnaryKey): object | string | number
     /**
      * Creates a new record under the given key
      *
      * @param key - key under which to save the element
-     * @param value - string, array or dictionnary
+     * @param value - number, array or dictionnary
      * @returns null
      */
-    create(key: DictionnaryKey, value: any): void
+    create(key: DictionnaryKey, value: unknown): void
     /**
      * Removes an element stored under a given key
      *
@@ -54,17 +58,17 @@ export declare interface VueLocalStorage {
      * Saves an item globally in the local storage
      *
      * @param key - key under which to save the element
-     * @param value - string, array or dictionnary
+     * @param value - number, array or dictionnary
      * @returns null
      */
-    save(key: DictionnaryKey, value: any): void
+    save(key: DictionnaryKey, value: unknown): void
     /**
      * Returns a value saved globally and not under the session key
      *
      * @param key - key under which to save the element
-     * @returns string, array or dictionnary
+     * @returns number, array or dictionnary
      */
-    getValue(key: DictionnaryKey): Object | String | Number | Array
+    getValue(key: DictionnaryKey): object | string | number
 
     install(app: App): void
 }
@@ -87,22 +91,24 @@ export declare interface VueSession {
      *
      * @returns dictionnary
      */
-    readonly data: Object
+    readonly data: object
+
+    constructor(options?: VueSessionOptions): void
     /**
      * Creates a new record under the given global key
      *
      * @param key - key under which to save the element
-     * @param value - string, array or dictionnary
+     * @param value - number, array or dictionnary
      * @returns null
      */
-    create(key: DictionnaryKey, value: any): void
+    create(key: DictionnaryKey, value: unknown): void
     /**
      * Returns the value store under a given key
      *
      * @param key - key to use
-     * @returns an object, a string or an array
+     * @returns an object, a number or an array
      */
-    retrieve(key: DictionnaryKey): String | Number | Object
+    retrieve(key: DictionnaryKey): number | string | number[] | string[]
     /**
      * Removes an element stored under a given key
      *
@@ -124,7 +130,7 @@ export declare interface VueSession {
      * @param key key of the element to remove
      * @returns Boolean
      */
-    contains(key: DictionnaryKey): Boolean
+    contains(key: DictionnaryKey): boolean
     /**
      * Destroys the session
      */
@@ -136,9 +142,8 @@ export declare interface VueSession {
      *
      * @param key - key of the element to remove
      * @param defaultValue - key of the element to remove
-     * @returns any
      */
-    getOrCreate(key: DictionnaryKey, defaultValue: any): String | Array | Object
+    getOrCreate(key: DictionnaryKey, defaultValue: unknown): number | object
     /**
      * Tries to push the incoming element to an 
      * array stored under the given key
@@ -146,7 +151,7 @@ export declare interface VueSession {
      * @param key - key of the element to remove
      * @param value - value to add
      */
-    updateArray(key: DictionnaryKey, value: any)
+    updateArray(key: DictionnaryKey, value: unknown): void
     /**
      * Toggle a boolean stored under a given key
      * 
@@ -160,9 +165,9 @@ export declare interface VueSession {
 declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
         /** Current data saved under the VUE_SESSION_KEY */
-        localStorage: Object
+        localStorage: object
         /** Current data saved under VUE_SESSION_KEY */
-        sessionStorage: Object
+        sessionStorage: object
         /** The VueLocalStorage instance */
         $localstorage: VueLocalStorage
         /** The VueSession instance */
