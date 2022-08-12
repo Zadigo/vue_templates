@@ -30,7 +30,7 @@
 
                   <!-- Emojis -->
                   <emoji-picker v-if="showEmojis" @emoji-click="appendEmoji" />
-                  <button type="button" class="btn btn-sm btn-light" @click="showEmojis = true">
+                  <button type="button" class="btn btn-sm btn-light" @click="showEmojis = !showEmojis">
                     <font-awesome-icon icon="fa-solid fa-face-laugh"></font-awesome-icon>
                   </button>
 

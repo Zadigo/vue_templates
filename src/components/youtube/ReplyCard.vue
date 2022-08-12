@@ -1,6 +1,6 @@
 <template>
   <div class="replies">
-    <div v-for="reply in reply" :key="reply.id" class="card my-1 shadow-none">
+    <div class="card my-1 shadow-none">
       <div class="card-body">
         <div class="d-flex justify-content-around">
           <div class="me-3">
@@ -24,7 +24,14 @@
               <button type="button" class="btn btn-info btn-sm shadow-none" @click="showReplyInput = !showReplyInput">Reply</button>
             </div>
 
-            <input v-if="showReplyInput" :placeholder="`Reply to`" type="text" class="form-control mt-2">
+            <input v-if="showReplyInput" :placeholder="`Reply to @Cee Dee`" type="text" class="form-control mt-2">
+
+            <div v-if="showReplyInput" class="emojis">
+              <emoji-picker v-if="showEmojis" />
+              <button type="button" class="btn btn-sm btn-light shadow-none mt-2" @click="showEmojis = !showEmojis">
+                <font-awesome-icon icon="fa-solid fa-face-laugh"></font-awesome-icon>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -33,22 +40,34 @@
 </template>
 
 <script>
+import EmojiPicker from '@/layouts/emojis/EmojiPicker.vue';
 export default {
-  name: 'ReplyCard',
-  // props: {
-  //   reply: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // },
-  data: () => ({
-    showReplies: false,
-    showReplyInput: false
-  }),
-  methods: {
-    async likeReply () {
-      // pass
-    }
-  }
+    name: "ReplyCard",
+    components: { EmojiPicker },
+    // props: {
+    //   reply: {
+    //     type: Object,
+    //     required: true
+    //   }
+    // },
+    data: () => ({
+        showReplies: false,
+        showReplyInput: false,
+        showEmojis: false
+    }),
+    methods: {
+        async likeReply() {
+            // pass
+        }
+    },
 }
 </script>
+
+<style scoped>
+
+.emoji_picker {
+  position: absolute;
+  top: 0;
+  z-index: 1055;
+}
+</style>

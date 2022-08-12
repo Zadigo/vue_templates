@@ -1,5 +1,5 @@
 <template>
-  <div class="emoji_picker">
+  <div ref="link" class="emoji_picker">
     <div class="picker_container">
       <div v-for="category in categories" :key="`category_${category}`" class="category">
         <span>{{ category }}</span>
@@ -24,8 +24,12 @@
  * Props:
  * 	- 'show_arrow' boolean to show or not the arrow at the bottom of the picker. True by default.
  */
+import { onClickOutside } from '@vueuse/core'
+import { getCurrentInstance } from 'vue'
 import data from './emojis-data.json'
+
 export default {
+  name: 'EmojiPicker',
   props: {
     showArrow: {
       type: Boolean,
@@ -36,6 +40,17 @@ export default {
   emits: {
     'emoji-click': () => true
   },
+  setup () {
+    const app = getCurrentInstance()
+    const target = null
+    onClickOutside(target, () => {
+      console.log('emoji click')
+      app.emit('emoji-click')
+    })
+    return {
+      target
+    }
+  },
   computed: {
     categories () {
       return Object.keys(data)
@@ -43,6 +58,9 @@ export default {
     category_emojis: () => (category) => {
       return Object.values(data[category])
     }
+  },
+  mounted () {
+    this.target = this.$refs.link
   },
   methods: {
     handleEmojiClick (emoji) {
