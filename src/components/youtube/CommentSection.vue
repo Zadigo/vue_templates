@@ -20,10 +20,20 @@
               </div>
 
               <div class="w-100">
-                <textarea cols="30" rows="2" class="form-control" style="resize: none;"></textarea>
+                <textarea v-model="newComment" cols="30" rows="2" class="form-control" style="resize: none;"></textarea>
+
 
                 <div class="btn-group shadow-none my-2">
-                  <button type="button" class="btn btn-sm btn-light" @click="showReplies = !showReplies">Cancel</button>
+                  <button type="button" class="btn btn-sm btn-light" @click="newComment = null">
+                    Cancel
+                  </button>
+
+                  <!-- Emojis -->
+                  <emoji-picker v-if="showEmojis" @emoji-click="appendEmoji" />
+                  <button type="button" class="btn btn-sm btn-light" @click="showEmojis = true">
+                    <font-awesome-icon icon="fa-solid fa-face-laugh"></font-awesome-icon>
+                  </button>
+
                   <button type="button" class="btn btn-sm btn-light" @click="createComment">
                     <span class="mdi mdi-comment me-2"></span>Comment
                   </button>
@@ -59,33 +69,42 @@
 
 
 <script>
-import { inject } from 'vue'
-import dayjs from '../../plugins/dayjs'
+import EmojiPicker from '@/layouts/emojis/EmojiPicker.vue'
 import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
 import CommentCard from './CommentCard.vue'
+
+import { inject } from 'vue'
+import dayjs from '../../plugins/dayjs'
 
 export default {
   name: 'CommentSection',
   components: {
     BaseDropdownButtonVue,
-    CommentCard
-  },
+    CommentCard,
+    EmojiPicker
+},
   props: {
     currentVideo: {
       type: Object,
       required: true
     }
   },
-  emits: ['like-video'],
+  emits: {
+    'like-video': () => true
+  },
   setup () {
     var isLoading = inject('isLoading')
     return {
       isLoading
     }
   },
-  data: () => ({
-    comments: [],
-  }),
+  data () {
+    return {
+      showEmojis: false,
+      comments: [],
+      newComment: null
+    }
+  },
   sortedComments () {
     // if (this.sortMethod === 'Newest') {
     //   return this.comments.sort((a, b) => {
@@ -126,9 +145,25 @@ export default {
         this.isLoadingRecommendations = false
       }, 1000)
     },
+    appendEmoji (emoji) {
+      this.newComment = this.newComment + emoji
+      this.showEmojis = false
+    },
     setSort (params) {
       this.sortMethod = params[1]
     }
   }
 }
 </script>
+
+<style scoped>
+
+.show {
+  display: block;
+}
+.emoji_picker {
+  position: absolute;
+  top: 0;
+  z-index: 1055;
+}
+</style>

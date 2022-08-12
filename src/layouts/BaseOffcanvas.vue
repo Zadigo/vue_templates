@@ -10,6 +10,8 @@
     <div class="offcanvas-body">
       <slot></slot>
     </div>
+
+    <slot name="footer"></slot>
   </div>
 </template>
 
@@ -33,7 +35,9 @@ export default {
       type: String
     }
   },
-  emits: ['close'],
+  emits: {
+    close: () => true
+  },
   setup () {
     var darkMode = inject('darkMode')
     return {

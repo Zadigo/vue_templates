@@ -1,0 +1,51 @@
+{
+    "Cooking": [
+        "Any",
+        "European",
+        "Carribean",
+        "Asian"
+    ],
+    "Fashion": [
+        "Catwalk",
+        "Documentaries",
+        "Model Talk",
+        "TV Show"
+    ],
+    "Sports": [
+        "Any",
+        "Basketball",
+        "Track and field",
+        "Volleyball",
+        "Gymnastics",
+        "Highlights",
+        "Racing"
+    ],
+    "Music": {
+        "Dancehall": [
+            "Jamaican Dancehall",
+            "Shatta Dancehall",
+            "Other"
+        ],
+        "Pop": [
+            "Other"
+        ],
+        "Indie": [
+            "Pop",
+            "Rock"
+        ],
+        "Instrumentals": [
+            "Dancehall",
+            "Pop",
+            "Pop-Rock",
+            "Rock",
+            "Indie",
+            "EDM"
+        ]
+    },
+    "Talk shows": [
+        "Black Girl Talk",
+        "Reaction Channel",
+        "Drama Channel",
+        "Television"
+    ]
+}

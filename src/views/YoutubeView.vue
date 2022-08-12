@@ -87,11 +87,13 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-sm btn-secondary" @click="updateRecommendations">
+                    <button type="button" class="btn btn-sm btn-secondary btn-rounded shadow-none" @click="updateRecommendations">
+                      <span class="mdi mdi-reload me-2"></span>
                       Load more
                     </button>
 
-                    <router-link :to="{ name: 'youtube_view' }" class="btn btn-sm btn-secondary">
+                    <router-link :to="{ name: 'youtube_view' }" class="btn btn-sm btn-secondary btn-rounded shadow-none">
+                      <span class="mdi mdi-expand-all me-2"></span>
                       See all
                     </router-link>
                   </div>
@@ -113,7 +115,7 @@
       </div>
 
       <!-- Modals -->
-      <base-modal-vue id="donation" :show="showDonationModal" @close="showDonationModal = false">
+      <base-modal-vue id="donation" :show="showDonationModal" title="Make a donation" @close="showDonationModal = false">
         <div class="row">
           <div class="col-12">
             <div class="alert alert-info">
@@ -125,10 +127,10 @@
             <div class="col-12">
               <input type="number" min="0" max="100" step="5" class="form-control">
 
-              <div class="form-check my-2">
-                <input id="flexCheckChecked" class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label" for="flexCheckChecked">
-                  Super donate
+              <div class="form-check form-switch my-2">
+                <input id="super-donation" class="form-check-input" type="checkbox" role="switch" />
+                <label class="form-check-label" for="super-donation">
+                  Make a super donation
                 </label>
               </div>
 
@@ -139,18 +141,27 @@
               </div>
 
               <div class="alert alert-danger mt-2">
-                You have no payment system on your account. Add a card etc
+                You have no payment system on your account. Add a card to
+                your account before doing so
               </div>
 
-              <div class="form-check my-2">
-                <input id="flexCheckChecked" class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label" for="flexCheckChecked">
+              <div class="form-check form-switch my-2">
+                <input id="acceptance-text" class="form-check-input" type="checkbox" role="switch" />
+                <label class="form-check-label" for="acceptance-text">
                   I consent to x an y and agree to donate $15 to this channel
                 </label>
               </div>
             </div>
           </div>
         </div>
+
+        <template #footer>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">
+              Send - $15
+            </button>
+          </div>
+        </template>
       </base-modal-vue>
 
       <base-modal-vue id="store" :show="showStore" :scrollable="true" size="xl" @close="showStore = false">
@@ -188,13 +199,17 @@
         <div class="row">
           <div class="col-12">
             <div class="alert alert-danger">
-              You have no gifts yet
+              You have purchased no gifts yet. You can buy
+              gifts here before pursuing.
             </div>
+
             <div class="list-group">
               <a v-for="i in 10" :key="i" href class="list-group-item d-flex justify-content-between" @click.prevent>
                 <span>Gift {{ i }}</span>
                 <div class="btn-group shadow-none">
-                  <button type="button" class="btn btn-sm btn-primary">Donate</button>
+                  <button type="button" class="btn btn-sm btn-primary">
+                    Donate
+                  </button>
                 </div>
               </a>
             </div>
@@ -202,20 +217,36 @@
         </div>
       </base-modal-vue>
 
-      <base-modal-vue id="report" :show="showReport" :scrollable="true" size="sm" @close="showReport = false">
+      <base-modal-vue id="report" :show="showReport" :scrollable="true" size="sm" title="Report video" @close="showReport = false">
         <div class="row">
           <div class="col-12">
             <base-accordion-vue :items="reports" />
           </div>
 
+          <div class="col-12 my-4">
+            <p class="mb-1">Flag the section you believe to be problematic</p>
+            <div class="d-flex justify-content-between">
+              <input type="text" class="form-control p-2">
+              <input type="text" class="form-control p-2 ms-2">
+            </div>
+          </div>
+
           <div class="col-12">
-            <p class="fw-light m-0">
+            <p class="fw-light m-0 alert alert-info">
               Flagged videos and users are reviewed by YouTube staff 24 hours a day, 7 days a week to determine whether
               they violate Community Guidelines. Accounts are penalized for Community Guidelines violations, and serious
               or repeated violations can lead to account termination. Report channel
             </p>
           </div>
         </div>
+
+        <template #footer>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">
+              Send
+            </button>
+          </div>
+        </template>
       </base-modal-vue>
 
       <base-offcanvas-vue id="playlists" :show="showPlaylists" title="Playlists" position="end" @close="showPlaylists = false">
@@ -231,37 +262,163 @@
         </div>
       </base-offcanvas-vue>
 
-      <base-offcanvas-vue id="recommendation" :show="showRecommendationReport" title="Recommendation" position="end" @close="showRecommendationReport = false">
+      <base-offcanvas-vue id="recommendation" :show="showRecommendationReport" title="Recommendation" position="end" @close="showRecommendationReport=false">
         <div class="row">
           <div class="col-12">
             <div class="alert alert-warning">
-              You can use this tool to signal that video was not properly categorized
-              and therefore can be source pollution for search results
+              You can use this tool to signal that this video was not properly categorized
+              by the creator and therefore does not correspond to a result you expected
             </div>
 
-            <div class="form-check">
-              <input id="flexCheckChecked" class="form-check-input" type="checkbox">
-              <label class="form-check-label" for="flexCheckChecked">
-                Indicate that the video was not properly categorized
-              </label>
+            <div class="list-group my-3">
+              <div class="list-group-item">
+                <div class="form-check form-switch">
+                  <input id="wrong-category-alert" class="form-check-input" type="checkbox" role="switch" />
+                  <label class="form-check-label" for="wrong-category-alert">
+                    This video is not in the proper category
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Select correct label</option>
+            <select class="form-select" aria-label="Expected category">
+              <option selected>Expected category</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </select>
 
-            <div class="form-check mt-4">
-              <input id="flexCheckChecked" class="form-check-input" type="checkbox">
-              <label class="form-check-label" for="flexCheckChecked">
-                Block channel from future recommendations
-              </label>
+            <div class="list-group mt-3">
+              <div class="list-group-item">
+                <div class="form-check form-switch">
+                  <input id="block-channel" class="form-check-input" type="checkbox" role="switch" />
+                  <label class="form-check-label" for="block-channel">
+                    Block this channel
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <template #footer>
+          <div class="offcanvas-footer">
+            <button type="button" class="btn btn-outline-danger" @click="showRecommendationReport=false">
+              Close
+            </button>
+
+            <button type="button" class="btn btn-primary ms-2">
+              Save
+            </button>
+          </div>
+        </template>
       </base-offcanvas-vue>
+    </section>
+
+    <hr class="my-5">
+
+    <h1>Page set algorithm</h1>
+    <section id="algorithm">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12 col-md-8">
+            <div class="card">
+              <div class="card-body">
+                <p class="alert alert-info">
+                  If no options are selected, YouTube will use your viewing history
+                  to recommend the most relevant videos
+                </p>
+                <div class="form-check form-switch my-4">
+                  <input id="recommendation-preference" class="form-check-input" type="checkbox" role="switch" />
+                  <label class="form-check-label" for="recommendation-preference">
+                    Let YouTube decide which are the most relevant videos for me
+                  </label>
+                </div>
+
+                <div class="card shadow-none">
+                  <div class="card-body">
+                    <label for="categories">Select the categories for which you will have the most interest</label>
+                    <input type="text" class="form-control p-2" placeholder="Categories" name="categories">
+                    <input type="text" class="form-control p-2 my-2" placeholder="Subcategories" name="subcategories" disabled>
+
+                    <div class="list-group list-group-flush">
+                      <div class="list-group-item ps-0">
+                        <div class="form-check form-switch">
+                          <input id="recommend-from-current" class="form-check-input" type="checkbox" role="switch" />
+                          <label class="form-check-label" for="recommend-from-current">
+                            Let YouTube recommend the most popular videos from what
+                            users have also watched based on the video that you
+                            are currently viewing
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <h3>Preferred categories</h3>
+              </div>
+
+              <div class="card-body">
+                <h4 class="fw-bold h5 mb-1">Sports</h4>
+                <div class="list-group my-3">
+                  <a class="list-group-item list-group-item-action d-flex justify-content-between">
+                    <span>WNBA</span>
+                    <button type="button" class="btn btn-sm btn-rounded btn-dark shadow-none">
+                      <span class="mdi mdi-delete"></span>
+                    </button>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card-footer text-right">
+                <button type="button" class="btn btn-danger">
+                  <span class="mdi mdi-delete-sweep"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-5">
+
+    <h1>Page user's channel</h1>
+    <section id="channel" class="bg-dark">
+      <div class="shadow channel-header">
+        <base-carousel />
+
+        <div class="channel-actions">
+          <div class="d-flex justify-content-left align-items-center">
+            <h3 class="display-6 fw-bold text-light me-3">My channel name</h3>
+            <font-awesome-icon icon="fa-solid fa-circle-check" class="text-white" />
+          </div>
+          <p class="fw-light text-light">310 vidéos</p>
+          <button type="button" class="btn btn-primary">
+            Subscribe
+          </button>
+        </div>
+      </div>
+
+      <div class="container">
+        <section class="row p-4">
+          <!-- TODO: This will be a component in order to iterate
+          over each video sections -->
+          <div v-for="i in 2" :key="i" class="col-12 my-2">
+            <div class="fw-bold h5 text-white mt-4"><span class="text-primary">Prime Amazon</span> Originals and Exclusives <a href>See more</a></div>
+            <div class="row">
+              <video-card-vue v-for="i in 4" :key="i" class="gx-1" />
+            </div>
+          </div>
+        </section>
+      </div>
     </section>
   </dashboard-layout-vue>
 </template>
@@ -273,6 +430,7 @@ import video from '@/data/video'
 import { ref, provide } from 'vue'
 
 // import BaseDropGroupVue from '@/layouts/BaseDropGroup.vue'
+import BaseCarousel from '@/layouts/BaseCarousel.vue'
 import BaseVideoPlayerVue from '../layouts/BaseVideoPlayer.vue'
 import BaseScrollbarVue from '../layouts/BaseScrollbar.vue'
 import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
@@ -283,11 +441,14 @@ import CommentSection from '@/components/youtube/CommentSection.vue'
 import DashboardLayoutVue from '../layouts/DashboardLayout.vue'
 import RecommendationDrawerVue from '../components/youtube/RecommendationDrawer.vue'
 import ListRecommendationsVue from '@/components/youtube/ListRecommendations.vue'
+import VideoCardVue from '@/components/youtube/channel/VideoCard.vue'
+
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 export default {
   name: 'YoutubeTemplate',
   components: {
+    BaseCarousel,
     BaseVideoPlayerVue,
     BaseDropdownButtonVue,
     BaseModalVue,
@@ -298,8 +459,9 @@ export default {
     DashboardLayoutVue,
     CommentSection,
     ListRecommendationsVue,
-    RecommendationDrawerVue
-  },
+    RecommendationDrawerVue,
+    VideoCardVue
+},
   setup () {
     const isLoading = ref(true)
     const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -329,7 +491,10 @@ export default {
     upperLimit: 20,
     totalLimit: 20,
     recommendationLimit: 5,
-    cachedRecommendations: []
+    cachedRecommendations: [],
+
+    // Channel
+    expandCard: false
   }),
   computed: {
     recommendations () {
@@ -427,5 +592,17 @@ export default {
 <style scoped>
 .fs-7 {
   font-size: .85rem;
+}
+
+.channel-header {
+  position: relative;
+}
+
+.channel-actions {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  padding: 1rem;
 }
 </style>
