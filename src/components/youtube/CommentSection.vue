@@ -147,7 +147,6 @@ export default {
     },
     appendEmoji (emoji) {
       this.newComment = this.newComment + emoji
-      this.showEmojis = false
     },
     setSort (params) {
       this.sortMethod = params[1]

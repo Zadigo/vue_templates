@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div v-if="show_arrow" class="bottom_arrow"></div>
+    <div v-if="showArrow" class="bottom_arrow"></div>
   </div>
 </template>
 
@@ -27,8 +27,7 @@
 import data from './emojis-data.json'
 export default {
   props: {
-    show_arrow:
-    {
+    showArrow: {
       type: Boolean,
       required: false,
       default: true
