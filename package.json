@@ -91,7 +91,6 @@
       "vue/v-on-style": "warn",
       "vue/component-definition-name-casing": ["error", "PascalCase"],
       "vue/html-closing-bracket-spacing": "warn",
-      "vue/no-v-html": "error",
       "vue/block-spacing": "error",
       "vue/no-sparse-arrays": "error",
       "vue/no-useless-concat": "warn",

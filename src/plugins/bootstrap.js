@@ -45,7 +45,7 @@ import '../assets/vuebootstrap.css'
 // useMedia('(prefers-color-scheme: light)')
 // const isTablet = useMedia('(min-width: 640px)');
 
-const useEventListener = function (target, event, handler) {
+function useEventListener (target, event, handler) {
     if (isRef(target)) {
         watch(target, (value, oldValue) => {
             oldValue?.removeEventListener(event, handler)
@@ -61,8 +61,8 @@ const useEventListener = function (target, event, handler) {
         unref(target)?.removeEventListener(event, handler);
     })
 }
-
-const useOnClickOutside = function (rootEl, callback) {
+ 
+function useOnClickOutside (rootEl, callback) {
     console.log(rootEl)
     // `mousedown` or `mouseup` is better than `click` here because it doesn't bubble up like `click`
     // if you've used `click` here, the callback will be run immediatly.
@@ -77,7 +77,7 @@ const useOnClickOutside = function (rootEl, callback) {
     })
 }
 
-const useDropdown = function () {
+function useDropdown () {
     const items = ref([])
     const show = ref(false)
     function toggleDropdown () {

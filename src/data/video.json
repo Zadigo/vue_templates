@@ -7,7 +7,8 @@
     "channel": {
         "name": "Malika Andrews - ESPN",
         "subscribers": "324K",
-        "subscribed": false
+        "subscribed": false,
+        "notifications": true
     },
     "comments": {
         "count": "6,909"

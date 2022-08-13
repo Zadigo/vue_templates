@@ -18,6 +18,13 @@
               she realized she'd been called out on live TV.
             </p>
 
+            <!-- NOTE: Make this a reusable component
+            for all comment/reply cards -->
+            <div class="my-3">
+              <div class="badge badge-danger me-1">@creator</div>
+              <div class="badge badge-light">Liked by @creator</div>
+            </div>
+
             <div class="btn-group shadow-none">
               <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeReply"><span class="mdi mdi-thumb-up me-2"></span>12.3k</button>
               <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeReply"><span class="mdi mdi-thumb-down me-2"></span>26</button>

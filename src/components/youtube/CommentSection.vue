@@ -50,9 +50,14 @@
             </div>
           </div> -->
 
+          <!-- Pinned Comments -->
+          <transition-group id="pinned-comments" tag="div" name="opacity">
+            <comment-card v-for="comment in pinnedComments" :key="comment.id" :comment="comment" />
+          </transition-group>
+
           <!-- Comments -->
           <transition-group id="comments" tag="div" name="opacity">
-            <comment-card v-for="comment in comments" :key="comment.id" :comment="comment" />
+            <comment-card v-for="comment in unpinnedComments" :key="comment.id" :comment="comment" />
           </transition-group>
         </div>
       </div>
@@ -74,6 +79,7 @@ import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
 import CommentCard from './CommentCard.vue'
 
 import { inject } from 'vue'
+import _ from 'lodash'
 import dayjs from '../../plugins/dayjs'
 
 export default {
@@ -119,6 +125,14 @@ export default {
     // }
     return this.comments
   },
+  computed: {
+    unpinnedComments () {
+      return _.filter(this.comments, ['is_pinned', false])
+    },
+    pinnedComments () {
+      return _.filter(this.comments, ['is_pinned', true])
+    }
+  },
   mounted () {
     this.getComments()
   },
@@ -134,6 +148,7 @@ export default {
           const createdOn = d.add(dayjs.duration({ days: Math.random() * (1, 30) + 1 }))
           this.comments.push({
             id: i,
+            is_pinned: false,
             replies: [{ id: 1 }, { id: 2 }],
             user: {
               username: 'Lucie Paul'
@@ -141,6 +156,7 @@ export default {
             created_on: createdOn.format('YYYY-MM-DD')
           })
         }
+        this.comments[0].is_pinned = true
         this.isLoading = false
         this.isLoadingRecommendations = false
       }, 1000)

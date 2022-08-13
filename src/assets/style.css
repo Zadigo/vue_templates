@@ -280,3 +280,8 @@ html {
     background-color: hsla(0, 0%, 100%, 0);
     border-top: 2px solid #f5f5f5;
 }
+
+
+.z-index-modal {
+    z-index: 1055;
+}

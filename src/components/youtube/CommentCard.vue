@@ -7,9 +7,10 @@
         </div>
 
         <div clas="ms-1">
-          <div class="d-flex justify-content-left">
+          <div class="d-flex justify-content-left align-items-center">
             <span class="fw-bold me-2">{{ comment.user.username }}</span>
             <span class="text-muted">3 weeks ago</span>
+            <font-awesome-icon v-if="comment.is_pinned" icon="fa-solid fa-thumbtack" class="text-warning mx-3" />
           </div>
 
           <p class="card-text">
@@ -19,6 +20,13 @@
             shoes“. He roasted me but it was all lighthearted and fun. I can totally relate to the
             sisters
           </p>
+
+          <!-- NOTE: Make this a reusable component
+          for all comment/reply cards -->
+          <div class="my-3">
+            <div class="badge badge-danger me-1">@creator</div>
+            <div class="badge badge-light">Liked by @creator</div>
+          </div>
 
           <div class="btn-group shadow-none">
             <button type="button" class="btn btn-primary btn-sm shadow-none" @click="likeComment"><span class="mdi mdi-thumb-up me-2"></span>12.3k</button>
