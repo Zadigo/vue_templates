@@ -60,9 +60,10 @@
                     <div class="col-10">
                       <router-link :to="{ name: 'templates_view' }" class="fw-bold mb-0">
                         {{ currentVideo.channel.name }}
+                        <font-awesome-icon v-if="currentVideo.channel.verified" icon="fa-solid fa-circle-check" class="text-primary mx-1" />
                       </router-link>
 
-                      <p class="text-muted fw-light m-0">{{ currentVideo.channel.subscribers }} subscribers</p>
+                      <p class="text-muted fw-light m-0">{{ formatSubscribers(currentVideo.channel.subscribers) }} subscribers</p>
 
                       <base-scrollbar-vue :items="currentVideo.categories" class="my-3" />
 
@@ -552,6 +553,7 @@ import VideoCardVue from '@/components/youtube/channel/VideoCard.vue'
 
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import ShortVideoCard from '@/components/youtube/ShortVideoCard.vue'
+import useFormatting from '@/composables/formatting'
 
 export default {
   name: 'YoutubeTemplate',
@@ -575,7 +577,11 @@ export default {
     const isLoading = ref(true)
     const breakpoints = useBreakpoints(breakpointsTailwind)
     provide('isLoading', isLoading)
+
+    const { formatSubscribers } = useFormatting()
+
     return {
+      formatSubscribers,
       breakpoints,
       reports
     }
