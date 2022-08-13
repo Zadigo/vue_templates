@@ -285,3 +285,19 @@ html {
 .z-index-modal {
     z-index: 1055;
 }
+
+
+.opacity-enter-active,
+.opacity-leave-active {
+    transition: all .3s ease;
+}
+
+.opacity-enter-from,
+.opacity-leave-to {
+    opacity: 0;
+}
+
+.opacity-enter-to,
+.opacity-leave-from {
+    opacity: 1;
+}

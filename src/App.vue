@@ -13,6 +13,7 @@ export default {
 
 <style>
 @import url('./assets/style.css');
+@import url('./assets/loading.css');
 
 * {
   font-family: 'Ubuntu', 'Roboto', sans-serif;

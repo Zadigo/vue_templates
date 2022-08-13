@@ -1,77 +1,118 @@
 <template>
-  <div class="video__container" @click="toggleVideoPlay" @mouseover="handleShowFunctions" @mouseleave="setTimeoutFunction">
-    <div v-if="spinner" class="spinner">
-      <!-- <v-progress-circular indeterminate color="var(--primary-color)"></v-progress-circular> -->
-      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
+  <!-- <div class="video-container" @click="playPause"> -->
+  <div class="video-container">
+    <!-- Spinner -->
+    <div v-if="isLoading" class="load-wrapp opacity-50">
+      <div class="load-2">
+        <span class="visually-hidden">Loading 2</span>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
       </div>
     </div>
 
-    <!-- Source -->
-    <video ref="videoPlayer" class="video__player" controlslist="nodownload" oncontextmenu="return false;" @loadedmetadata="updateVideoDetails" @timeupdate="updateVideoDetails" @waiting="spinner = true" @canplay="spinner = false">
-      <source :src="videoSrc" type="video/mp4" />
+    <!-- Player -->
+    <video ref="videoPlayer" class="video-player" controlist="nodownload" oncontextmenu="return false;" @loadmetadata="getVideoDetails" @timeupdate="getVideoDetails" @waiting="isLoading = true" @canplay="isLoading = false">
+      <source :src="videoSource" type="video/mp4" />
     </video>
 
     <!-- Controls -->
-    <div v-if="showProgressBar" class="video__controls">
-      <div class="video__controls__progress__container" :style="`margin-bottom:${showFunctions ? '20px' : '0'}`">
-        <div ref="videoPlayerProgress" class="video__controls__progress" @click.prevent.stop="handleProgressClick">
-          <div class="video__controls__progress__track" :style="{ width: progress + '%' }">
-            <div :style="{ left: progress + '%' }" class="video__controls__progress__track--watching" draggable @drag.stop.prevent="handleTrackOnDrag"></div>
+    <div class="video-controls">
+      <div class="video-control-progress-container">
+        <div ref="videoProgress" class="progress" @click.stop.prevent="progressClick($event)">
+          <div :style="{ width: `${progress}%` }" class="current">
+            <!-- <div :style="{ left: `${progress}%` }" class="ball"></div> -->
           </div>
         </div>
       </div>
 
-      <div v-if="showFunctions" class="video__controls__functions">
-        <div>
-          <button type="button" class="video__controls__button btn btn-light" @click.stop="toggleVideoPlay">
-            <!-- <v-icon v-if="isPlaying" style="color: #fff">mdi-pause</v-icon> -->
-            <!-- <v-icon v-else style="color: #fff">mdi-play</v-icon> -->
-            <span v-if="isPlaying" class="mdi mdi-pause"></span>
-            <span v-else class="mdi mdi-play"></span>
+      <div class="video-control-actions">
+        <div class="d-flex justify-content-left align-items-center">
+          <button type="button" class="btn btn-light shadow-none" @click.stop="playPause">
+            <font-awesome-icon v-if="!isPlaying" icon="fa-solid fa-play" />
+            <font-awesome-icon v-else icon="fa-solid fa-pause" />
           </button>
 
-          <div class="video__controls__duration">
-            <span>{{ currentTimeFormatted }}</span>/
+          <div class="video-control-duration mx-3">
+            <span>{{ currentTimeFormatted }}</span>
             <span>{{ durationFormatted }}</span>
           </div>
         </div>
 
-        <div class="video__controls__configs">
-          <div class="video__controls__volume">
-            <button ref="volumeTrack" type="button" class="btn btn-light" @click.stop="volumeOptionsOpen = !volumeOptionsOpen">
-              <!-- <v-icon v-if="volume < 0.1" style="color: #fff">mdi-volume-low</v-icon>
-              <v-icon v-else-if="volume >= 0.1 && volume < 0.8" style="color: #fff">mdi-volume-medium</v-icon>
-              <v-icon v-else-if="volume >= 0.8" style="color: #fff">mdi-volume-high</v-icon> -->
-              <span v-if="volume < 0.1" class="mdi mdi-volume-low"></span>
-              <span v-else-if="volume >= 0.1 && volume < 0.8" class="mdi mdi-volume-medium"></span>
-              <span v-else-if="volume >= 0.8" class="mdi mdi-volume-high"></span>
+        <div class="video-control-configuration-center d-flex justify-content-end">
+          <div class="video-control-settings">
+            <button type="button" class="btn btn-light" @click="showVideoSettings = !showVideoSettings">
+              <font-awesome-icon icon="fa-solid fa-cog" />
             </button>
 
-            <div v-if="volumeOptionsOpen" ref="videoVolumeTrack" class="video__controls__volume--options" @click.stop="handleVolumeClick">
-              <div class="video__controls__volume--track">
-                <div class="video__controls__volume--track-current" :style="{ height: `${volume * 100}%` }" />
+            <transition name="opacity">
+              <div v-if="showVideoSettings" class="picker">
+                <div class="row p-1">
+                  <div class="col-6 justify-content-start">
+                    <button v-if="showSpeedSettings || showQualitySettings" type="button" class="btn btn-light btn-sm" @click="showSpeedSettings = false, showQualitySettings = false">
+                      <font-awesome-icon icon="fa-solid fa-arrow-left" />
+                    </button>
+                  </div>
 
-                <div class="video__controls__volume--track-ball" :style="{ bottom: `Calc(${volume * 100}% - 0.25rem)` }" />
+                  <div class="col-6 d-flex justify-content-end" @click="showVideoSettings = false">
+                    <button type="button" class="btn btn-light btn-sm">
+                      <font-awesome-icon icon="fa-solid fa-close" />
+                    </button>
+                  </div>
+                </div>
+
+                <div v-if="!showSpeedSettings && !showQualitySettings" :key="0" class="list-group">
+                  <a href class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent text-light border-0" @click.prevent="showSpeedSettings = true">
+                    <span>
+                      <font-awesome-icon icon="fa-solid fa-gauge" class="me-2" />
+                      Speed
+                    </span>
+                    <span>
+                      {{ speed }}
+                      <font-awesome-icon icon="fa-solid fa-arrow-right" class="ms-2" />
+                    </span>
+                  </a>
+
+                  <a href class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent text-light border-0" @click.prevent="showQualitySettings = true">
+                    <span>
+                      <font-awesome-icon icon="fa-solid fa-gauge" class="me-2" />
+                      Quality
+                    </span>
+
+                    <span>
+                      {{ quality }}
+                      <font-awesome-icon icon="fa-solid fa-arrow-right" class="ms-2" />
+                    </span>
+                  </a>
+                </div>
+
+                <div v-if="showSpeedSettings" :key="1" class="list-group">
+                  <a v-for="speed in speeds" :key="speed" href class="list-group-item list-group-item-action bg-transparent text-light" @click.prevent="speedClick(speed)">
+                    {{ `${speed}x` }}
+                  </a>
+                </div>
+
+                <div v-if="showQualitySettings" :key="3" class="list-group">
+                  <a href type="button" class="list-group-item">1080p</a>
+                </div>
+                <!-- <transition-group name="opacity" mode="out-in">
+                </transition-group> -->
               </div>
-            </div>
+            </transition>
           </div>
 
-          <div class="video__controls__speed">
-            <button ref="speed" type="button" class="btn btn-light" @click.stop="speedOpen = !speedOpen">
-              <span>
-                <!-- <v-icon style="color: #fff">mdi-speedometer</v-icon> -->
-                <span class="mdi mdi-speedometer"></span>
-              </span>
+          <div class="video-control-volume ms-2">
+            <button ref="volume" type="button" class="btn btn-light">
+              <font-awesome-icon v-if="volume < 0.1" icon="fa-solid fa-volume-low" />
+              <font-awesome-icon v-else-if="volume >= 0.1 && volume <= 0.8" icon="fa-solid fa-volume-up" />
+              <font-awesome-icon v-else-if="volume > 0.8" icon="fa-solid fa-volume-high" />
             </button>
 
-            <div v-if="speedOpen" class="video__controls__speed__options">
-              <div :class="{ active: !!(speed === '2x') }" @click.stop="handleVideoPlaybackRate(2.0)">2x</div>
-              <div :class="{ active: !!(speed === '1.75x') }" @click.stop="handleVideoPlaybackRate(1.75)">1.75x</div>
-              <div :class="{ active: !!(speed === '1.5x') }" @click.stop="handleVideoPlaybackRate(1.5)">1.5x</div>
-              <div :class="{ active: !!(speed === '1x') }" @click.stop="handleVideoPlaybackRate(1.0)">1x</div>
-              <div :class="{ active: !!(speed === '0.75x') }" @click.stop="handleVideoPlaybackRate(0.75)">0.75x</div>
-              <div :class="{ active: !!(speed === '0.5x') }" @click.stop="handleVideoPlaybackRate(0.5)">0.5x</div>
+            <div class="picker">
+              <div class="tracker">
+                <div :style="{ height: `30%` }" class="track"></div>
+                <div :style="{ bottom: `calc(30%) - 0.5rem` }" class="ball"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -81,6 +122,8 @@
 </template>
 
 <script>
+import { onKeyStroke } from '@vueuse/core'
+
 export default {
   name: 'BaseVideoPlayer',
   props: {
@@ -89,338 +132,303 @@ export default {
       required: true,
     },
   },
-  emits: ['play', 'pause', 'player-ready', 'dragged', 'progress'],
-  data: () => ({
-    volumeOptionsOpen: false,
-    volume: 0.3,
-    isPlaying: false,
-    duration: 0,
-    currentTime: 0,
-    speed: "1x",
-    speedOpen: false,
-    videoSrc: null,
-    spinner: true,
-    showFunctions: false,
-    timeout: null,
-    showProgressBar: true
-  }),
-  computed: {
-    currentTimeFormatted () {
-      return this.formatTime(this.currentTime);
-    },
+  emits: {
+    play: () => true,
+    pause: () => true,
+    'time-update': () => true
+  },
+  data () {
+    return {
+      videoSource: null,
+      isPlaying: false,
+      isLoading: true,
+      duration: 0,
+      currentTime: 0,
+      speed: '1x',
+      quality: '1080p',
+      volume: 0.3,
+      speeds: [2, 1.75, 1.5, 1, 0.75, 0.5],
 
-    durationFormatted () {
-      return this.formatTime(this.duration);
-    },
-    
-    progress () {
-      return (this.currentTime / this.duration) * 100;
+      showVideoSettings: false,
+      showSpeedSettings: false,
+      showQualitySettings: false
     }
   },
-  watch: {
-    videoUrl (val) {
-      if (!!val && val !== this.videoSrc) {
-        this.videoSrc = val;
-        this.$forceUpdate();
-      }
+  computed: {
+    currentTimeFormatted () {
+      return this.formatTime(this.currentTime)
     },
+    durationFormatted () {
+      return this.formatTime(this.duration)
+    },
+    progress () {
+      return (this.currentTime / this.duration) * 100
+    }
   },
   mounted () {
-    this.updateVideoDetails()
-    this.videoSrc = this.videoUrl
+    this.getVideoDetails()
+    this.videoSource = this.videoUrl
+
+    const self = this
+    onKeyStroke(['p', ' ', 'k'], function (e) {
+      e.preventDefault()
+      self.playPause()
+    })
+    onKeyStroke('ArrowUp', function (e) {
+      e.preventDefault()
+      let volume = self.volume += 0.1
+      if (volume >= 1) {
+        volume = 1
+      }
+      self.volume = volume
+      self.$refs.videoPlayer.volume = volume
+    })
+    onKeyStroke('ArrowDown', function (e) {
+      e.preventDefault()
+      let volume = self.volume -= 0.1
+      if (volume <= 0) {
+        volume = 0
+      }
+      self.volume = volume
+      self.$refs.videoPlayer.volume = volume
+    })
+    onKeyStroke(['ArrowLeft', 'j'], function (e) {
+      e.preventDefault()
+    })
+    onKeyStroke(['ArrowRight', 'l'], function (e) {
+      e.preventDefault()
+    })
   },
   methods: {
-    toggleVideoPlay () {
+    playPause () {
       if (this.$refs?.videoPlayer.paused) {
         this.isPlaying = true
         this.$refs.videoPlayer.play()
-
         this.$emit('play')
       } else {
-        this.isPlaying = false
+        this.isPlaying = true
         this.$refs.videoPlayer.pause()
-        
-        this.$emit('pause', this.progress)
+        this.$emit('pause', [this.progress, this.formatTime(this.currentTime)])
       }
     },
-    handleVolumeClick (event) {
-      const volume = this.$refs.videoVolumeTrack
-      const currentVolume = (volume.getBoundingClientRect().top - event.pageY + volume.offsetHeight) / 100
-
-      if (currentVolume > 1) {
-        this.volume = currentVolume
-        this.$refs.videoPlayer.volume = 1
-      } else if (currentVolume < 0.1) {
-        this.volume = 0
-        this.$refs.videoPlayer.volume = 0
-      } else {
-        this.volume = currentVolume
-        this.$refs.videoPlayer.volume = currentVolume
-      }
-    },
-    updateVideoDetails () {
-      if (this.$refs.videoPlayer) {
-        if (!Number.isNaN(this.$refs.videoPlayer.duration)) {
-          this.duration = this.$refs.videoPlayer.duration
-        }
-
-        this.currentTime = this.$refs.videoPlayer.currentTime
-
-        if (this.$refs?.videoPlayer.paused) {
-          this.isPlaying = false
-          this.$refs.videoPlayer.pause()
-        } else {
-          this.isPlaying = true
-          this.$refs.videoPlayer.play()
-        }
-
-        // this.$emit('player-ready')
-      }
-    },
-    formatTime (num) {
-      let hours = Math.floor(num / 3600)
-      let minutes = Math.floor((num % 3600) / 60)
-      let seconds = Math.floor(num % 60)
-
-      hours = hours < 10 ? "0" + hours : hours
-      minutes = minutes < 10 ? "0" + minutes : minutes
-      seconds = seconds < 10 ? "0" + seconds : seconds
-
-      if (hours > 0) {
-        return hours + ":" + minutes + ":" + seconds;
-      }
-      return minutes + ":" + seconds;
-    },
-    handleProgressClick (event) {
-      const currentTime = (this.duration * event.offsetX) / this.$refs.videoPlayerProgress.offsetWidth
+    progressClick (event) {
+      const currentTime = (this.duration * event.offsetX) / this.$refs.videoProgress.offsetWidth
       this.currentTime = currentTime
       this.$refs.videoPlayer.currentTime = currentTime
-
-      this.$emit('progress', currentTime)
+      this.$emit('time-update', currentTime)
     },
-    handleTrackOnDrag (event) {
-      if (event.x !== 0 && event.y !== 0) {
-        const track = this.$refs.videoPlayerProgress
+    speedClick (speed) {
+      this.speed = `${speed}x`
+      this.$refs.videoPlayer.playbackRate = speed
+      this.showSpeedSettings = false
+    },
+    getVideoDetails () {
+      if (this.$refs?.videoPlayer) {
+        const player = this.$refs.videoPlayer
 
-        if (track) {
-          const leftMovement = event.pageX - track.getBoundingClientRect().left
-          let drag = 0
+        if (!Number.isNaN(player.duration)) {
+          this.duration = player.duration
+        }
 
-          drag = leftMovement
-          
-          if (leftMovement < 0) {
-            drag = 0
-          } else if (leftMovement > track.offsetWidth) {
-            drag = track.offsetWidth
-          }
+        this.currentTime = player.currentTime
 
-          this.currentTime = this.duration * (drag / track.offsetWidth)
-          this.$refs.videoPlayer.currentTime = this.currentTime
-
-          this.$emit('dragged', this.currentTime)
+        if (player.paused) {
+          this.isPlaying = false
+          player.pause()
+        } else {
+          this.isPlaying = true
+          player.play()
         }
       }
     },
-    handleVideoPlaybackRate (speed) {
-      this.speed = `${speed}x`
-      this.$refs.videoPlayer.playbackRate = speed
-      if (this.speedOpen) {
-        this.speedOpen = false
+    formatTime (value) {
+      let hours = Math.floor(value / 3600)
+      let minutes = Math.floor((value % 3600) / 60)
+      let seconds = Math.floor(value % 60)
+
+      hours = hours < 10 ? '0' + hours : hours
+      minutes = minutes < 10 ? '0' + minutes : minutes
+      seconds = seconds < 10 ? '0' + seconds : seconds
+
+      if (hours > 0) {
+        return `${hours}:${minutes}:${seconds}`
       }
-    },
-    handleShowFunctions () {
-      this.showFunctions = true
-      this.showProgressBar = true
-    },
-    setTimeoutFunction () {
-      const self = this
 
-      setTimeout(() => {
-        self.showFunctions = false
-        self.speedOpen = false
-        self.volumeOptionsOpen = false
-      }, 6000)
-
-      setTimeout(() => {
-        self.showProgressBar = false
-      }, 10000)
+      return `${minutes}:${seconds}`
     }
   }
 }
 </script>
 
-<style>
-:root {
-  --primary-color: #41b883;
-  --control-background-color: rgba(45, 45, 45, 0.867);
-  --top-options: -145px;
-}
+<style scoped>
 
-.video__container {
+.video-container {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   cursor: pointer;
-  background: #000;
-  /* min-width: 600px; */
-  /* min-height: 340px; */
+  background: rgb(38, 38, 38);
   margin: 0 auto;
 }
 
-.video__player {
-  /* border-radius: 6px; */
+.video-player {
   width: 100%;
   height: 100%;
   touch-action: manipulation;
 }
 
-.spinner {
-  z-index: 2;
-  position: absolute;
-}
-
-.video__player source {
+.video-player source {
   height: 100%;
 }
 
-.video__controls {
+.video-controls {
   position: absolute;
-  bottom: 10px;
-  background: var(--control-background-color);
-  padding: 15px;
-  z-index: 2;
-  width: 100%;
+  bottom: 5%;
+  background: black;
+  padding: 1rem;
+  z-index: 10;
+  width: 80%;
   align-items: center;
   color: #fff;
-  border-radius: 6px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 20%), 0 4px 20px 0 rgb(0 0 0 / 10%);
+  z-index: 1055;
 }
 
-.video__controls__progress__container {
-  display: flex;
-  width: 100%;
-}
-
-.video__controls__functions {
+.video-control-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
 }
 
-.video__controls__functions>div {
-  display: flex;
-}
-
-.video__controls__functions .video__controls__configs {
-  display: flex;
-  justify-self: flex-end;
-}
-
-.video__controls__volume {
+.video-control-configuration .video-control-volume {
   position: relative;
 }
 
-.video__controls__volume--options {
-  position: absolute;
-  height: 100px;
-  padding: 5px 8px;
-  left: 5px;
-  top: var(--top-options);
-  background: var(--control-background-color);
-  border-radius: 0.25rem;
+/* .video-control-duration span {
+  margin: 0 3px;
+} */
+
+.video-control-duration span:first-child::after {
+  content: ":";
+  margin: 0 3px;
 }
 
-.video__controls__volume--track {
+.video-control-speed {
+  position: relative;
+  /* min-width: 60px; */
+  top: 0;
+}
+
+.video-control-speed .picker {
+  position: absolute;
+  left: -25%;
+  /* top: -740%; */
+  bottom: 180%;
+  background: rgb(38, 38, 38);
+  padding: .5rem;
+  border-radius: 0.5rem;
+}
+
+.video-control-progress-container {
+  display: flex;
+  width: 100%;
+}
+
+.video-control-progress-container .progress {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  background: rgb(38, 38, 38);
+  margin: 0 0 1rem;
+  height: .25rem;
+  width: 100%;
+}
+
+.video-control-progress-container .current {
+  display: flex;
+  background: #dc3545;
+  /* transition: width 0.2ms; */
+  transition: width ease-in-out .5s;
+  height: .25rem;
+  /* border-radius: 6px; */
+  /* background: royalblue; */
+}
+
+.video-control-progress-container .ball {
+  position: absolute;
+  z-index: 99;
+  left: 0;
+  bottom: -0.5rem;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 1rem;
+  background: #fff;
+  /* border: 1px solid #000; */
+}
+
+.video-control-configuration-center {
+}
+
+.video-control-settings {
+  position: relative;
+}
+
+.video-control-settings .picker {
+  position: absolute;
+  transition: height .5s ease;
+  bottom: 80px;
+  right: -30%;
+  width: 300px;
+  background: rgb(38, 38, 38);
+  border-radius: .5rem;
+  padding: .5rem;
+  z-index: 100;
+}
+
+.video-control-volume {
+  position: relative;
+}
+
+.video-control-volume .picker {
+  position: absolute;
+  height: 100px;
+  padding: 1rem;
+  left: 20%;
+  top: -350%;
+  background: rgb(38, 38, 38);
+  border-radius: 0.5rem;
+}
+
+.video-control-volume .picker .tracker {
   position: relative;
   height: 100%;
   width: 4px;
-  border-radius: 6px;
-  background-color: #8c8c8c;
+  border-radius: 4px;
+  background-color: #dc3545;
 }
 
-.video__controls__volume--track-current {
-  background-color: var(--primary-color);
+.video-control-volume .picker .current {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 4px;
+  background-color: #fff;
 }
 
-.video__controls__volume--track-ball {
-  width: 20px;
-  height: 0.9375rem;
-  border-radius: 13px;
+.video-control-volume .picker .ball {
   position: absolute;
   background-color: #fff;
-  border: 0.125rem solid #222;
-  left: -7px;
+  left: -8px;
+  width: 20px;
+  height: 10px;
+  border-radius: 13px;
 }
 
-.video__controls__duration {
-  justify-self: flex-end;
-  margin: 3px;
-}
-
-.video__controls__duration span {
-  margin: 0 3px;
-}
-
-.video__controls__progress {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  margin: 0 0.45rem;
-  background: #000;
-  height: 0.25rem;
-  position: relative;
-}
-
-.video__controls__progress__track {
-  background: var(--primary-color);
-  transition: width 0.2ms;
-  display: flex;
-  height: 0.25rem;
-  border-radius: 6px;
-}
-
-.video__controls__progress__track--watching {
-  height: 1.3rem;
-  width: 0.5rem;
-  border-radius: 20px;
-  background: #fff;
-  border: 1px solid #000;
+.load-wrapp {
   position: absolute;
-  left: 0;
-  bottom: -0.5rem;
-}
-
-.video__controls__speed {
-  position: relative;
-  min-width: 60px;
-  padding: 0px 15px;
-  top: 0;
-}
-
-.video__controls__speed__options {
-  position: absolute;
-  left: 0;
-  top: -220px;
-  background: var(--control-background-color);
-  border-radius: 0.25rem;
-}
-
-.video__controls__speed__options .active {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.video__controls__speed__options div {
-  padding: 5px;
-}
-
-.video__controls__speed__options div:hover {
-  background: rgba(255, 255, 255, 0.35);
-  padding: 5px;
-  color: #000;
+  z-index: 3;
 }
 </style>
