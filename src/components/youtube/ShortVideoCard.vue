@@ -20,7 +20,7 @@
               <p class="fw-light m-0">Camille Mbaye</p>
             </div>
 
-            <p v-html="detectHashtags('the bloody AUDACITY of some people 🙄😂 #something #another #google #dosomething')" class="fs-light"></p>
+            <p class="fs-light" v-html="detectHashtags('the bloody AUDACITY of some people 🙄😂 #something #another #google #dosomething')"></p>
 
             <!-- TODO: Make this a reusable component -->
             <div v-if="showUserInfo" class="card position-absolute w-50 z-index-modal">
