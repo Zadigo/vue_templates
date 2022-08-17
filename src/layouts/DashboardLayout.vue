@@ -48,7 +48,7 @@
 
     <!-- Main -->
     <main>
-      <div class="container pt-4">
+      <div :class="bodyClasses" class="container pt-4">
         <slot></slot>
       </div>
     </main>
@@ -82,6 +82,12 @@ export default {
   name: 'DashboardLayout',
   components: {
     BaseFooterVue
+  },
+  props: {
+    bodyClasses: {
+      type: String,
+      required: false
+    }
   },
   setup () {
     const target = ref(null)
