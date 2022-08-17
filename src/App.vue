@@ -3,8 +3,13 @@
 </template>
 
 <script>
+// import { useUrls, loadView } from './composables/utils'
+
 export default {
-  name: 'App'
+  name: 'App',
+  setup () {
+    // const { rebuildPath } = useUrls()
+  }
   // mounted () {
   //   this.$session.create('something', 1)
   // }
