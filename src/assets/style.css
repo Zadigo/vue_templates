@@ -301,3 +301,7 @@ html {
 .opacity-leave-from {
     opacity: 1;
 }
+
+.opacity-move {
+    transition: all .3s ease;
+}

@@ -20,6 +20,10 @@
               <span class="mdi mdi-spotify me-3"></span>
               <span>Spotify</span>
             </router-link>
+            <router-link :to="{ name: 'game_view' }" class="list-group-item list-group-item-action py-2 ripple">
+              <span class="mdi mdi-game me-3"></span>
+              <span>Game</span>
+            </router-link>
           </div>
         </div>
       </nav>

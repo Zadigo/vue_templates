@@ -22,6 +22,11 @@ const routes = [
         component: () => import('../views/SpotifyView.vue')
     },
     {
+        path: '/game',
+        name: 'game_view',
+        component: () => import('../views/GameView.vue')
+    },
+    {
         path: '/test',
         name: 'test_view',
         component: () => import('../views/TestView.vue')
