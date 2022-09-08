@@ -17,6 +17,10 @@ export function loadComponent (name) {
   return () => import(`@/components/${name}.vue`)
 }
 
+export function asyncTimeout (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export function useUtilities () {
   function hasNull (items) {
     let itemsValues = []
