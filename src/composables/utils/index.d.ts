@@ -13,6 +13,8 @@ declare function loadView (name: string): Promise<any>
 declare function loadLayout (name: string): Promise<any>
 /** Load component from "components" folder */ 
 declare function loadComponent (name: string): Promise<any>
+/** Timeout for async functions */
+declare function asyncTimeout (ms: number): Promise<any>
 
 /** Utilities for sockets */ 
 declare function useSocket (): {
