@@ -71,9 +71,13 @@ export function useUtilities () {
   }
 
   function readMultipleFiles (files) {
-    return files.map((file) => {
-      return readFile(file)
+    return Object.entries(files).map((file) => {
+      return readFile({ [`${file[0]}`]: file[1] })
     })
+  }
+  
+  function readVideoFile (files) {
+    return URL.createObjectURL(files[0])
   }
 
   function truncate (text, k = 28) {
@@ -178,6 +182,7 @@ export function useUtilities () {
     quickSort,
     readFile,
     readMultipleFiles,
+    readVideoFile,
     scrollToSection,
     scrollToTop,
     truncate
