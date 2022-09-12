@@ -42,6 +42,8 @@ declare function useUtilities (): {
     readMultipleFiles (files: FileList[]): string[]
     /** Read a video file */
     readVideoFile (files: FileList[]): string[]
+    /** Get a video frame a image */
+    getVideoFrame (video: HTMLVideoElement): string
     /** Truncate a given text by k-length */
     truncate (text: string, k?: number): string
     /** Truncate a string based on it's length */
