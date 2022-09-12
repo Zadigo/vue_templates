@@ -79,6 +79,30 @@ export function useUtilities () {
   function readVideoFile (files) {
     return URL.createObjectURL(files[0])
   }
+  
+  function getVideoFrame (video) {
+    const canvas = document.createElement('canvas')
+    canvas.height = video.videoHeight
+    canvas.width = video.videoWidth
+    
+    const ctx = canvas.getContext('2d')
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    
+    const img = new Image()
+    const url = canvas.toDataURL()
+    img.src = url
+    img.classList.add('img-fluid')
+    return [img, url]
+  }
+
+  function truncate (text, k = 28) {
+    if (!(typeof text === 'string')) {
+      raiseError('truncate', `${text} should be a string`)
+      return ''
+    } else {
+      return `${text.slice(0, k)}...`
+    }
+  }
 
   function truncate (text, k = 28) {
     if (!(typeof text === 'string')) {
