@@ -130,6 +130,17 @@ export function useUtilities () {
     }
     return items
   }
+  
+  function dictionnaryListManager (items, item, key) {
+    const result = _.filter(items, [key, item[key]])
+    if (result.length > 0) {
+      const index = _.findIndex(items, [key, item[key]])
+      items.splice(index, 1)
+    } else {
+      items.push(item)
+    }
+    return items
+  }
 
   function increaseIndex (items, initialIndex) {
     var newIndex = initialIndex + 1
@@ -193,6 +204,7 @@ export function useUtilities () {
     capitalizeLetters,
     conditionalTruncate,
     decreaseIndex,
+    dictionnaryListManager,
     formatAsPercentage,
     getVerticalScrollPercentage,
     hasNull,
