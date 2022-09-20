@@ -48,8 +48,10 @@ declare function useUtilities (): {
     truncate (text: string, k?: number): string
     /** Truncate a string based on it's length */
     conditionalTruncate (text: string, limit: number, k: number): string
-    /** Manage the items of a list by adding or removing non-existing elements accordingly */
-    listManager (items: [], item: object): []
+    /** Manage the items of a list of strings and/or numbers by adding or removing non-existing elements accordingly */
+    listManager (items: any[], item: string | number): any[]
+    /** Manage the items of a list of dictionnaries by adding or removing non-existing elements accordingly */
+    dictionnaryListManager (items: object[], item: object, key: string): object[]
     /** Based on the ID attribute of an element on the page, scroll to that element */
     scrollToSection (elementId: string): void
     /** Scroll to the top of a page */
