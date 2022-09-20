@@ -142,6 +142,14 @@ export function useUtilities () {
     }
     return items
   }
+  
+  function dictionnaryExists (items, key, test) {
+    const result = _.filter(items, (item) => {
+      const keyValue = item[key]
+      return keyValue === test
+    })
+    return result.length > 0
+  }
 
   function increaseIndex (items, initialIndex) {
     var newIndex = initialIndex + 1
