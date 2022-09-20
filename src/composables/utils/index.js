@@ -45,6 +45,7 @@ export function useUtilities () {
       }
     })
   }
+  
   function incrementLastId (items) {
     var lastItem = _.last(items)
     if (!(typeof lastItem === 'object')) {
