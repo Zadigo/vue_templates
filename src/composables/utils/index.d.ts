@@ -52,6 +52,8 @@ declare function useUtilities (): {
     listManager (items: any[], item: string | number): any[]
     /** Manage the items of a list of dictionnaries by adding or removing non-existing elements accordingly */
     dictionnaryListManager (items: object[], item: object, key: string): object[]
+    /** Checks whether a dictionnary exists in a list based on the value of one of its keys */
+    dictionnaryExists (items: object[], key: string, test: string): boolean
     /** Based on the ID attribute of an element on the page, scroll to that element */
     scrollToSection (elementId: string): void
     /** Scroll to the top of a page */
