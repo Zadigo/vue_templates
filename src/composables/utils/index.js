@@ -21,6 +21,10 @@ export function scrollToTop () {
   window.scroll(0, 0)
 }
 
+export function asyncTimeout (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export function useUtilities () {
   function hasNull (items) {
     let itemsValues = []
@@ -45,6 +49,7 @@ export function useUtilities () {
       }
     })
   }
+  
   function incrementLastId (items) {
     var lastItem = _.last(items)
     if (!(typeof lastItem === 'object')) {
@@ -71,9 +76,37 @@ export function useUtilities () {
   }
 
   function readMultipleFiles (files) {
-    return files.map((file) => {
-      return readFile(file)
+    return Object.entries(files).map((file) => {
+      return readFile({ [`${file[0]}`]: file[1] })
     })
+  }
+  
+  function readVideoFile (files) {
+    return URL.createObjectURL(files[0])
+  }
+  
+  function getVideoFrame (video) {
+    const canvas = document.createElement('canvas')
+    canvas.height = video.videoHeight
+    canvas.width = video.videoWidth
+    
+    const ctx = canvas.getContext('2d')
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    
+    const img = new Image()
+    const url = canvas.toDataURL()
+    img.src = url
+    img.classList.add('img-fluid')
+    return [img, url]
+  }
+
+  function truncate (text, k = 28) {
+    if (!(typeof text === 'string')) {
+      raiseError('truncate', `${text} should be a string`)
+      return ''
+    } else {
+      return `${text.slice(0, k)}...`
+    }
   }
 
   function truncate (text, k = 28) {
@@ -101,6 +134,25 @@ export function useUtilities () {
       items.push(item)
     }
     return items
+  }
+  
+  function dictionnaryListManager (items, item, key) {
+    const result = _.filter(items, [key, item[key]])
+    if (result.length > 0) {
+      const index = _.findIndex(items, [key, item[key]])
+      items.splice(index, 1)
+    } else {
+      items.push(item)
+    }
+    return items
+  }
+  
+  function dictionnaryExists (items, key, test) {
+    const result = _.filter(items, (item) => {
+      const keyValue = item[key]
+      return keyValue === test
+    })
+    return result.length > 0
   }
 
   function increaseIndex (items, initialIndex) {
@@ -161,6 +213,7 @@ export function useUtilities () {
     capitalizeLetters,
     conditionalTruncate,
     decreaseIndex,
+    dictionnaryListManager,
     formatAsPercentage,
     getVerticalScrollPercentage,
     hasNull,
@@ -174,6 +227,7 @@ export function useUtilities () {
     quickSort,
     readFile,
     readMultipleFiles,
+    readVideoFile,
     scrollToSection,
     truncate
   }

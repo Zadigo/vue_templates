@@ -15,6 +15,8 @@ declare function loadLayout (name: string): Promise<any>
 declare function loadComponent (name: string): Promise<any>
 /** Scroll to the top of a page */
 declare function scrollToTop (): void
+/** Timeout for async functions */
+declare function asyncTimeout (ms: number): Promise<any>
 
 /** Utilities for sockets */ 
 declare function useSocket (): {
@@ -39,13 +41,21 @@ declare function useUtilities (): {
     /** Read a user uploaded file */
     readFile (file: File): string
     /** Read multiple uploaded files */
-    readMultipleFiles (files: File[]): string[]
+    readMultipleFiles (files: FileList[]): string[]
+    /** Read a video file */
+    readVideoFile (files: FileList[]): string[]
+    /** Get a video frame a image */
+    getVideoFrame (video: HTMLVideoElement): string
     /** Truncate a given text by k-length */
     truncate (text: string, k?: number): string
     /** Truncate a string based on it's length */
     conditionalTruncate (text: string, limit: number, k: number): string
-    /** Manage the items of a list by adding or removing non-existing elements accordingly */
-    listManager (items: [], item: object): []
+    /** Manage the items of a list of strings and/or numbers by adding or removing non-existing elements accordingly */
+    listManager (items: any[], item: string | number): any[]
+    /** Manage the items of a list of dictionnaries by adding or removing non-existing elements accordingly */
+    dictionnaryListManager (items: object[], item: object, key: string): object[]
+    /** Checks whether a dictionnary exists in a list based on the value of one of its keys */
+    dictionnaryExists (items: object[], key: string, test: string): boolean
     /** Based on the ID attribute of an element on the page, scroll to that element */
     scrollToSection (elementId: string): void
     /** Capitalize the first letter of a string */
