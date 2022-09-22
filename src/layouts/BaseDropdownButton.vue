@@ -42,7 +42,14 @@ export default {
       required: true
     }
   },
-  emits: ['click', 'dropdown-click'],
+  emits: {
+    'click' () {
+      return true
+    },
+    'dropdown-click' () {
+      return true
+    }
+  },
   setup () {
     const target = ref(null)
     const show = ref(false)

@@ -22,9 +22,7 @@ ifnoinfoienfoeenifoei
           </p>
 
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <base-dropdown-button-vue :items="drops" :button-name="'Dropown button'" />
-            <!-- <button class="btn btn-lg btn-secondary mx-2" @click="showModal = !showModal">Open modal</button> -->
-            <!-- <button class="btn btn-lg btn-dark" @click="showOffcanvas = !showOffcanvas">Open offcanvas</button> -->
+            <base-dropdown-button-vue :items="drops" :button-name="'Dropown button'" @dropdown-click="action" />
           </div>
         </div>
 
@@ -36,8 +34,6 @@ ifnoinfoienfoeenifoei
           <base-offcanvas-vue id="test-offcanvas" :show="showOffcanvas" @close="showOffcanvas = false" />
         </teleport>
       </div>
-      <!-- <div class="d-flex justify-content-center align-items-center">
-      </div> -->
     </div>
 
     <!-- Main -->
@@ -50,6 +46,13 @@ ifnoinfoienfoeenifoei
               Dark mode
             </label>
           </div>
+        </div>
+
+        <div class="col-4">
+          <base-select :items="['A', 'B', 'C']" />
+        </div>
+        <div class="col-4">
+          <base-input placeholder="Rechercher" />
         </div>
 
         <!-- <div class="col-12">
@@ -73,14 +76,17 @@ ifnoinfoienfoeenifoei
 </template>
 
 <script>
+import navitems from '../data/navitems.json'
+import { useDarkMode } from '../composables/darkmode'
+import { provide } from 'vue'
+
 import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
 import BaseModalVue from '../layouts/BaseModal.vue'
 import BaseOffcanvasVue from '../layouts/BaseOffcanvas.vue'
 import BaseNavbarVue from '../layouts/BaseNavbar.vue'
+import BaseSelect from '@/layouts/BaseSelect.vue'
+import BaseInput from '@/layouts/BaseInput.vue'
 // import BaseNavPillsVue from '../layouts/BaseNavPills.vue'
-import navitems from '../data/navitems.json'
-import { useDarkMode } from '../composables/darkmode'
-import { provide } from 'vue'
 
 export default {
   name: 'TemplatesView',
@@ -88,9 +94,10 @@ export default {
     BaseDropdownButtonVue,
     BaseModalVue,
     BaseOffcanvasVue,
-    BaseNavbarVue
-    // BaseNavPillsVue
-  },
+    BaseNavbarVue,
+    BaseSelect,
+    BaseInput
+},
   setup () {
     var { darkMode, toggleDarkMode } = useDarkMode()
     provide('darkMode', darkMode)
@@ -99,20 +106,29 @@ export default {
       navitems
     }
   },
-  data: () => ({
-    showModal: false,
-    showOffcanvas: false,
-    drops: [
-      {
-        name: 'Open modal',
-        to: null
-      },
-      {
-        name: 'Open offcanvas',
-        to: null
+  data () {
+    return {
+      showModal: false,
+      showOffcanvas: false,
+      drops: [
+        {
+          name: 'Open modal',
+          to: null
+        },
+        {
+          name: 'Open offcanvas',
+          to: null
+        }
+      ]
+    }
+  },
+  methods: {
+    action (value) {
+      if (value[0] === 0) {
+        this.showModal = true
       }
-    ]
-  })
+    }
+  }
 }
 </script>
 

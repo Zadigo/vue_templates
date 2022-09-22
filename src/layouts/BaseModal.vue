@@ -14,20 +14,12 @@
         </div>
 
         <slot name="footer"></slot>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-/*
- * Base bootstrap modal
- * size: modal-sm, modal-lg, modal-xl, modal-fullscreen
- **/ 
 import { inject } from 'vue'
 
 export default {
@@ -37,11 +29,12 @@ export default {
       type: String,
       required: true
     },
-    title: {
-      type: String
-    },
     centered: {
       type: Boolean
+    },
+    position: {
+      type: String,
+      default: null
     },
     scrollable: {
       type: Boolean
@@ -56,12 +49,15 @@ export default {
     staticBackdrop: {
       type: Boolean
     },
-    position: {
-      type: String,
-      default: null
+    title: {
+      type: String
     }
   },
-  emits: ['close'],
+  emits: {
+    close () {
+      return true
+    }
+  },
   setup () {
     var darkMode = inject('darkMode')
     return {
@@ -146,9 +142,6 @@ export default {
   //   }
   // },
   mounted () {
-    // if (this.show) {
-    //   this.toggleBody()
-    // }
     var body = this.getBody()
     body.addEventListener('click', this.windowListener, { passive: true })
   },
@@ -173,7 +166,8 @@ export default {
       var body = document.querySelector('body')
 
       if (body.classList.contains('modal-open')) {
-        body.style = null
+        body.style.overflow = null
+        // body.style.paddingRight = null
         body.classList.remove('modal-open')
         body.classList.add('modal-close')
         setTimeout(() => {

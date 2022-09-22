@@ -8,7 +8,7 @@
       </button>
 
       <!-- collapse show -->
-      <div id="navbarNav" :class="{ 'collapse show': !collapsed }" class="navbar-collapse">
+      <div id="navbarNav" :class="{ 'collapse show': !collapsed }" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link :to="{ name: 'parallax_view' }" class="nav-link">
@@ -49,9 +49,11 @@ export default {
       darkMode
     }
   },
-  data: () => ({
-    collapsed: true
-  }),
+  data () {
+    return {
+      collapsed: true
+    }
+  },
   computed: {
     navbarClasses () {
       return [
