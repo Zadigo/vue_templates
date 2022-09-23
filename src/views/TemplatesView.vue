@@ -5,7 +5,7 @@ ifnoinfoienfoeenifoei
 <template>
   <section>
     <!-- Navbar -->
-    <base-navbar-vue />
+    <base-navbar-vue style="height: 100px;" />
 
     <!-- Intro -->
     <div class="intro bg-image mb-4 shadow text-center" :style="`background-image: url(${require('@/assets/hero1.jpg')})`">
@@ -31,7 +31,9 @@ ifnoinfoienfoeenifoei
         </teleport>
 
         <teleport to="body">
-          <base-offcanvas-vue id="test-offcanvas" :show="showOffcanvas" @close="showOffcanvas = false" />
+          <base-offcanvas-vue id="test-offcanvas" :show="showOffcanvas" @close="showOffcanvas = false">
+            Google
+          </base-offcanvas-vue>
         </teleport>
       </div>
     </div>
@@ -39,54 +41,65 @@ ifnoinfoienfoeenifoei
     <!-- Main -->
     <div class="container">
       <div class="row">
-        <div class="col-12">
-          <div class="form-check form-switch">
-            <input id="dark-mode" class="form-check-input" type="checkbox" role="switch" @change="toggleDarkMode">
-            <label class="form-check-label" for="dark-mode">
-              Dark mode
-            </label>
+        <section class="my-4">
+          <div class="col-12">
+            <div :class="{'bg-dark': darkMode}" class="card">
+              <div class="card-body">
+                <h3 class="card-title">Checkbox</h3>
+                <base-checkbox id="dark-mode" :is-switch="true" label="Dark mode" @update:initial="toggleDarkMode" />
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="col-4">
-          <base-select :items="['A', 'B', 'C']" />
-        </div>
-        <div class="col-4">
-          <base-input placeholder="Rechercher" />
-        </div>
-
-        <!-- <div class="col-12">
-          <base-nav-pills-vue v-slot="slotProps" :items="navitems">
-            <div v-if="slotProps.selected == 0">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Praesentium aliquam nesciunt repudiandae, enim nam, excepturi voluptatem harum
-              itaque earum esse, voluptates ad quaerat voluptas modi dicta id hic?
-              Maiores, beatae!
+          <div :class="{'bg-dark': darkMode}" class="card my-3">
+            <div class="card-body">
+              <h3 class="card-title">Form</h3>
+              <base-select :items="['A', 'B', 'C']" />
+              <base-input placeholder="Rechercher" class="my-1" />
             </div>
+          </div>
 
-            <div v-if="slotProps.selected == 1">
-              <img src="http://via.placeholder.com/1200x800" class="img-fluid" alt="Image 5">
+          <div :class="{'bg-dark': darkMode}" class="card my-3">
+            <div class="card-body">
+              <h3>Pagination</h3>
+              <base-pagination :pages="4" />
             </div>
+          </div>
 
-          </base-nav-pills-vue>
-        </div> -->
+          <div :class="{'bg-dark': darkMode}" class="card my-3">
+            <div class="card-body">
+              <h3>Toast</h3>
+              <button type="button" class="btn btn-md btn-primary" @click="showToast = true">
+                Toast
+              </button>
+              <base-toast :show="showToast" />
+            </div>
+          </div>
+        </section>
       </div>
     </div>
+
+    <!-- Footer -->
+    <base-footer class="mt-3" />
   </section>
 </template>
 
 <script>
 import navitems from '../data/navitems.json'
 import { useDarkMode } from '../composables/darkmode'
+import { useDark, useToggle } from '@vueuse/core'
 import { provide } from 'vue'
 
-import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
-import BaseModalVue from '../layouts/BaseModal.vue'
-import BaseOffcanvasVue from '../layouts/BaseOffcanvas.vue'
-import BaseNavbarVue from '../layouts/BaseNavbar.vue'
-import BaseSelect from '@/layouts/BaseSelect.vue'
+import BaseCheckbox from '../layouts/BaseCheckbox.vue'
 import BaseInput from '@/layouts/BaseInput.vue'
-// import BaseNavPillsVue from '../layouts/BaseNavPills.vue'
+import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
+import BaseFooter from '@/layouts/BaseFooter.vue'
+import BaseModalVue from '../layouts/BaseModal.vue'
+import BaseNavbarVue from '../layouts/BaseNavbar.vue'
+import BaseOffcanvasVue from '../layouts/BaseOffcanvas.vue'
+import BasePagination from '@/layouts/BasePagination.vue'
+import BaseSelect from '@/layouts/BaseSelect.vue'
+import BaseToast from '@/layouts/BaseToast.vue'
 
 export default {
   name: 'TemplatesView',
@@ -96,12 +109,22 @@ export default {
     BaseOffcanvasVue,
     BaseNavbarVue,
     BaseSelect,
-    BaseInput
+    BaseInput,
+    BaseCheckbox,
+    BasePagination,
+    BaseToast,
+    BaseFooter
 },
   setup () {
+    var dark = useDark()
+    var toggleDark = useToggle(dark)
+
     var { darkMode, toggleDarkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {
+      d: dark,
+      toggleDark,
+      darkMode,
       toggleDarkMode,
       navitems
     }
@@ -110,6 +133,7 @@ export default {
     return {
       showModal: false,
       showOffcanvas: false,
+      showToast: false,
       drops: [
         {
           name: 'Open modal',
@@ -126,6 +150,10 @@ export default {
     action (value) {
       if (value[0] === 0) {
         this.showModal = true
+      }
+
+      if (value[0] === 1) {
+        this.showOffcanvas = true
       }
     }
   }

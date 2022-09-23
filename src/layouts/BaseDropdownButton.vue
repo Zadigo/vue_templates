@@ -1,32 +1,38 @@
 <template>
-  <div class="dropdown">
+  <!-- dropdown-center dropup dropend dropstart -->
+  <div ref="drop" class="dropdown">
     <button id="dropdownMenuButton1" :class="buttonClasses" :aria-expanded="show" class="btn btn-lg dropdown-toggle" type="button" @click="toggle">
       <span v-if="icon" :class="{ [`mdi-${icon}`]: true }" class="mdi me-2"></span>
       {{ buttonName }}
     </button>
 
-    <ul ref="link" :class="{ show }" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
-      <li v-for="(item, i) in items" :key="item.name">
-        <a class="dropdown-item" href @click.prevent="show = !show, $emit('dropdown-click', [i, item])">
-          <span v-if="item.icon" :class="{ [`mdi-${item.icon}`]: true }" class="mdi me-2"></span>
-          {{ item.name }}
-        </a>
-      </li>
-    </ul>
+    <transition :name="animation" tag="div">
+      <!-- dropdown-menu-end -->
+      <ul v-if="show" :class="{show, 'dropdown-menu-dark': darkMode}" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+        <!-- <li><h6 class="dropdown-header">Dropdown header</h6></li> -->
+        <li v-for="(item, i) in items" :key="item.name">
+          <a class="dropdown-item" href @click.prevent="dropdownClick(i, item)">
+            <span v-if="item.icon" :class="{ [`mdi-${item.icon}`]: true }" class="mdi me-2"></span>
+            {{ item.name }}
+          </a>
+        </li>
+        <!-- <li><hr class="dropdown-divider"></li> -->
+      </ul>
+    </transition>
   </div>
 </template>
 
 <script>
-import { onClickOutside } from '@vueuse/core'
-import { ref } from 'vue'
+// import { onClickOutside } from '@vueuse/core'
+import { ref, inject } from 'vue'
 
 export default {
   name: 'BaseDropdownButton',
   props: {
-    // animation: {
-    //   type: String,
-    //   default: 'scale'
-    // },
+    animation: {
+      type: String,
+      default: 'slideup'
+    },
     buttonName: {
       type: String
     },
@@ -43,20 +49,25 @@ export default {
     }
   },
   emits: {
-    'click' () {
+    'dropdown-click' () {
       return true
     },
-    'dropdown-click' () {
+    'dropdown-closed' () {
+      return true
+    },
+    'dropdown-opened' () {
       return true
     }
   },
   setup () {
     const target = ref(null)
     const show = ref(false)
-    onClickOutside(target, () => {
-      show.value = false
-    })
+    const darkMode = inject('darkMode')
+    // onClickOutside(target, () => {
+    //   show.value = false
+    // })
     return {
+      darkMode,
       show,
       target
     }
@@ -73,22 +84,18 @@ export default {
   },
   watch: {
     show (current) {
-      if (current) {
-        this.$refs.link.style.position = 'absolute'
-        // this.$refs.link.style.inset = 'auto auto 0px 0px'
-        // this.$refs.link.style.margin = '0px'
-        // this.$refs.link.style.transform = 'translate(0px, -40px)'
+      if (!current) {
+        this.$emit('dropdown-closed')
       } else {
-        if (this.$refs.link.classList.contains('show')) {
-          this.$refs.link.style.animation = 'scaleReverse .3s ease-out'
-          this.$refs.link.style = null
-        }
+        this.$emit('dropdown-opened')
       }
-      this.show = current
     }
   },
   mounted () {
-    this.target = this.$refs.link
+    const dropdown = this.$refs.drop
+    const button = dropdown.querySelector('button')
+    const buttonWidth = button.offsetWidth
+    console.log(buttonWidth)
     //   this.$refs.link.style.animation = `${this.animation} .3s ease`
     //   var body = document.querySelector('body')
     //   body.addEventListener('click', (e) => {
@@ -101,38 +108,71 @@ export default {
   methods: {
     toggle () {
       this.show = !this.show
-      this.$emit('click')
+    },
+    dropdownClick (index, item) {
+      this.toggle()
+      this.$emit('dropdown-click', index, item)
     }
   } 
 }  
 </script>
 
 <style scoped>
-.dropdown-menu {
-  animation: scale .3s ease;
+.scale-enter-active,
+.scale-leave-active {
+  position: absolute;
+  transition: all .3s ease;
+  /* inset: 0px auto auto 0px; */
+  margin: 0px;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(.9, .9);
+}
+.scale-enter-to,
+.scale-leave-from {
+  opacity: 1;
+  transform: scale(1, 1);
 }
 
-@keyframes scale {
-  0% {
-    opacity: 0;
-    transform: scale(0.9, 0.9);
-  }
-
-  99% {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
+.slide-enter-active,
+.slide-leave-active {
+  position: absolute;
+  transition: all .3s ease;
+  /* inset: 0px auto auto 0px; */
+  /* margin: 0px; */
 }
 
-@keyframes scaleReverse {
-  0% {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-15px);
+}
 
-  99% {
-    opacity: 0;
-    transform: scale(.9, .9);
-  }
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.slideup-enter-active,
+.slideup-leave-active {
+  position: absolute;
+  transition: all .3s ease;
+  /* inset: 0px auto auto 0px; */
+  /* margin: 0px; */
+}
+
+.slideup-enter-from,
+.slideup-leave-to {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.slideup-enter-to,
+.slideup-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
 }
 </style>

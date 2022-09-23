@@ -1,5 +1,5 @@
 <template>
-  <nav :class="navbarClasses" class="navbar navbar-expand-lg bg-red">
+  <nav :class="navbarClasses" class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand fw-bold text-uppercase" href="#">Navbar</a>
 
@@ -8,10 +8,10 @@
       </button>
 
       <!-- collapse show -->
-      <div id="navbarNav" :class="{ 'collapse show': !collapsed }" class="collapse navbar-collapse">
+      <div id="navbarNav" :class="{'collapse show': !collapsed}" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link :to="{ name: 'parallax_view' }" class="nav-link">
+            <router-link :to="{name: 'parallax_view'}" class="nav-link">
               Parallax
             </router-link>
           </li>
@@ -42,6 +42,11 @@ export default {
     BaseMegaDropdownVue,
     BaseSideDropdownVue
   },
+  props: {
+    fixedTop: {
+      type: Boolean
+    }
+  },
   setup () {
     var darkMode = inject('darkMode', () => false)
     return {
@@ -57,6 +62,7 @@ export default {
   computed: {
     navbarClasses () {
       return [
+        this.fixedTop ? 'fixed-top' : null,
         this.darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'
       ]
     }

@@ -1,11 +1,13 @@
 <template>
-  <div class="d-flex flex-column justify-content-start">
-    <input v-model="value" :type="inputType" class="form-control" @mouseenter="showLabel" @mouseleave="showLabel">
+  <input v-model="value" :type="inputType" :class="[darkMode ? 'bg-transparent text-light' : null]" class="form-control" @mouseenter="showLabel" @mouseleave="showLabel">
+  <!-- <div class="d-flex flex-column justify-content-start">
     <label ref="label" for="a" class="f text-muted">Google</label>
-  </div>
+  </div> -->
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseInput',
   props: {
@@ -22,11 +24,12 @@ export default {
       return true
     }
   },
-  // data () {
-  //   return {
-  //     showLabel: false
-  //   }
-  // },
+  setup () {
+    const darkMode =  inject('darkMode')
+    return {
+      darkMode
+    }
+  },
   computed: {
     value: {
       get () {

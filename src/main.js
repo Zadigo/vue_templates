@@ -15,6 +15,7 @@ import { createPinia } from 'pinia'
 // import {  functions } from './plugins/vue-analytics/google'
 // import { createGoogleAnalytics } from './plugins/vue-analytics/google'
 // console.log(functions)
+import './assets/style.scss'
 loadFonts()
 
 const app = createApp(App)
