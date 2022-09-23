@@ -4,10 +4,10 @@
       Menu item
     </a>
 
-    <ul ref="link" :class="{ show, 'bg-dark' : darkMode }" class="dropdown-menu" @mouseleave="show = false">
+    <ul ref="link" :class="{ show, 'dropdown-menu-dark' : darkMode }" class="dropdown-menu" @mouseleave="show = false">
       <template v-for="(item, i) in items" :key="i">
         <li v-if="hasSubmenu(item.subMenu)" class="has-submenu">
-          <a class="dropdown-item dropdown-toggle" href @click.prevent>
+          <a :class="{ 'bg-dark text-light': darkMode }" class="dropdown-item dropdown-toggle" href @click.prevent>
             {{ item.name }}
           </a>
 
@@ -17,7 +17,9 @@
                 <h6 class="title">{{ item.subMenu.title }}</h6>
                 <ul class="list-unstyled">
                   <li v-for="(link, t) in item.subMenu.links" :key="t">
-                    <a :href="link.href" :class="{ 'text-light': darkMode, 'text-dark': !darkMode }">{{ link.name }}</a>
+                    <a :href="link.href" :class="{'text-light': darkMode, 'text-dark': !darkMode}">
+                      {{ link.name }}
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -99,3 +101,19 @@ export default {
   }
 }
 </script>
+
+<style>
+.dropdown-item.dropdown-item-dark:focus,
+.dropdown-item.dropdown-item-dark:hover {
+  /* color: ; */
+  /* background-color: rgba(38, 38, 38, .5); */
+}
+.megasubmenu a {
+  display: block;
+  padding: .25rem 1rem;
+}
+.megasubmenu a:hover {
+  color: #1e2125;
+  background-color: #e9ecef;
+}
+</style>

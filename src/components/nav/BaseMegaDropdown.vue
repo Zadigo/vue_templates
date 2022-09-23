@@ -1,6 +1,6 @@
 <template>
   <li class="nav-item dropdown has-megamenu">
-    <a ref="link" :class="{ show: show }" :aria-expanded="show" class="nav-link dropdown-toggle" href @mouseenter="show = true, $emit('show', true)" @click.prevent="show = true, $emit('click', show)">
+    <a ref="link" :class="{ show }" :aria-expanded="show" class="nav-link dropdown-toggle" href @mouseenter="show = true, $emit('show', true)" @click.prevent="show = true, $emit('click', show)">
       Mega menu
     </a>
 
@@ -32,22 +32,31 @@ import { inject } from 'vue'
 
 export default {
   name: 'BaseMegaDropdown',
-  emits: ['click', 'show'],
-  setup () {
-    const darkMode = inject('darkMode')
-    return {
-      darkMode
-    }
-  },
   props: {
     items: {
       type: Array,
       required: true
     }
   },
-  data: () => ({
-    show: false
-  }),
+  emits: {
+    'click' () {
+      return true
+    },
+    'show' () {
+      return true
+    }
+  },
+  setup () {
+    const darkMode = inject('darkMode')
+    return {
+      darkMode
+    }
+  },
+  data () {
+    return {
+      show: false
+    }
+  },
   // mounted () {
   //   var body = document.querySelector('body')
   //   body.addEventListener('click', this.windowListener)
@@ -73,7 +82,6 @@ export default {
 </script>
 
 <style scoped>
-
 .screen-darken {
   transition: all .3s ease;
   background-color: rgba(0, 0, 0, .5);

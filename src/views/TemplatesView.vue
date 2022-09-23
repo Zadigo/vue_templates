@@ -27,10 +27,6 @@ ifnoinfoienfoeenifoei
         </div>
 
         <teleport to="body">
-          <base-modal-vue id="test-modal" :show="showModal" :centered="false" :static-backdrop="true" position="" size="md" @close="showModal = false" />
-        </teleport>
-
-        <teleport to="body">
           <base-offcanvas-vue id="test-offcanvas" :show="showOffcanvas" @close="showOffcanvas = false">
             Google
           </base-offcanvas-vue>
@@ -61,18 +57,48 @@ ifnoinfoienfoeenifoei
 
           <div :class="{'bg-dark': darkMode}" class="card my-3">
             <div class="card-body">
-              <h3>Pagination</h3>
+              <h3 class="card-title">Pagination</h3>
               <base-pagination :pages="4" />
             </div>
           </div>
 
           <div :class="{'bg-dark': darkMode}" class="card my-3">
             <div class="card-body">
-              <h3>Toast</h3>
+              <h3 class="card-title">Modal</h3>
+              <button type="button" class="btn btn-md btn-primary" @click="showModal = !showModal">
+                Modal
+              </button>
+
+              <hr>
+
+              <base-checkbox id="center" name="modal" :initial="true" :inline="true" :is-radio="true" label="Center" @update:initial="modalOptions.position = null" />
+              <base-checkbox id="top-left" name="modal" :inline="true" :is-radio="true" label="Top left" @update:initial="modalOptions.position = 'top-left'" />
+              <base-checkbox id="top-right" name="modal" :inline="true" :is-radio="true" label="Top right" @update:initial="modalOptions.position = 'top-right'" />
+              <base-checkbox id="bottom-right" name="modal" :inline="true" :is-radio="true" label="Bottom right" @update:initial="modalOptions.position = 'bottom-right'" />
+              <base-checkbox id="bottom-left" name="modal" :inline="true" :is-radio="true" label="Bottom left" @update:initial="modalOptions.position = 'bottom-left'" />
+              <base-checkbox id="top" name="modal" :inline="true" :is-radio="true" label="Top" @update:initial="modalOptions.position = 'top'" />
+              <base-checkbox id="bottom" name="modal" :inline="true" :is-radio="true" label="Bottom" @update:initial="modalOptions.position = 'bottom'" />
+
+              <teleport to="body">
+                <base-modal-vue id="test-modal" :show="showModal" :centered="false" :static-backdrop="true" :position="modalOptions.position" size="sm" @close="showModal = false" />
+              </teleport>
+            </div>
+          </div>
+
+          <div :class="{'bg-dark': darkMode}" class="card my-3">
+            <div class="card-body">
+              <h3 class="card-title">Toast</h3>
               <button type="button" class="btn btn-md btn-primary" @click="showToast = true">
                 Toast
               </button>
               <base-toast :show="showToast" />
+            </div>
+          </div>
+
+          <div :class="{'bg-dark': darkMode}" class="card my-3">
+            <div class="card-body">
+              <h3 class="card-title">Accordion</h3>
+              <base-accordion :items="[{id: 1, title: 'A', content: 'A'}, {id: 3, title: 'B', content: 'B'}]" />
             </div>
           </div>
         </section>
@@ -90,6 +116,7 @@ import { useDarkMode } from '../composables/darkmode'
 import { useDark, useToggle } from '@vueuse/core'
 import { provide } from 'vue'
 
+import BaseAccordion from '@/layouts/BaseAccordion.vue'
 import BaseCheckbox from '../layouts/BaseCheckbox.vue'
 import BaseInput from '@/layouts/BaseInput.vue'
 import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
@@ -104,13 +131,14 @@ import BaseToast from '@/layouts/BaseToast.vue'
 export default {
   name: 'TemplatesView',
   components: {
+    BaseAccordion,
+    BaseCheckbox,
     BaseDropdownButtonVue,
     BaseModalVue,
     BaseOffcanvasVue,
     BaseNavbarVue,
     BaseSelect,
     BaseInput,
-    BaseCheckbox,
     BasePagination,
     BaseToast,
     BaseFooter
@@ -134,6 +162,9 @@ export default {
       showModal: false,
       showOffcanvas: false,
       showToast: false,
+      modalOptions: {
+        left: null
+      },
       drops: [
         {
           name: 'Open modal',

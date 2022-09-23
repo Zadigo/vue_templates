@@ -31,10 +31,11 @@
 </template>
 
 <script>
-import BaseMegaDropdownVue from '../components/nav/BaseMegaDropdown.vue'
-import BaseSideDropdownVue from '../components/nav/BaseSideDropdown.vue'
 import megamenu from '../data/megamenu.json'
 import { inject } from 'vue'
+
+import BaseMegaDropdownVue from '../components/nav/BaseMegaDropdown.vue'
+import BaseSideDropdownVue from '../components/nav/BaseSideDropdown.vue'
 
 export default {
   name: 'BaseNavbar',

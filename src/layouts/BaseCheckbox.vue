@@ -1,7 +1,6 @@
 <template>
-  <!-- form-check-inline -->
-  <div :class="[isSwitch ? 'form-switch' : null]" class="form-check">
-    <input :id="id" v-model="value" :role="[ isSwitch ? 'switch' : null]" class="form-check-input" type="checkbox">
+  <div :class="[isSwitch ? 'form-switch' : null, inline ? 'form-check-inline' : null]" class="form-check">
+    <input :id="id" v-model="value" :type="checkboxType" :role="[ isSwitch ? 'switch' : null]" :name="name" class="form-check-input">
     <label :for="id" class="form-check-label">{{ label }}</label>
   </div>
 </template>
@@ -14,9 +13,15 @@ export default {
       type: String,
       required: true
     },
+    inline: {
+      type: Boolean
+    },
     label: {
       type: String,
       required: true
+    },
+    name: {
+      type: String
     },
     isSwitch: {
       type: Boolean,

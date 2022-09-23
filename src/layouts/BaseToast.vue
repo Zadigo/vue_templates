@@ -1,7 +1,7 @@
 <template>
   <!-- bottom-0 end-0 -->
   <div class="toast-container position-fixed top-0 end-0 p-3">
-    <div :class="{show: state}" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <!-- <img src="" class="rounded me-2" alt="..."> -->
         <strong class="me-auto">Bootstrap</strong>
@@ -30,6 +30,7 @@ export default {
   },
   data () {
     return {
+      toasts: [],
       modelValue: false
     }
   },
@@ -46,5 +47,16 @@ export default {
       }
     }
   }
+  // watch: {
+  //   show (current) {
+  //     if (current) {
+  //       this.modelValue = true
+  //       this.toasts.push(1)
+  //       setTimeout(() => {
+  //         this.modelValue = false
+  //       }, 3000);
+  //     }
+  //   }
+  // },
 }
 </script>

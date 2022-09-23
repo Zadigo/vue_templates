@@ -6,7 +6,8 @@
       {{ buttonName }}
     </button>
 
-    <transition :name="animation" tag="div">
+    <!-- :name="animation" -->
+    <transition :name="animation" mode="in-out">
       <!-- dropdown-menu-end -->
       <ul v-if="show" :class="{show, 'dropdown-menu-dark': darkMode}" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
         <!-- <li><h6 class="dropdown-header">Dropdown header</h6></li> -->
@@ -122,14 +123,15 @@ export default {
 .scale-leave-active {
   position: absolute;
   transition: all .3s ease;
-  /* inset: 0px auto auto 0px; */
   margin: 0px;
 }
+
 .scale-enter-from,
 .scale-leave-to {
   opacity: 0;
   transform: scale(.9, .9);
 }
+
 .scale-enter-to,
 .scale-leave-from {
   opacity: 1;
@@ -140,8 +142,7 @@ export default {
 .slide-leave-active {
   position: absolute;
   transition: all .3s ease;
-  /* inset: 0px auto auto 0px; */
-  /* margin: 0px; */
+  margin: 0px;
 }
 
 .slide-enter-from,
@@ -160,8 +161,7 @@ export default {
 .slideup-leave-active {
   position: absolute;
   transition: all .3s ease;
-  /* inset: 0px auto auto 0px; */
-  /* margin: 0px; */
+  margin: 0px;
 }
 
 .slideup-enter-from,
