@@ -1,7 +1,9 @@
 <template>
-  <nav :class="navbarClasses" class="navbar navbar-expand-lg">
+  <nav ref="link" :class="navbarClasses" class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand fw-bold text-uppercase" href="#">Navbar</a>
+      <a class="navbar-brand fw-bold text-uppercase" href="#">
+        Navbar
+      </a>
 
       <button :class="{ collapsed }" type="button" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" @click="collapsed = !collapsed">
         <span class="navbar-toggler-icon"></span>
@@ -49,8 +51,10 @@ export default {
     }
   },
   setup () {
-    var darkMode = inject('darkMode', () => false)
+    const height = 0
+    const darkMode = inject('darkMode', () => false)
     return {
+      height,
       megamenu,
       darkMode
     }
@@ -64,9 +68,17 @@ export default {
     navbarClasses () {
       return [
         this.fixedTop ? 'fixed-top' : null,
+        // 'bg-transparent navbar-dark'
+        // 'bg-transparent navbar-dark shadow-none'
         this.darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'
       ]
     }
+  },
+  mounted () {
+    this.height = this.$refs.link.offsetHeight
+    // if (this.fixedTop) {
+    //   this.$refs.link.style.marginBottom = `${this.height - 5}px`
+    // }
   }
 }
 </script>

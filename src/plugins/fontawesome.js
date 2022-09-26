@@ -1,5 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faComment, faThumbsUp, faThumbsDown, faFlag, faShare, faArrowUp, faCircleCheck, faFaceLaugh, faHeart, faMessage, faThumbTack, faBell, faBellSlash, faPlay, faPause, faGauge, faVolumeXmark, faVolumeHigh, faVolumeLow, faVolumeUp, faCog, faClose, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faComment, faThumbsUp, faThumbsDown, faFlag, faShare, faArrowUp, faCircleCheck, faFaceLaugh, faHeart, faMessage, faThumbTack, faBell, faBellSlash, faPlay, faPause, faGauge, faVolumeXmark, faVolumeHigh, faVolumeLow, faVolumeUp, faCog, faClose, faArrowLeft, faArrowRight, faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faComment)
 library.add(faThumbsUp)
@@ -7,6 +7,8 @@ library.add(faThumbsDown)
 library.add(faFlag)
 library.add(faShare)
 library.add(faArrowUp)
+library.add(faEllipsisVertical)
+library.add(faPlus)
 
 // YouTube
 library.add(faCircleCheck)

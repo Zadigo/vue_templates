@@ -8,6 +8,7 @@
         <small>11 mins ago</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
+      <!-- :class="[darkMode ? 'bg-dark': null]" -->
       <div class="toast-body">
         Hello, world! This is a toast message.
       </div>
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseToast',
   props: {
@@ -26,6 +29,12 @@ export default {
   emits: {
     close () {
       return true
+    }
+  },
+  setup () {
+    const darkMode = inject('darkMode')
+    return {
+      darkMode
     }
   },
   data () {
@@ -60,3 +69,11 @@ export default {
   // },
 }
 </script>
+
+
+
+<style scoped>
+.toast-container {
+  z-index: 1055;
+}
+</style>
