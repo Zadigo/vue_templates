@@ -74,6 +74,6 @@ export default {
 
 <style scoped>
 .toast-container {
-  z-index: 1055;
+  z-index: 1000;
 }
 </style>

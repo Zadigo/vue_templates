@@ -19,12 +19,6 @@ ifnoinfoienfoeenifoei
               <base-dropdown-button-vue :items="drops" :button-name="'Dropown button'" @dropdown-click="action" />
             </div>
           </div>
-  
-          <teleport to="body">
-            <base-offcanvas-vue id="test-offcanvas" :show="showOffcanvas" @close="showOffcanvas = false">
-              Google
-            </base-offcanvas-vue>
-          </teleport>
         </div>
       </div>
 
@@ -82,8 +76,12 @@ ifnoinfoienfoeenifoei
           <base-template-card class="my-3">
             <div class="card-body">
               <h3 class="card-title">Modal</h3>
-              <button type="button" class="btn btn-md btn-primary" @click="showModal = !showModal">
-                Modal
+              <button type="button" class="btn btn-md btn-primary" @click="showModal1 = !showModal1">
+                Modal 1
+              </button>
+
+              <button type="button" class="btn btn-md btn-primary mx-1" @click="showModal3 = !showModal3">
+                Modal 3
               </button>
 
               <hr>
@@ -97,9 +95,45 @@ ifnoinfoienfoeenifoei
               <base-checkbox id="top" name="modal" :inline="true" :is-radio="true" label="Top" @update:initial="modalOptions.position = 'top'" />
               <base-checkbox id="bottom" name="modal" :inline="true" :is-radio="true" label="Bottom" @update:initial="modalOptions.position = 'bottom'" />
 
-              <teleport to="body">
-                <base-modal-vue id="test-modal" :show="showModal" :centered="false" :static-backdrop="true" :position="modalOptions.position" size="sm" @close="showModal = false" />
-              </teleport>
+              <base-modal-vue id="test-modal1" :show="showModal1" :scrollable="false" :centered="false" :static-backdrop="true" :position="modalOptions.position" size="sm" @close="showModal1 = false">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugiat molestias 
+                  sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus 
+                  quasi aliquam ut veniam tempora aut quaerat repellat.
+  
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugiat molestias 
+                  sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus 
+                  quasi aliquam ut veniam tempora aut quaerat repellat.
+  
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugiat molestias 
+                  sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus 
+                  quasi aliquam ut veniam tempora aut quaerat repellat.
+                </p>
+                
+                <button type="button" class="btn btn-md btn-primary mx-1" @click="showModal3 = !showModal3">
+                  Modal 3
+                </button>
+              </base-modal-vue>
+              
+              <base-modal-vue id="test-modal3" :show="showModal3" :centered="true" @close="showModal3 = false">
+                Another modal
+              </base-modal-vue>
+              <!-- <teleport to="body">
+              </teleport> -->
+            </div>
+          </base-template-card>
+
+          <base-template-card class="my-3">
+            <div class="card-body">
+              <h3 class="card-title">Offcanvas</h3>
+              <button type="button" class="btn btn-md btn-primary" @click="showOffcanvas = !showOffcanvas">
+                Offcanvas
+              </button>
+              <base-offcanvas id="test-offcanvas" :show="showOffcanvas" :allow-scroll="false" position="end" @close="showOffcanvas = false">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim explicabo dolor 
+                id temporibus est eius voluptatibus fugit nihil deleniti natus voluptates saepe, 
+                repellendus architecto quasi unde doloremque excepturi eum ad.
+              </base-offcanvas>
             </div>
           </base-template-card>
 
@@ -205,7 +239,7 @@ import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
 import BaseModalVue from '../layouts/BaseModal.vue'
 import BaseNavbarVue from '../layouts/BaseNavbar.vue'
-import BaseOffcanvasVue from '../layouts/BaseOffcanvas.vue'
+import BaseOffcanvas from '../layouts/BaseOffcanvas.vue'
 import BasePagination from '@/layouts/BasePagination.vue'
 import BaseSelect from '@/layouts/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
@@ -219,8 +253,8 @@ export default {
     BaseCheckbox,
     BaseDropdownButtonVue,
     BaseModalVue,
-    BaseOffcanvasVue,
     BaseNavbarVue,
+    BaseOffcanvas,
     BaseSelect,
     BaseInput,
     BasePagination,
@@ -247,7 +281,8 @@ export default {
   },
   data () {
     return {
-      showModal: false,
+      showModal1: false,
+      showModal3: false,
       showOffcanvas: false,
       showToast: false,
       modalOptions: {

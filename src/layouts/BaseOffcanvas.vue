@@ -1,17 +1,24 @@
+<doc>
+  - position: top, bottom, end, start
+</doc>
+
 <template>
-  <div :id="id" ref="link" :class="offcanvasClasses" class="offcanvas" tabindex="-1" aria-labelledby="offcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 v-if="title" id="offcanvasLabel" class="offcanvas-title">
-        {{ title }}
-      </h5>
-      <button type="button" class="btn-close text-reset" aria-label="Close" @click="$emit('close')"></button>
+  <div class="offcanvas-wrapper">
+    <div :id="id" ref="link" :class="offcanvasClasses" class="offcanvas" tabindex="-1" aria-labelledby="offcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 v-if="title" id="offcanvasLabel" class="offcanvas-title">
+          {{ title }}
+        </h5>
+        <button type="button" class="btn-close text-reset" aria-label="Close" @click="$emit('close')"></button>
+      </div>
+  
+      <div class="offcanvas-body">
+        <slot></slot>
+      </div>
+  
+      <slot name="footer"></slot>
     </div>
-
-    <div class="offcanvas-body">
-      <slot></slot>
-    </div>
-
-    <slot name="footer"></slot>
+    <div v-if="show && !allowScroll" :class="[show ? 'show' : null]" class="offcanvas-backdrop fade" @click="handleStatic"></div>
   </div>
 </template>
 
@@ -21,6 +28,9 @@ import { inject } from 'vue'
 export default {
   name: 'BaseOffcanvas',
   props: {
+    allowScroll: {
+      type: Boolean
+    },
     id: {
       type: String
     },
@@ -31,15 +41,20 @@ export default {
     show: {
       type: Boolean
     },
+    staticBackdrop: {
+      type: Boolean
+    },
     title: {
       type: String
     }
   },
   emits: {
-    close: () => true
+    close () {
+      return true
+    }
   },
   setup () {
-    var darkMode = inject('darkMode')
+    const darkMode = inject('darkMode')
     return {
       darkMode
     }
@@ -48,7 +63,8 @@ export default {
     offcanvasClasses () {
       return [
         this.show ? 'show' : null,
-        this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
+        // this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
+        this.darkMode ? 'text-bg-dark' : null,
         {
           [`offcanvas-${this.position}`]: true
         }
@@ -56,37 +72,30 @@ export default {
     }
   },
   watch: {
-    show (newValue) {
+    show (current) {
       var body = document.querySelector('body')
-      if (newValue) {
-        body.style.overflow = 'hidden'
+      if (current) {
+        if (!this.allowScroll) {
+          body.style.overflow = 'hidden'
+        }
         body.style.paddingRight = '17px'
-        body.classList.add('modal-open')
+        body.classList.add('offcanvas-open')
 
         this.$refs.link.style.visibility = 'visible'
       } else {
         body.style = null
-        body.classList.remove('modal-open')
+        body.classList.remove('offcanvas-open')
         
         this.$refs.link.style.visibility = 'none'
       }
     }
   },
-  mounted () {
-    var body = this.getBody()
-    body.addEventListener('click', this.windowListener, { passive: true })
-  },
-  unmounted () {
-    var body = this.getBody()
-    body.removeEventListener('click', this.windowListener, { passive: true })
-  },
   methods: {
     getBody () {
       return document.querySelector('body')
     },
-    windowListener (e) {
-      // console.log(e.target)
-      if (e.target.classList.contains('modal-open')) {
+    handleStatic () {
+      if (!this.staticBackdrop) {
         this.$emit('close')
       }
     }
