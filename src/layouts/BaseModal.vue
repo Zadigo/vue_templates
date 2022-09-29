@@ -23,7 +23,7 @@
     <!-- </transition> -->
 
     <transition appear name="custom-classes" mode="out-in" enter-active-class="modal-animation dialog-fade-in" leave-active-class="modal-animation dialog-fade-out">
-      <div v-if="show" :class="{show}" class="modal-backdrop"></div>
+      <div v-if="show && !nonInvasive" :class="{show}" class="modal-backdrop"></div>
     </transition>
   </div>
 </template>
@@ -40,6 +40,9 @@ export default {
     id: {
       type: String,
       required: true
+    },
+    nonInvasive: {
+      type: Boolean
     },
     position: {
       type: String,

@@ -225,9 +225,27 @@ ifnoinfoienfoeenifoei
           <!-- Autocomplete -->
           <base-template-card class="my-3">
             <div class="card-body">
+              <h3 class="card-title">Autocomplete</h3>
               <base-autocomplete :items="[{text: 'Facebook'}, {text: 'Google'}]" :clearable="true" :multiple="false">
                 <input type="text" class="form-control p-2" placeholder="Type here">
               </base-autocomplete>
+            </div>
+          </base-template-card>
+
+          <base-template-card class="my-3">
+            <div class="card-body">
+              <h3 class="card-title">Collapse</h3>
+              <base-collapse id="collapse-1" v-slot="{darkMode}" button-name="Collapse">
+                <div :class="[darkMode ? 'bg-dark text-light' : null]" class="card">
+                  <div class="card-body">
+                    dark: {{ darkMode }}
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+                    Ipsa deserunt odio, suscipit cumque, quaerat voluptas dicta nemo voluptate 
+                    obcaecati fugiat voluptates atque illum, optio molestiae dolor veniam? 
+                    Consequatur, a aliquid.
+                  </div>
+                </div>
+              </base-collapse>
             </div>
           </base-template-card>
         </section>
@@ -261,6 +279,7 @@ import BaseSelect from '@/layouts/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 import BaseToast from '@/layouts/BaseToast.vue'
 import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
+import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
 
 export default {
   name: 'TemplatesView',
@@ -280,7 +299,8 @@ export default {
     BaseCard,
     BaseCardGroup,
     BaseTemplateCard,
-    BaseRangeInput
+    BaseRangeInput,
+    BaseCollapse
 },
   setup () {
     var dark = useDark()
