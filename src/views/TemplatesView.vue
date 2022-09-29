@@ -172,6 +172,15 @@ ifnoinfoienfoeenifoei
               </base-card>          
             </base-card-group>
           </div>
+
+          <!-- Range -->
+          <base-template-card class="my-3">
+            <div class="card-body">
+              <h3 class="card-title">Range</h3>
+              <base-range-input />
+              <base-range-input :is-range="true" class="mt-3" />
+            </div>
+          </base-template-card>
         </section>
       </div>
     </div>
@@ -201,6 +210,7 @@ import BasePagination from '@/layouts/BasePagination.vue'
 import BaseSelect from '@/layouts/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 import BaseToast from '@/layouts/BaseToast.vue'
+import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
 
 export default {
   name: 'TemplatesView',
@@ -218,7 +228,8 @@ export default {
     BaseFooter,
     BaseCard,
     BaseCardGroup,
-    BaseTemplateCard
+    BaseTemplateCard,
+    BaseRangeInput
 },
   setup () {
     var dark = useDark()
