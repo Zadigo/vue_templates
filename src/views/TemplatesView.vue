@@ -85,9 +85,13 @@ ifnoinfoienfoeenifoei
               </button>
 
               <hr>
+          
+              <base-checkbox id="invasive" label="Non invasive" @update:initial="modalOptions.nonInvasive = !modalOptions.nonInvasive" />
+          
+              <hr>
 
               <!-- Checkbox -->
-              <base-checkbox id="center" name="modal" :initial="true" :inline="true" :is-radio="true" label="Center" @update:initial="modalOptions.position = null" />
+              <base-checkbox id="center" name="modal" :initial="true" :inline="true" :is-radio="true" label="Center" @update:initial="modalOptions.position = 'center'" />
               <base-checkbox id="top-left" name="modal" :inline="true" :is-radio="true" label="Top left" @update:initial="modalOptions.position = 'top-left'" />
               <base-checkbox id="top-right" name="modal" :inline="true" :is-radio="true" label="Top right" @update:initial="modalOptions.position = 'top-right'" />
               <base-checkbox id="bottom-right" name="modal" :inline="true" :is-radio="true" label="Bottom right" @update:initial="modalOptions.position = 'bottom-right'" />
@@ -95,7 +99,7 @@ ifnoinfoienfoeenifoei
               <base-checkbox id="top" name="modal" :inline="true" :is-radio="true" label="Top" @update:initial="modalOptions.position = 'top'" />
               <base-checkbox id="bottom" name="modal" :inline="true" :is-radio="true" label="Bottom" @update:initial="modalOptions.position = 'bottom'" />
 
-              <base-modal-vue id="test-modal1" :show="showModal1" :scrollable="false" :centered="false" :static-backdrop="true" :position="modalOptions.position" size="sm" @close="showModal1 = false">
+              <base-modal-vue id="test-modal1" :show="showModal1" :non-invasive="modalOptions.nonInvasive" :scrollable="false" :centered="false" :static-backdrop="true" :position="modalOptions.position" size="sm" @close="showModal1 = false">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugiat molestias 
                   sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus 
@@ -116,7 +120,9 @@ ifnoinfoienfoeenifoei
               </base-modal-vue>
               
               <base-modal-vue id="test-modal3" :show="showModal3" :centered="true" @close="showModal3 = false">
-                Another modal
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugiat molestias
+                sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus
+                quasi aliquam ut veniam tempora aut quaerat repellat.
               </base-modal-vue>
               <!-- <teleport to="body">
               </teleport> -->
@@ -297,7 +303,8 @@ export default {
       showOffcanvas: false,
       showToast: false,
       modalOptions: {
-        left: null
+        position: 'center',
+        nonInvasive: false
       },
       drops: [
         {

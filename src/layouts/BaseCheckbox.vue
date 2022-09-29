@@ -1,6 +1,6 @@
 <template>
   <div :class="[isSwitch ? 'form-switch' : null, inline ? 'form-check-inline' : null]" class="form-check">
-    <input :id="id" v-model="value" :type="checkboxType" :role="[ isSwitch ? 'switch' : null]" :name="name" class="form-check-input">
+    <input :id="id" v-model="value" :checked="value" :type="checkboxType" :role="[ isSwitch ? 'switch' : null]" :name="name" class="form-check-input">
     <label :for="id" class="form-check-label">{{ label }}</label>
   </div>
 </template>
@@ -60,6 +60,11 @@ export default {
       } else {
         return 'checkbox'
       }
+    }
+  },
+  mounted () {
+    if (this.initial) {
+      this.value = true
     }
   }
 }

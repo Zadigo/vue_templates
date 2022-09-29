@@ -1,5 +1,5 @@
 <template>
-  <div ref="link" class="input-menu dark">
+  <div ref="link" :class="[darkMode ? 'dark' : null]" class="input-menu">
     <div class="input-group">
       <slot></slot>     
 
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseAutocomplete',
   props: {
@@ -50,7 +52,9 @@ export default {
   setup () {
     const inputHeight = 0
     const target = null
+    const darkMode = inject('darkMode')
     return {
+      darkMode,
       inputHeight,
       target
     }
