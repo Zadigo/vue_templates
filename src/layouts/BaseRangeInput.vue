@@ -3,8 +3,8 @@
     <!-- @mousedown="handleRightSlider($event)" -->
     <div class="slider">
       <div class="slider-track">
-        <div class="track-low track-low-danger"></div>
-        <div class="track-selection"></div>
+        <div class="track-low"></div>
+        <div :class="[showTrack || isRange ? 'track-selection-primary' : null]" class="track-selection"></div>
         <div class="track-high"></div>
       </div>
   
@@ -28,6 +28,13 @@ export default {
     isRange: {
       type: Boolean,
       default: false
+    },
+    initial: {
+      type: Number,
+    },
+    showTrack: {
+      type: Boolean,
+      default: true
     }
   },
   emits: {
@@ -49,8 +56,7 @@ export default {
     return {
       value: 0,
       enabled: true,
-      // percentage: 30,
-      percentages: [0, 30],
+      percentages: [0, 0],
       handleOffsets: {
         left: 0,
         right: 0
@@ -59,10 +65,12 @@ export default {
   },
   mounted () {
     const slider = this.$refs.link
+
     this.handleRight = slider.querySelector('.handle-right')
-    // if (this.isRange) {
-    //   this.handleLeft = slider.querySelector('.handle-left')
-    // }
+    if (this.isRange) {
+      this.handleLeft = slider.querySelector('.handle-left')
+    }
+    
     this.handleOffsets.left = this.handleRight.getBoundingClientRect().left
     this.handleOffsets.right = this.handleRight.getBoundingClientRect().right
 
@@ -70,10 +78,24 @@ export default {
   },
   methods: {
     setInitialValues () {
-      if (this.percentages[1] > 0) {
-        this.handleRight.style.left = `${this.percentages[1]}%`
-        this.handleTrack()
+      const initialValues = [0, 0]
+      
+      if (this.isRange && this.initial > 0) {
+        initialValues[1] = 10
+      } else if (!this.isRange && this.initial > 0) {
+        initialValues[1] = this.initial
+      } else {
+        initialValues[1] = 30
       }
+      
+      this.percentages = initialValues
+      this.handleRight.style.left = `${this.percentages[1]}%`
+      
+      if (this.isRange) {
+        this.handleLeft.style.left = `${this.percentages[0]}%`
+      }
+
+      this.handleTrack()
     },
     // handleLeftSlider (e) {
     //   this.percentages[0] = this.getPercentage(e)
@@ -88,16 +110,20 @@ export default {
       this.$emit('update:slider', this.percentages[1])
     },
     handleTrack () {
-      const trackLow = this.$refs.link.querySelector('.track-low')
-      trackLow.style.right = '0'
-      trackLow.style.left = '0'
+      const trackSelection = this.$refs.link.querySelector('.track-selection')
+      trackSelection.style.right = '0'
+      trackSelection.style.left = '0'
       // trackLow.style.width = Math.min(this.percentage, 0) + '%'
-      trackLow.style.width = this.percentages[1] + '%'
+      trackSelection.style.width = this.percentages[1] + '%'
 
-      if (this.isRange) {
-        const trackHigh = this.$refs.link.querySelector('.track-high')
-        trackHigh
-      }
+      const trackHigh = this.$refs.link.querySelector('.track-high')
+      trackHigh.style.right = '0'
+      trackHigh.style.width = 100 - this.percentages[1] + '%'
+
+      // if (this.isRange) {
+      //   const trackHigh = this.$refs.link.querySelector('.track-high')
+      //   trackHigh
+      // }
     },
     handleTooltip () {
 
@@ -150,34 +176,34 @@ export default {
   border-radius: 4px;
 }
 
-.track-low-primary {
+.track-selection-primary {
   background-color: #0d6efd;
 }
 
-.track-low-secondary {
+.track-selection-secondary {
   background-color: #6c757d;
 }
 
-.track-low-success {
+.track-selection-success {
   background-color: #198754;
 }
-.track-low-danger {
+.track-selection-danger {
   background-color: #dc3545;
 }
 
-.track-low-warning {
+.track-selection-warning {
   background-color: #ffc107;
 }
 
-.track-low-info {
+.track-selection-info {
   background-color: #0dcaf0;
 }
 
-.track-low-light {
+.track-selection-light {
   background-color: #f8f9fa;
 }
 
-.track-low-dark {
+.track-selection-dark {
   background-color: #212529;
 }
 

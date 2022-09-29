@@ -124,7 +124,7 @@ ifnoinfoienfoeenifoei
 
           <!-- Card -->
           <div class="row">
-            <div v-for="i in 3" :key="i" class="col-4">
+            <div v-for="i in 3" :key="i" class="col-sm-12 col-md-4">
               <base-card :image="require('@/assets/hero1.jpg')" :hoverable="false" :overlay="false" image-position="top" title="We can!" class="my-3">
                 <!-- <template #header>
                   Do great
@@ -177,7 +177,7 @@ ifnoinfoienfoeenifoei
           <base-template-card class="my-3">
             <div class="card-body">
               <h3 class="card-title">Range</h3>
-              <base-range-input />
+              <base-range-input :show-track="true" :initial="10" />
               <base-range-input :is-range="true" class="mt-3" />
             </div>
           </base-template-card>
