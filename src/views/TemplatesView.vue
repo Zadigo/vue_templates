@@ -215,6 +215,15 @@ ifnoinfoienfoeenifoei
               <base-range-input :is-range="true" class="mt-3" />
             </div>
           </base-template-card>
+
+          <!-- Autocomplete -->
+          <base-template-card class="my-3">
+            <div class="card-body">
+              <base-autocomplete :items="[{text: 'Facebook'}, {text: 'Google'}]" :clearable="true" :multiple="false">
+                <input type="text" class="form-control p-2" placeholder="Type here">
+              </base-autocomplete>
+            </div>
+          </base-template-card>
         </section>
       </div>
     </div>
@@ -230,6 +239,7 @@ import { useDarkMode } from '../composables/darkmode'
 import { useDark, useToggle } from '@vueuse/core'
 import { provide } from 'vue'
 
+import BaseAutocomplete from '@/layouts/BaseAutocomplete.vue'
 import BaseAccordion from '@/layouts/BaseAccordion.vue'
 import BaseCheckbox from '../layouts/BaseCheckbox.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
@@ -250,6 +260,7 @@ export default {
   name: 'TemplatesView',
   components: {
     BaseAccordion,
+    BaseAutocomplete,
     BaseCheckbox,
     BaseDropdownButtonVue,
     BaseModalVue,
