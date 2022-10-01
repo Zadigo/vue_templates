@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseDropGroup',
   props: {
@@ -41,11 +43,21 @@ export default {
     // }
   },
   emits: {
-    click: () => true
+    click () {
+      return true
+    }
   },
-  data: () => ({
-    show: false
-  }),
+  setup () {
+    const darkMode = inject('darkMode', false)
+    return {
+      darkMode
+    }
+  },
+  data () {
+    return {
+      show: false
+    }
+  },
   computed: {
     buttonClasses () {
       return [

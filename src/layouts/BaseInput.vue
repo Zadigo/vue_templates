@@ -1,7 +1,7 @@
 <template>
   <input v-model="value" :type="inputType" :class="[darkMode ? 'bg-transparent text-light' : null]" class="form-control" @mouseenter="showLabel" @mouseleave="showLabel">
-  <!-- <div class="d-flex flex-column justify-content-start">
-    <label ref="label" for="a" class="f text-muted">Google</label>
+  <!-- <div class="wrapper">
+    <label ref="label" :for="id" class="f text-muted">{{ label }}</label>
   </div> -->
 </template>
 
@@ -25,7 +25,7 @@ export default {
     }
   },
   setup () {
-    const darkMode =  inject('darkMode')
+    const darkMode =  inject('darkMode', false)
     return {
       darkMode
     }
@@ -41,13 +41,13 @@ export default {
     }
   },
   methods: {
-    showLabel () {
-      if (this.$refs.label.classList.contains('show')) {
-        this.$refs.label.classList.remove('show')
-      } else {
-        this.$refs.label.classList.add('show')
-      }
-    }
+    // showLabel () {
+    //   if (this.$refs.label.classList.contains('show')) {
+    //     this.$refs.label.classList.remove('show')
+    //   } else {
+    //     this.$refs.label.classList.add('show')
+    //   }
+    // }
   }
 }
 </script>

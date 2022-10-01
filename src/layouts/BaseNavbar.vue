@@ -52,7 +52,7 @@ export default {
   },
   setup () {
     const height = 0
-    const darkMode = inject('darkMode', () => false)
+    const darkMode = inject('darkMode', false)
     return {
       height,
       megamenu,

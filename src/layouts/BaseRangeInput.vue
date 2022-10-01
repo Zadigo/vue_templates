@@ -45,7 +45,7 @@ export default {
   setup () {
     const handleRight = null
     const handleLeft = null
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     return {
       handleRight,
       handleLeft,

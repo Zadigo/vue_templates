@@ -1,11 +1,13 @@
 <template>
-  <div :class="[isSwitch ? 'form-switch' : null, inline ? 'form-check-inline' : null]" class="form-check">
-    <input :id="id" v-model="value" :checked="value" :type="checkboxType" :role="[ isSwitch ? 'switch' : null]" :name="name" class="form-check-input">
+  <div :class="[isSwitch ? 'form-switch' : 'form-check', inline ? 'form-check-inline' : null]">
+    <input :id="id" v-model="value" :class="[darkMode ? 'dark' : null]" :checked="value" :type="checkboxType" :role="[ isSwitch ? 'switch' : null]" :name="name" class="form-check-input">
     <label :for="id" class="form-check-label">{{ label }}</label>
   </div>
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseCheckbox',
   props: {
@@ -39,6 +41,12 @@ export default {
   emits: {
     'update:initial' () {
       return true
+    }
+  },
+  setup () {
+    const darkMode = inject('darkMode', () => false)
+    return {
+      darkMode
     }
   },
   computed: {

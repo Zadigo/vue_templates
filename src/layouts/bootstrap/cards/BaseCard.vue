@@ -97,7 +97,7 @@ export default {
     }
   },
   setup (props, { slots }) {
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     const cardHeight = null
 
     const hasHeader = !!slots.header

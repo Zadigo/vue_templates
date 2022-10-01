@@ -34,7 +34,7 @@ export default {
     }
   },
   setup () {
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     return {
       darkMode
     }

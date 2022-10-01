@@ -1,7 +1,7 @@
 <template>
   <!-- dropdown-center dropup dropend dropstart -->
   <div ref="drop" class="dropdown">
-    <button id="dropdownMenuButton1" :class="buttonClasses" :aria-expanded="show" class="btn btn-lg dropdown-toggle" type="button" @click="toggle">
+    <button :id="id" :class="buttonClasses" :aria-expanded="show" class="btn btn-lg dropdown-toggle" type="button" @click="toggle">
       <span v-if="icon" :class="{ [`mdi-${icon}`]: true }" class="mdi me-2"></span>
       {{ buttonName }}
     </button>
@@ -9,7 +9,7 @@
     <!-- :name="animation" -->
     <transition :name="animation" mode="in-out">
       <!-- dropdown-menu-end -->
-      <ul v-if="show" :class="{show, 'dropdown-menu-dark': darkMode}" aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+      <ul v-if="show" :class="{show, 'dropdown-menu-dark': darkMode}" :aria-labelledby="id" class="dropdown-menu">
         <!-- <li><h6 class="dropdown-header">Dropdown header</h6></li> -->
         <li v-for="(item, i) in items" :key="item.name">
           <a class="dropdown-item" href @click.prevent="dropdownClick(i, item)">
@@ -41,6 +41,9 @@ export default {
       type: String,
       default: 'primary'
     },
+    id: {
+      type: String
+    },
     icon: {
       type: String
     },
@@ -63,7 +66,7 @@ export default {
   setup () {
     const target = ref(null)
     const show = ref(false)
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     // onClickOutside(target, () => {
     //   show.value = false
     // })
@@ -98,13 +101,10 @@ export default {
     const buttonWidth = button.offsetWidth
     console.log(buttonWidth)
     //   this.$refs.link.style.animation = `${this.animation} .3s ease`
-    //   var body = document.querySelector('body')
-    //   body.addEventListener('click', (e) => {
-    //       // console.log(e)
-    //       if (!e.target.classList.contains('dropdown')) {
-    //           this.show = !this.show
-    //       }
-    //   })
+    window.addEventListener('click', this.handleClickOutside)
+  },
+  unmounted () {
+    window.removeEventListener('click', this.handleClickOutside)
   },
   methods: {
     toggle () {
@@ -112,7 +112,13 @@ export default {
     },
     dropdownClick (index, item) {
       this.toggle()
-      this.$emit('dropdown-click', index, item)
+      this.$emit('dropdown-click', [index, item])
+    },
+    handleClickOutside (e) {
+      // TODO:
+      if (!e.target.classList.contains('dropdown')) {
+          this.show = !this.show
+      }
     }
   } 
 }  

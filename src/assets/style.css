@@ -340,3 +340,22 @@ html {
 .opacity-move {
     transition: all .3s ease;
 }
+
+
+/* .form-check-input.dark {
+    background-color: rgba(38, 38, 38, 1) !important;
+    border: .125rem solid #f8f9fa !important;
+}
+
+.form-check-input.dark[type=radio]:after {
+    background-color: rgba(38, 38, 38, 1) !important;
+}
+
+.form-check-input.dark[type=radio]:checked {
+    background-image: none;
+    background-color: rgba(38, 38, 38, 1) !important;
+}
+
+.form-check-input.dark[type=radio]:checked:after {
+    background-color: #1266f1 !important;
+} */

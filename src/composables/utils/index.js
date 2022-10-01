@@ -109,15 +109,6 @@ export function useUtilities () {
     }
   }
 
-  function truncate (text, k = 28) {
-    if (!(typeof text === 'string')) {
-      raiseError('truncate', `${text} should be a string`)
-      return ''
-    } else {
-      return `${text.slice(0, k)}...`
-    }
-  }
-
   function conditionalTruncate (text, limit, k) {
     if (text.length >= limit) {
       return truncate(text, k)
@@ -213,9 +204,11 @@ export function useUtilities () {
     capitalizeLetters,
     conditionalTruncate,
     decreaseIndex,
+    dictionnaryExists,
     dictionnaryListManager,
     formatAsPercentage,
     getVerticalScrollPercentage,
+    getVideoFrame,
     hasNull,
     indexElements,
     incrementLastId,

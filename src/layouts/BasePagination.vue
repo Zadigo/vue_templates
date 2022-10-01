@@ -37,6 +37,9 @@ export default {
     },
     centered: {
       type: Boolean
+    },
+    syncCurrentPage: {
+      type: Number
     }
   },
   emits: {
@@ -45,7 +48,7 @@ export default {
     }
   },
   setup () {
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     return {
       darkMode
     }
@@ -62,6 +65,18 @@ export default {
         this.circle ? 'pagination-circle' : null,
         this.centered ? 'justify-content-center' : null,
       ]
+    }
+  },
+  watch: {
+    syncCurrentPage () {
+      // Allows multiple BasePagination components
+      // to sync together via a central parameter
+      // that references the current page
+      if (this.syncCurrentPage) {
+        if (this.selected !== this.syncCurrentPage) {
+          this.selected = this.syncCurrentPage
+        }
+      }
     }
   },
   methods: {
@@ -81,14 +96,16 @@ export default {
 
 <style scoped>
 .pagination-dark .page-item .page-link {
-    color: hsla(0,0%,100%,.55);
-  }
+  color: rgba(255, 255, 255, 0.55);
+}
+
 .pagination-dark .page-item.disabled .page-link {
-  color: hsla(0, 0%, 100%, .55);
+  color: rgba(255, 255, 255, 0.55);
   pointer-events: none;
   background-color: rgba(38, 38, 38, 1);
   border-color: #e0e0e0;
 }
+
 /* .pagination-dark .page-item:hover {
   color: #212529;
 } */

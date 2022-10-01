@@ -33,7 +33,7 @@ export default {
   },
   setup () {
     const show = ref(false)
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     const collapseElement = null
     return {
       darkMode,

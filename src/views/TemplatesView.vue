@@ -60,7 +60,7 @@ ifnoinfoienfoeenifoei
             <div class="card-body">
               <h3 class="card-title">Form</h3>
               <base-select :items="['A', 'B', 'C']" />
-              <base-input placeholder="Rechercher" class="my-1" />
+              <base-input :initial="search" placeholder="Rechercher" class="my-1 p-3" />
             </div>
           </div>
 
@@ -318,6 +318,7 @@ export default {
   },
   data () {
     return {
+      search: null,
       showModal1: false,
       showModal3: false,
       showOffcanvas: false,

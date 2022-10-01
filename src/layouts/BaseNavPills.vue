@@ -23,7 +23,14 @@ export default {
       default: () => []
     }
   },
-  emits: ['change', 'click'],
+  emits: {
+    change () {
+      return true
+    },
+    click () {
+      return true
+    }
+  },
   data: () => ({
     selected: 0
   }),
