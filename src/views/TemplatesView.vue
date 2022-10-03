@@ -248,6 +248,21 @@ ifnoinfoienfoeenifoei
               </base-collapse>
             </div>
           </base-template-card>
+
+          <base-template-card class="my-3">
+            <div class="card-body">
+              <h3 class="card-title">Timeline</h3>
+              <div class="row">
+                <div class="col-12">
+                  <base-timeline :items="timeline" />
+                </div>
+
+                <div class="col-12">
+                  <base-horizontal-timeline :items="timeline" />
+                </div>
+              </div>
+            </div>
+          </base-template-card>
         </section>
       </div>
     </div>
@@ -268,6 +283,7 @@ import BaseAccordion from '@/layouts/BaseAccordion.vue'
 import BaseCheckbox from '../layouts/BaseCheckbox.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue'
+import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
 import BaseInput from '@/layouts/BaseInput.vue'
 import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
@@ -277,9 +293,10 @@ import BaseOffcanvas from '../layouts/BaseOffcanvas.vue'
 import BasePagination from '@/layouts/BasePagination.vue'
 import BaseSelect from '@/layouts/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
+import BaseTimeline from '@/layouts/BaseTimeline.vue'
+import BaseHorizontalTimeline from '@/layouts/BaseHorizontalTimeline.vue'
 import BaseToast from '@/layouts/BaseToast.vue'
 import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
-import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
 
 export default {
   name: 'TemplatesView',
@@ -300,7 +317,9 @@ export default {
     BaseCardGroup,
     BaseTemplateCard,
     BaseRangeInput,
-    BaseCollapse
+    BaseCollapse,
+    BaseTimeline,
+    BaseHorizontalTimeline
 },
   setup () {
     var dark = useDark()
@@ -335,6 +354,20 @@ export default {
         {
           name: 'Open offcanvas',
           to: null
+        }
+      ],
+      timeline: [
+        {
+          title: 'Kendall Jenner',
+          date: 'Jan 14',
+          image: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg',
+          content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt vel accusantium quidem laboriosam fugit similique sit molestiae! Vel blanditiis vero, non dolor labore reprehenderit. Assumenda repellat asperiores necessitatibus amet vitae.'
+        },
+        {
+          title: 'Kylie Jenner',
+          date: 'Jan 14',
+          image: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg',
+          content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt vel accusantium quidem laboriosam fugit similique sit molestiae! Vel blanditiis vero, non dolor labore reprehenderit. Assumenda repellat asperiores necessitatibus amet vitae.'
         }
       ]
     }

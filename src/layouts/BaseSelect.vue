@@ -40,3 +40,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.form-select option {
+  min-height: 3em;
+  padding: .5rem 1rem;
+}
+</style>
