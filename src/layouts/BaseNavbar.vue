@@ -1,9 +1,9 @@
 <template>
   <nav ref="link" :class="navbarClasses" class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-uppercase" href="#">
+    <div :class="containerFluid ? 'container-fluid' : 'container'">
+      <router-link to="/" class="navbar-brand fw-bold text-uppercase">
         Navbar
-      </a>
+      </router-link>
 
       <button :class="{ collapsed }" type="button" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" @click="collapsed = !collapsed">
         <span class="navbar-toggler-icon"></span>
@@ -46,6 +46,9 @@ export default {
     BaseSideDropdownVue
   },
   props: {
+    containerFluid: {
+      type: Boolean
+    },
     fixedTop: {
       type: Boolean
     }

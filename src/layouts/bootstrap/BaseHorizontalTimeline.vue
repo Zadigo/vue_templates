@@ -1,12 +1,12 @@
 <template>
-  <section ref="link" class="timeline-container bg-light">
+  <section ref="link" :class="[darkMode ? 'bg-dark' : 'bg-light']" class="timeline-container">
     <ol>
       <li v-for="i in 10" :key="i">
         <div class="timeline-block">
-          <div class="card">
+          <div :class="[darkMode ? 'text-bg-dark' : null]" class="card">
             <div class="card-body">
               <time class="h5 card-title">1934</time>
-              <p class="text">
+              <p class="text fw-light">
                 At vero eos et accusamus et iusto odio dignissimos 
                 ducimus qui blanditiis
               </p>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseTimeline',
   props: {
@@ -41,6 +43,12 @@ export default {
   emits: {
     'timeline-click' () {
       return true
+    }
+  },
+  setup () {
+    const darkMode = inject('darkMode', false)
+    return {
+      darkMode
     }
   },
   methods: {
@@ -68,14 +76,18 @@ ol {
 }
 
 ol li {
+  /* Timeline line */
   position: relative;
   display: inline-block;
   list-style-type: none;
   width: 160px;
   min-width: 160px;
-  /* background-color: #fff; */
   background-color: rgba(0, 0, 0, 0.375);
   height: 3px;
+}
+
+section.bg-dark ol li {
+  background-color: rgba(249, 249, 249, 1) !important;;
 }
 
 ol li:last-child {
@@ -116,6 +128,7 @@ ol li:nth-child(even) .timeline-block {
 
 /* ol li:not(:last-child)::after { */
 ol li::after {
+  /* Timeline indicator */
   content: "";
   position: absolute;
   top: 50%;
@@ -127,6 +140,10 @@ ol li::after {
   border-radius: 50%;
   background: #0d6efd;
   /* box-shadow: inset 0px 3px 0px white; */
+}
+
+section.bg-dark ol li::after {
+  background-color: rgba(249, 249, 249, 1) !important;
 }
 
 /* ol li:nth-child(odd) .timeline-block::before {

@@ -1,3 +1,4 @@
+import { scrollToTop, loadView } from '@/composables/utils'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -40,11 +41,17 @@ const routes = [
         path: '/graph',
         name: 'graph_view',
         component: () => import('../views/GraphView.vue')
+    },
+    {
+        path: '/cover',
+        name: 'cover_page_view',
+        component: loadView('CoverPageView')
     }
 ]
 
 const router = createRouter({
     history: createWebHistory(),
+    scrollBehavior: scrollToTop,
     routes: routes
 })
 

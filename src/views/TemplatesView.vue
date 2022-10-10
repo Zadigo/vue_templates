@@ -17,6 +17,9 @@ ifnoinfoienfoeenifoei
             <!-- <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a> -->
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
               <base-dropdown-button-vue :items="drops" :button-name="'Dropown button'" @dropdown-click="action" />
+              <router-link :to="{ name: 'cover_page_view' }" class="btn btn-primary">
+                Cover page
+              </router-link>
             </div>
           </div>
         </div>
@@ -232,6 +235,7 @@ ifnoinfoienfoeenifoei
             </div>
           </base-template-card>
 
+          <!-- Collapse -->
           <base-template-card class="my-3">
             <div class="card-body">
               <h3 class="card-title">Collapse</h3>
@@ -249,6 +253,7 @@ ifnoinfoienfoeenifoei
             </div>
           </base-template-card>
 
+          <!-- Timeline -->
           <base-template-card class="my-3">
             <div class="card-body">
               <h3 class="card-title">Timeline</h3>
@@ -263,6 +268,11 @@ ifnoinfoienfoeenifoei
               </div>
             </div>
           </base-template-card>
+
+          <hr class="my-4">
+          
+          <base-list-group-item-radio id="google" :items="listgroups" />
+          <base-list-group-checkbox id="google1" class="my-3" :items="listgroups" />
         </section>
       </div>
     </div>
@@ -285,18 +295,20 @@ import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue'
 import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
 import BaseInput from '@/layouts/BaseInput.vue'
-import BaseDropdownButtonVue from '../layouts/BaseDropdownButton.vue'
+import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
+import BaseHorizontalTimeline from '@/layouts/bootstrap/BaseHorizontalTimeline.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
 import BaseModalVue from '../layouts/BaseModal.vue'
 import BaseNavbarVue from '../layouts/BaseNavbar.vue'
 import BaseOffcanvas from '../layouts/BaseOffcanvas.vue'
 import BasePagination from '@/layouts/BasePagination.vue'
+import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
+import BaseListGroupItemRadio from '@/layouts/bootstrap/listgroups/BaseListGroupItemRadio.vue'
 import BaseSelect from '@/layouts/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
-import BaseTimeline from '@/layouts/BaseTimeline.vue'
-import BaseHorizontalTimeline from '@/layouts/BaseHorizontalTimeline.vue'
+import BaseTimeline from '@/layouts/bootstrap/BaseTimeline.vue'
 import BaseToast from '@/layouts/BaseToast.vue'
-import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
+import BaseListGroupCheckbox from '@/layouts/bootstrap/listgroups/BaseListGroupCheckbox.vue'
 
 export default {
   name: 'TemplatesView',
@@ -304,10 +316,13 @@ export default {
     BaseAccordion,
     BaseAutocomplete,
     BaseCheckbox,
+    BaseCollapse,
     BaseDropdownButtonVue,
+    BaseHorizontalTimeline,
     BaseModalVue,
     BaseNavbarVue,
     BaseOffcanvas,
+    BaseListGroupItemRadio,
     BaseSelect,
     BaseInput,
     BasePagination,
@@ -315,11 +330,10 @@ export default {
     BaseFooter,
     BaseCard,
     BaseCardGroup,
+    BaseTimeline,
     BaseTemplateCard,
     BaseRangeInput,
-    BaseCollapse,
-    BaseTimeline,
-    BaseHorizontalTimeline
+    BaseListGroupCheckbox
 },
   setup () {
     var dark = useDark()
@@ -355,6 +369,11 @@ export default {
           name: 'Open offcanvas',
           to: null
         }
+      ],
+      listgroups: [
+        { name: 'First radio', subtitle: 'With support text underneath to add more detail' }, 
+        { name: 'Second radio', subtitle: 'With support text underneath to add more detail', disabled: true }, 
+        { name: 'Third radio', subtitle: 'With support text underneath to add more detail' }
       ],
       timeline: [
         {
