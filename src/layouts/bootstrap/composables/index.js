@@ -31,8 +31,13 @@ export function useLists (items) {
     selectionManager(index)
     emit('list-click', selected.value)
   }
+
+  function isSelected (index) {
+    return selected.value.includes(index)
+  }
   
   return {
+    isSelected,
     selected,
     selectedIds,
     selectItem
