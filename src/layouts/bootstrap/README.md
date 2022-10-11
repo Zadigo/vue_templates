@@ -1,3 +1,4 @@
+# Bootstrap for Vue
 ## Form
 ### Checkbox
 ```html
@@ -11,3 +12,20 @@
 ```html
 <base-select :items="['A', 'B', 'C']" />
 ```
+
+## Pagination
+
+```html
+<base-pagination :pages="4" />
+```
+
+
+## Modal
+
+```html
+<base-modal-vue id="test-modal" :show="showModal" :non-invasive="false" :scrollable="false" :centered="false" :static-backdrop="true" position="top-right" size="sm" @close="showModal = false">
+    <p>...</p>
+</base-modal-vue>
+```
+
+
