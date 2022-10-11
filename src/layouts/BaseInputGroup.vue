@@ -1,8 +1,14 @@
 <template>
   <div ref="link" class="input-group">
-    <slot name="left" />
+    <div class="input-group-text">
+      <slot name="left" />
+    </div>
+
     <slot />
-    <slot name="right" />
+    
+    <div class="input-group-text">
+      <slot name="right" />
+    </div>
   </div>
 </template>
 

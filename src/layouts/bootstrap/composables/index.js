@@ -1,15 +1,57 @@
 import _ from 'lodash'
-import { computed, ref, defineEmits } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
-export function useLists (items) {
+export function useClickOutside (actionType, onbefore = () => { }, onafter = () => { }) {
+  const show = ref(false)
+  const action = actionType
+  action
+  function handleButtonClickOutside (e) {
+    const target = e.target
+
+    onbefore(e)
+
+    if (target.classList.contains('dropdown-header')) {
+      return
+    }
+
+    if (target.classList.contains('dropdown-divider')) {
+      return
+    }
+
+    if (!target.classList.contains('dropdown-toggle')) {
+      show.value = false
+    }
+    
+    onafter(e)
+  }
+
+  function toggleShow() {
+    show.value = !show.value
+  }
+
+  onMounted(() => {
+    window.addEventListener('click', handleButtonClickOutside)
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('click', handleButtonClickOutside)
+  })
+
+  return {
+    show,
+    toggleShow
+  }
+}
+
+export function useLists (items, onbefore = () => { }, onafter = () => { }) {
   const _items = items
   const selectedIds = ref([])
 
-  const emit = defineEmits({
-    'list-click' () {
-      return true
-    }
-  })
+  // const emit = defineEmits({
+  //   'list-click' () {
+  //     return true
+  //   }
+  // })
 
   function selectionManager (item) {
     if (selectedIds.value.includes(item)) {
@@ -27,13 +69,15 @@ export function useLists (items) {
     })
   })
 
-  function selectItem (index) {
+  function selectItem (e, index) {
+    onbefore(e)
     selectionManager(index)
-    emit('list-click', selected.value)
+    onafter(e)
+    // emit('list-click', selected.value)
   }
 
   function isSelected (index) {
-    return selected.value.includes(index)
+    return selectedIds.value.includes(index)
   }
   
   return {

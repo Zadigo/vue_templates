@@ -42,8 +42,8 @@ export default {
     }
   },
   emits: {
-    "item-selected" (item) {
-      if (!(typeof item !== "object")) {
+    'item-selected' (item) {
+      if (!(typeof item !== 'object')) {
         return false
       }
       return true

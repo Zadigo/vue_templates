@@ -16,7 +16,7 @@ ifnoinfoienfoeenifoei
             <h4 class="mb-3 fw-light">A simple VueJS projects for template demonstrations</h4>
             <!-- <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a> -->
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <base-dropdown-button-vue :items="drops" :button-name="'Dropown button'" @dropdown-click="action" />
+              <base-dropdown-button-vue :items="drops" :show-active="false" button-name="Dropown button" animation="scale" @dropdown-click="action" />
               <router-link :to="{ name: 'cover_page_view' }" class="btn btn-primary">
                 Cover page
               </router-link>
@@ -63,7 +63,7 @@ ifnoinfoienfoeenifoei
             <div class="card-body">
               <h3 class="card-title">Form</h3>
               <base-select :items="['A', 'B', 'C']" />
-              <base-input :initial="search" placeholder="Rechercher" class="my-1 p-3" />
+              <base-input id="search" :initial="search" aria-label="Google" label="Recherche de votre vie rapidement ici" placeholder="Rechercher" class="my-1 p-3" />
             </div>
           </div>
 
@@ -288,26 +288,26 @@ import { useDarkMode } from '../composables/darkmode'
 import { useDark, useToggle } from '@vueuse/core'
 import { provide } from 'vue'
 
-import BaseAutocomplete from '@/layouts/BaseAutocomplete.vue'
-import BaseAccordion from '@/layouts/BaseAccordion.vue'
+import BaseAutocomplete from '@/layouts/bootstrap/BaseAutocomplete.vue'
+import BaseAccordion from '@/layouts/bootstrap/BaseAccordion.vue'
 import BaseCheckbox from '../layouts/BaseCheckbox.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue'
 import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
-import BaseInput from '@/layouts/BaseInput.vue'
-import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
+import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
+import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'
 import BaseHorizontalTimeline from '@/layouts/bootstrap/BaseHorizontalTimeline.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
-import BaseModalVue from '../layouts/BaseModal.vue'
+import BaseModalVue from '../layouts/bootstrap/BaseModal.vue'
 import BaseNavbarVue from '../layouts/BaseNavbar.vue'
-import BaseOffcanvas from '../layouts/BaseOffcanvas.vue'
+import BaseOffcanvas from '../layouts/bootstrap/BaseOffcanvas.vue'
 import BasePagination from '@/layouts/BasePagination.vue'
 import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
 import BaseListGroupItemRadio from '@/layouts/bootstrap/listgroups/BaseListGroupItemRadio.vue'
-import BaseSelect from '@/layouts/BaseSelect.vue'
+import BaseSelect from '@/layouts/bootstrap/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 import BaseTimeline from '@/layouts/bootstrap/BaseTimeline.vue'
-import BaseToast from '@/layouts/BaseToast.vue'
+import BaseToast from '@/layouts/bootstrap/BaseToast.vue'
 import BaseListGroupCheckbox from '@/layouts/bootstrap/listgroups/BaseListGroupCheckbox.vue'
 
 export default {
@@ -362,12 +362,25 @@ export default {
       },
       drops: [
         {
-          name: 'Open modal',
+          name: 'First',
           to: null
         },
         {
-          name: 'Open offcanvas',
+          name: 'second',
           to: null
+        },
+        {
+          name: 'Header',
+          header: true
+        },
+        {
+          name: 'Third'
+        },
+        {
+          divider: true
+        },
+        {
+          name: 'Fourth'
         }
       ],
       listgroups: [
@@ -393,13 +406,15 @@ export default {
   },
   methods: {
     action (value) {
-      if (value[0] === 0) {
-        this.showModal = true
-      }
+      // if (value[0] === 0) {
+      //   this.showModal = true
+      // }
 
-      if (value[0] === 1) {
-        this.showOffcanvas = true
-      }
+      // if (value[0] === 1) {
+      //   this.showOffcanvas = true
+      // }
+      // Action here
+      value
     }
   }
 }

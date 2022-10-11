@@ -75,7 +75,7 @@
 
 <script>
 import EmojiPicker from '@/layouts/emojis/EmojiPicker.vue'
-import BaseDropdownButtonVue from '@/layouts/BaseDropdownButton.vue'
+import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'
 import CommentCard from './CommentCard.vue'
 
 import { inject } from 'vue'
