@@ -89,7 +89,7 @@ ifnoinfoienfoeenifoei
 
               <hr>
           
-              <base-checkbox id="invasive" label="Non invasive" @update:initial="modalOptions.nonInvasive = !modalOptions.nonInvasive" />
+              <base-checkbox id="invasive" :bigger="true" label="Non invasive" @update:initial="modalOptions.nonInvasive = !modalOptions.nonInvasive" />
           
               <hr>
 
@@ -290,7 +290,7 @@ import { provide } from 'vue'
 
 import BaseAutocomplete from '@/layouts/bootstrap/BaseAutocomplete.vue'
 import BaseAccordion from '@/layouts/bootstrap/BaseAccordion.vue'
-import BaseCheckbox from '../layouts/BaseCheckbox.vue'
+import BaseCheckbox from '../layouts/bootstrap/BaseCheckbox.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue'
 import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
@@ -299,7 +299,7 @@ import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'
 import BaseHorizontalTimeline from '@/layouts/bootstrap/BaseHorizontalTimeline.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
 import BaseModalVue from '../layouts/bootstrap/BaseModal.vue'
-import BaseNavbarVue from '../layouts/BaseNavbar.vue'
+import BaseNavbarVue from '@/layouts/bootstrap/nav/BaseNavbar.vue'
 import BaseOffcanvas from '../layouts/bootstrap/BaseOffcanvas.vue'
 import BasePagination from '@/layouts/BasePagination.vue'
 import BaseRangeInput from '@/layouts/BaseRangeInput.vue'

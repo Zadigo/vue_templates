@@ -1,12 +1,13 @@
 <template>
-  <!-- form-check-inline -->
-  <div class="form-check">
-    <input :id="id" v-model="value" :class="[isSwitch ? 'form-switch' : null]" class="form-check-input" type="checkbox">
+  <div :class="[isSwitch ? 'form-switch' : 'form-check', inline ? 'form-check-inline' : null]">
+    <input :id="id" v-model="value" :class="inputClasses" :checked="value" :type="checkboxType" :role="[ isSwitch ? 'switch' : null]" :name="name" class="form-check-input">
     <label :for="id" class="form-check-label">{{ label }}</label>
   </div>
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'BaseCheckbox',
   props: {
@@ -14,9 +15,11 @@ export default {
       type: String,
       required: true
     },
-    label: {
-      type: String,
-      required: true
+    // bigger: {
+    //   type: Boolean
+    // },
+    inline: {
+      type: Boolean
     },
     isSwitch: {
       type: Boolean,
@@ -29,11 +32,24 @@ export default {
     initial: {
       type: Boolean,
       default: false
+    },
+    label: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String
     }
   },
   emits: {
     'update:initial' () {
       return true
+    }
+  },
+  setup () {
+    const darkMode = inject('darkMode', () => false)
+    return {
+      darkMode
     }
   },
   computed: {
@@ -44,6 +60,14 @@ export default {
       set (value) {
         this.$emit('update:initial', value)
       }
+    },
+    inputClasses () {
+      return [
+        // {
+        //   'fs-input-bigger': this.bigger && !this.isSwitch,
+        // },
+        this.darkMode ? 'dark' : null
+      ]
     },
     checkboxType () {
       if (this.isSwitch && this.isRadio) {
@@ -56,6 +80,17 @@ export default {
         return 'checkbox'
       }
     }
+  },
+  mounted () {
+    if (this.initial) {
+      this.value = true
+    }
   }
 }
 </script>
+
+<style scoped>
+.form-check-input.fs-input-bigger {
+  font-size: 1.375em;
+}
+</style>

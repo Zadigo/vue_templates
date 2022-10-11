@@ -1,19 +1,18 @@
 <template>
   <div :id="id" class="list-group mx-0 w-auto">
     <label v-for="(item, i) in items" :key="i" :class="[darkMode ? 'text-bg-dark' : null]" class="list-group-item d-flex gap-2">
-      <input :checked="selectedIds.includes(i)" :disabled="item.disabled" :value="i" class="form-check-input flex-shrink-0" type="checkbox" @click="listManager(selectedIds, i), $emit('list-group-selection', selected)">
+      <input :id="`${id}-${i}`" :checked="selectedIds.includes(i)" :disabled="item.disabled" :value="i" :name="`${id}-1`" class="form-check-input flex-shrink-0" type="checkbox" @click="selectItem($event, i), $emit('list-group-selection', selected)">
       <span>
         {{ item.name }}
-        <small class="d-block text-muted">{{ item.subtitle }}</small>
+        <small v-if="item.subtitle" class="d-block text-muted">{{ item.subtitle }}</small>
       </span>
     </label>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
-import { inject } from 'vue'
-import { useUtilities } from '@/composables/utils'
+import { getCurrentInstance, inject } from 'vue'
+import { useLists } from '../composables/index'
 
 export default {
   name: 'BaseListGroupCheckbox',
@@ -25,7 +24,10 @@ export default {
     items: {
       type: Array,
       required: true
-    },
+    }
+    // isRadio: {
+    //   type: Booleean
+    // }
     // initial: {
     //   type: Array,
     //   default: true
@@ -37,24 +39,14 @@ export default {
     }
   },
   setup () {
-    const { listManager } = useUtilities()
+    const app = getCurrentInstance()
+    const { selected, selectedIds, selectItem } = useLists(app.props.items)
     const darkMode = inject('darkMode', false)
     return {
-      listManager,
+      selected,
+      selectedIds,
+      selectItem,
       darkMode
-    }
-  },
-  data () {
-    return {
-      selectedIds: [],
-      refactoredItems: []
-    }
-  },
-  computed: {
-    selected () {
-      return _.map(this.selectedIds, (id) => {
-        return this.items[id]
-      })
     }
   }
 }

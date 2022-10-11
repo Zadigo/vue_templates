@@ -4,26 +4,38 @@
       Menu item
     </a>
 
-    <ul ref="link" :class="{ show, 'dropdown-menu-dark' : darkMode }" class="dropdown-menu" @mouseleave="show = false">
-      <template v-for="(item, i) in items" :key="i">
+    <ul ref="link" :class="{ show, 'dropdown-menu-dark' : darkMode }" class="dropdown-menu p-2" @mouseleave="show = false">
+      <template v-for="(item, x) in items" :key="x">
         <li v-if="hasSubmenu(item.subMenu)" class="has-submenu">
           <a :class="{ 'bg-dark text-light': darkMode }" class="dropdown-item dropdown-toggle" href @click.prevent>
             {{ item.name }}
           </a>
 
           <div :class="{ 'bg-dark text-light': darkMode }" class="megasubmenu dropdown-menu">
-            <div class="row">
-              <div class="col-12">
-                <h6 class="title">{{ item.subMenu.title }}</h6>
+            <div :class="[item.subMenu.length === 1 ? 'justify-content-start' : 'justify-content-around']" class="d-flex gap-2 w-auto align-items-left">
+              <div v-for="(subItem, y) in item.subMenu" :key="y" class="w-auto">
+                <h6 class="title">{{ subItem.title }}</h6>
                 <ul class="list-unstyled">
-                  <li v-for="(link, t) in item.subMenu.links" :key="t">
-                    <a :href="link.href" :class="{'text-light': darkMode, 'text-dark': !darkMode}">
+                  <li v-for="(link, z) in subItem.links" :key="z">
+                    <a :href="link.href" :class="{'text-light': darkMode, 'text-dark': !darkMode}" class="rounded-2">
                       {{ link.name }}
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
+            <!-- <div class="row">
+              <div class="col-12">
+                <h6 class="title">{{ item.subMenu.title }}</h6>
+                <ul class="list-unstyled w-auto">
+                  <li v-for="(link, y) in item.subMenu.links" :key="y">
+                    <a :href="link.href" :class="{'text-light': darkMode, 'text-dark': !darkMode}" class="rounded-2">
+                      {{ link.name }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div> -->
           </div>
         </li>
 
@@ -76,11 +88,13 @@ import sidedropdown from '../../data/sidedropdown.json'
 export default {
   name: 'BaseSideDropdown',
   setup () {
+    const target = null
     const show = ref(false)
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     return {
       show,
       darkMode,
+      target,
       items: sidedropdown
     }
   },
@@ -91,12 +105,8 @@ export default {
     showDropdown () {
       this.show = !this.show
     },
-    hasSubmenu (items) {
-      if (!items) {
-        return false
-      } else {
-        return Object.keys(items).length > 0
-      }
+    hasSubmenu (item) {
+      return item.length > 0
     }
   }
 }
