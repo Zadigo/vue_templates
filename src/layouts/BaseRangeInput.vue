@@ -130,8 +130,8 @@ export default {
     },
     getPercentage (e) {
       const mousePosition = e.pageX
-      const handleOffset = this.handleOffsets.left
-      const result = mousePosition - handleOffset
+      const handleOffsetLeft = this.handleOffsets.left
+      const result = mousePosition - handleOffsetLeft
       const trackWidth = this.$refs.link.querySelector('.slider').offsetWidth
       let value = result / trackWidth * 100
       value = Math.round(value / 1) * 1
