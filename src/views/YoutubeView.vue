@@ -539,7 +539,7 @@ import { ref, provide } from 'vue'
 
 // import BaseDropGroupVue from '@/layouts/BaseDropGroup.vue'
 import BaseCarousel from '@/layouts/BaseCarousel.vue'
-import BaseVideoPlayerVue from '../layouts/BaseVideoPlayer.vue'
+import BaseVideoPlayerVue from '@/layouts/bootstrap/players/BaseVideoPlayer.vue'
 import BaseScrollbarVue from '../layouts/BaseScrollbar.vue'
 import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'
 import BaseModalVue from '@/layouts/bootstrap/BaseModal.vue'

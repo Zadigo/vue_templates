@@ -273,6 +273,14 @@ ifnoinfoienfoeenifoei
           
           <base-list-group-item-radio id="google" :items="listgroups" />
           <base-list-group-checkbox id="google1" class="my-3" :items="listgroups" />
+
+          <base-template-card>
+            <div class="card-body">
+              <!-- <base-video-player-playlist v-slot="{videoUrl}" :playlist="[require('@/assets/hollyG1.mp4'), require('@/assets/video1.mp4')]"> -->
+              <base-video-player :video-url="require('@/assets/hollyG1.mp4')" />
+              <!-- </base-video-player-playlist> -->
+            </div>
+          </base-template-card>
         </section>
       </div>
     </div>
@@ -309,6 +317,8 @@ import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 import BaseTimeline from '@/layouts/bootstrap/BaseTimeline.vue'
 import BaseToast from '@/layouts/bootstrap/BaseToast.vue'
 import BaseListGroupCheckbox from '@/layouts/bootstrap/listgroups/BaseListGroupCheckbox.vue'
+import BaseVideoPlayer from '@/layouts/bootstrap/players/BaseVideoPlayer.vue'
+// import BaseVideoPlayerPlaylist from '@/layouts/bootstrap/players/BaseVideoPlayerPlaylist.vue'
 
 export default {
   name: 'TemplatesView',
@@ -333,7 +343,9 @@ export default {
     BaseTimeline,
     BaseTemplateCard,
     BaseRangeInput,
-    BaseListGroupCheckbox
+    BaseListGroupCheckbox,
+    BaseVideoPlayer,
+    // BaseVideoPlayerPlaylist
 },
   setup () {
     var dark = useDark()
