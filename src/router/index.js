@@ -25,7 +25,12 @@ const routes = [
     {
         path: '/game',
         name: 'game_view',
-        component: () => import('../views/GameView.vue')
+        component: loadView('GameView')
+    },
+    {
+        path: '/trello',
+        name: 'trello_view',
+        component: loadView('TrelloView')
     },
     {
         path: '/test',

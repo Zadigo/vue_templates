@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Cite d'Agartha",
+        "provides": "blue",
+        "required_ressources": {
+            "white": 0,
+            "black": 0,
+            "green": 0,
+            "yellow": 0,
+            "blue": 4,
+            "red": 1
+        },
+        "ressources": {
+            "white": 0,
+            "black": 0,
+            "green": 0,
+            "yellow": 0,
+            "blue": 0,
+            "red": 0
+        },
+        "benefits": {
+            "P": 0,
+            "1xG": 1,
+            "2xG": 0,
+            "1xF": 0,
+            "2xF": 0,
+            "1xR": 0,
+            "2xR": 0
+        }
+    }
+]
