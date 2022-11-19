@@ -1,7 +1,6 @@
 <template>
-  <div ref="link" :class="[darkMode ? 'dark' : null]" class="slider-wrapper" @mousedown="handleRightSlider($event)">
-    <!-- @mousedown="handleRightSlider($event)" -->
-    <div class="slider">
+  <div ref="link" :class="[darkMode ? 'dark' : null]" class="slider-wrapper">
+    <div class="slider" @mousedown="handleRightSlider($event)">
       <div class="slider-track">
         <div class="track-low"></div>
         <div :class="[showTrack || isRange ? 'track-selection-primary' : null]" class="track-selection"></div>
@@ -15,7 +14,8 @@
       <div v-if="isRange" class="handle-left" :aria-valuetext="percentages[0]" :aria-valuenow="percentages[0]" :aria-valuemin="0" :aria-valuemax="100" />
       <div class="handle-right" :aria-valuetext="percentages[1]" :aria-valuenow="percentages[1]" :aria-valuemin="0" :aria-valuemax="100" />
     </div>
-    <!-- <input v-model="percentage" :aria-valuenow="percentage" type="range" min="0" max="100" class="form-range d-none"> -->
+
+    <!-- <input :value="modelValue" :aria-valuenow="modelValue" type="range" min="0" max="100" class="form-range d-none"> -->
   </div>
 </template>
 
@@ -35,7 +35,10 @@ export default {
     showTrack: {
       type: Boolean,
       default: true
-    }
+    },
+    // modelValue: {
+    //   type: Number
+    // }
   },
   emits: {
     'update:slider' () {
@@ -81,7 +84,8 @@ export default {
       const initialValues = [0, 0]
       
       if (this.isRange && this.initial > 0) {
-        initialValues[1] = 10
+        initialValues[0] = 10
+        initialValues[1] = 40
       } else if (!this.isRange && this.initial > 0) {
         initialValues[1] = this.initial
       } else {
@@ -109,6 +113,12 @@ export default {
       this.handleTrack()
       this.$emit('update:slider', this.percentages[1])
     },
+    handleDrag (e) {
+      this.percentages[1] = this.getPercentage(e)
+      this.handleRight.style.left = `${this.percentages[1]}%`
+      this.handleTrack()
+      this.$emit('update:slider', this.percentages[1])
+    },
     handleTrack () {
       const trackSelection = this.$refs.link.querySelector('.track-selection')
       trackSelection.style.right = '0'
@@ -121,8 +131,9 @@ export default {
       trackHigh.style.width = 100 - this.percentages[1] + '%'
 
       // if (this.isRange) {
-      //   const trackHigh = this.$refs.link.querySelector('.track-high')
-      //   trackHigh
+      //   const trackLow = this.$refs.link.querySelector('.track-low')
+      //   trackLow.style.right = '0'
+      //   trackLow.style.width = 100 - this.percentages[0] + '%'
       // }
     },
     handleTooltip () {
