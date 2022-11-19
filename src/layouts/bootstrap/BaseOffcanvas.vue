@@ -18,6 +18,8 @@
   
       <slot name="footer"></slot>
     </div>
+
+    <!-- Backdrop -->
     <div v-if="show && !allowScroll" :class="[show ? 'show' : null]" class="offcanvas-backdrop fade" @click="handleStatic"></div>
   </div>
 </template>
@@ -62,7 +64,9 @@ export default {
   computed: {
     offcanvasClasses () {
       return [
-        this.show ? 'show' : null,
+        {
+          show: this.show
+        },
         // this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
         this.darkMode ? 'text-bg-dark' : null,
         {
@@ -73,7 +77,7 @@ export default {
   },
   watch: {
     show (current) {
-      var body = document.querySelector('body')
+      var body = document.body
       if (current) {
         if (!this.allowScroll) {
           body.style.overflow = 'hidden'
@@ -91,9 +95,6 @@ export default {
     }
   },
   methods: {
-    getBody () {
-      return document.querySelector('body')
-    },
     handleStatic () {
       if (!this.staticBackdrop) {
         this.$emit('close')

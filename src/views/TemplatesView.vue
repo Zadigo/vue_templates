@@ -62,8 +62,8 @@ ifnoinfoienfoeenifoei
           <div :class="{'bg-dark': darkMode}" class="card my-3">
             <div class="card-body">
               <h3 class="card-title">Form</h3>
-              <base-select :items="['A', 'B', 'C']" />
-              <base-input id="search" :initial="search" aria-label="Google" label="Recherche de votre vie rapidement ici" placeholder="Rechercher" class="my-1 p-3" />
+              <base-select v-model="selectItem" :items="['A', 'B', 'C']" />
+              <base-input id="search" v-model="search" aria-label="Google" label="Recherche de votre vie rapidement ici" placeholder="Rechercher" class="my-1 p-3" />
             </div>
           </div>
 
@@ -220,8 +220,8 @@ ifnoinfoienfoeenifoei
           <base-template-card class="my-3">
             <div class="card-body">
               <h3 class="card-title">Range</h3>
-              <base-range-input :show-track="true" :initial="10" />
-              <base-range-input :is-range="true" class="mt-3" />
+              <base-range-input v-model="singleRangeValue" :show-track="true" :initial="10" />
+              <base-range-input v-model="doubleRangeValue" :is-range="true" class="mt-3" />
             </div>
           </base-template-card>
 
@@ -230,7 +230,8 @@ ifnoinfoienfoeenifoei
             <div class="card-body">
               <h3 class="card-title">Autocomplete</h3>
               <base-autocomplete :items="[{text: 'Facebook'}, {text: 'Google'}]" :clearable="true" :multiple="false">
-                <input type="text" class="form-control p-2" placeholder="Type here">
+                <base-input id="search" v-model="search" aria-label="Google" label="Recherche de votre vie rapidement ici" placeholder="Rechercher" class="my-1 p-3" />
+                <!-- <input type="text" class="form-control p-2" placeholder="Type here"> -->
               </base-autocomplete>
             </div>
           </base-template-card>
@@ -281,6 +282,17 @@ ifnoinfoienfoeenifoei
               <!-- </base-video-player-playlist> -->
             </div>
           </base-template-card>
+
+          <!-- Group -->
+          <base-template-card class="my-3">
+            <div class="card-body">
+              <base-list-group>
+                <base-list-group-item-action v-for="(item, i) in [{text: 'A'}, {text: 'B'}]" :key="i">
+                  {{ item.text }}
+                </base-list-group-item-action>
+              </base-list-group>
+            </div>
+          </base-template-card>
         </section>
       </div>
     </div>
@@ -306,6 +318,9 @@ import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
 import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'
 import BaseHorizontalTimeline from '@/layouts/bootstrap/BaseHorizontalTimeline.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
+import BaseListGroup from '@/layouts/bootstrap/listgroup/BaseListGroup.vue'
+import BaseListGroupItemAction from '@/layouts/bootstrap/listgroup/BaseListGroupItemAction.vue'
+// import BaseListGroupItem from '@/layouts/bootstrap/listgroup/BaseListGroupItem.vue'
 import BaseModalVue from '../layouts/bootstrap/BaseModal.vue'
 import BaseNavbarVue from '@/layouts/bootstrap/nav/BaseNavbar.vue'
 import BaseOffcanvas from '../layouts/bootstrap/BaseOffcanvas.vue'
@@ -329,6 +344,9 @@ export default {
     BaseCollapse,
     BaseDropdownButtonVue,
     BaseHorizontalTimeline,
+    BaseListGroup,
+    BaseListGroupItemAction,
+    // BaseListGroupItem,
     BaseModalVue,
     BaseNavbarVue,
     BaseOffcanvas,
@@ -363,11 +381,14 @@ export default {
   },
   data () {
     return {
+      selectItem: 'A',
       search: null,
       showModal1: false,
       showModal3: false,
       showOffcanvas: false,
       showToast: false,
+      singleRangeValue: 10,
+      doubleRangeValue: [10, 50],
       modalOptions: {
         position: 'center',
         nonInvasive: false

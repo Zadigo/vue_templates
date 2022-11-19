@@ -66,7 +66,9 @@ export default {
         // {
         //   'fs-input-bigger': this.bigger && !this.isSwitch,
         // },
-        this.darkMode ? 'dark' : null
+        {
+          dark: this.darkMode
+        }
       ]
     },
     checkboxType () {
@@ -86,6 +88,11 @@ export default {
       this.value = true
     }
   }
+  // methods: {
+  //   emitValue (e) {
+  //     this.$emit('update:modelValue', e.target.value)
+  //   }
+  // }
 }
 </script>
 

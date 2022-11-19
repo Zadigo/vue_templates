@@ -1,5 +1,5 @@
 <template>
-  <select v-model="value" class="form-select" aria-label="Default select example">
+  <select v-model="value" class="form-select" @change="emitValue($event)">
     <option v-for="(item, i) in items" :key="i">
       {{ item }}
     </option>
@@ -12,16 +12,14 @@ export default {
   props: {
     items: {
       type: Array
+    },
+    modelValue: {
+      type: String
     }
   },
   emits: {
-    'update:value' () {
+    'update:modelValue' () {
       return true
-    }
-  },
-  data () {
-    return {
-      modelValue: null
     }
   },
   computed: {
@@ -30,13 +28,18 @@ export default {
         return this.modelValue
       },
       set (value) {
-        this.modelValue = value
-        return this.$emit('update:value', value)
+        return this.$emit('update:modelValue', value)
       }
     }
   },
-  beforeMount () {
-    this.modelValue = this.items[0]
+  methods: {
+    emitValue (e) {
+      let value = e.target.value
+      if (this.inputType === 'number') {
+        value = value * 1
+      }
+      this.$emit('update:modelValue', value)
+    }
   }
 }
 </script>
