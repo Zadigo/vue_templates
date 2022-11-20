@@ -2,7 +2,7 @@
   <nav ref="link" :class="navbarClasses" class="navbar navbar-expand-lg">
     <div :class="containerFluid ? 'container-fluid' : 'container'">
       <router-link to="/" class="navbar-brand fw-bold text-uppercase">
-        Navbar
+        {{ navBrand }}
       </router-link>
 
       <button :class="{ collapsed }" type="button" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" @click="collapsed = !collapsed">
@@ -12,7 +12,9 @@
       <!-- collapse show -->
       <div id="navbarNav" :class="{'collapse show': !collapsed}" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <slot></slot>
+
+          <!-- <li class="nav-item">
             <router-link :to="{name: 'parallax_view'}" class="nav-link">
               Parallax
             </router-link>
@@ -22,10 +24,10 @@
             <router-link :to="{ name: 'youtube_view' }" class="nav-link">
               Dashboard
             </router-link>
-          </li>
-
+          </li> -->
+          <!-- 
           <base-mega-dropdown-vue :items="megamenu" />
-          <base-side-dropdown-vue />
+          <base-side-dropdown-vue /> -->
         </ul>
       </div>
     </div>
@@ -33,24 +35,20 @@
 </template>
 
 <script>
-import megamenu from '../../../data/megamenu.json'
 import { inject } from 'vue'
-
-import BaseMegaDropdownVue from './BaseMegaDropdown.vue'
-import BaseSideDropdownVue from '../../../components/nav/BaseSideDropdown.vue'
 
 export default {
   name: 'BaseNavbar',
-  components: {
-    BaseMegaDropdownVue,
-    BaseSideDropdownVue
-  },
   props: {
     containerFluid: {
       type: Boolean
     },
     fixedTop: {
       type: Boolean
+    },
+    navBrand: {
+      type: String,
+      required: true
     }
   },
   setup () {
@@ -58,7 +56,6 @@ export default {
     const darkMode = inject('darkMode', false)
     return {
       height,
-      megamenu,
       darkMode
     }
   },
@@ -70,7 +67,9 @@ export default {
   computed: {
     navbarClasses () {
       return [
-        this.fixedTop ? 'fixed-top' : null,
+        {
+          'fixed-top': this.fixedTop
+        },
         // 'bg-transparent navbar-dark'
         // 'bg-transparent navbar-dark shadow-none'
         this.darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'

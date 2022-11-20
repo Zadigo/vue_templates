@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       index: 0,
-      showDrawer: false
+      showDrawer: true
     }
   },
   computed: {
@@ -72,6 +72,11 @@ export default {
 </script>
 
 <style scoped>
+.video-playlist {
+  position: relative;
+  overflow: hidden;
+}
+
 aside {
   position: absolute;
   top: 0;
@@ -92,7 +97,7 @@ aside {
 }
 
 .preview.selected {
-  border: 2px solid rgba(38, 38, 38, .5);
+  border: 2px solid rgba(38, 38, 38, 0.375);
 }
 
 aside::-webkit-scrollbar {

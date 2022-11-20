@@ -7,7 +7,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import './plugins/fontawesome'
 import router from './router'
 
-import NavItemVue from './components/nav/NavItem.vue'
+// import NavItemVue from './components/nav/NavItem.vue'
 import { loadFonts } from './plugins'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createLocalStorage, createVueSession } from './plugins/vue-storages'
@@ -33,6 +33,6 @@ app.use(session)
 app.use(pinia)
 // app.use(analytics)
 app.use(localstorage)
-app.component('NavItemVue', NavItemVue)
+// app.component('NavItemVue', NavItemVue)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')

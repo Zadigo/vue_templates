@@ -83,7 +83,7 @@
 
 <script>
 import { inject, ref } from 'vue'
-import sidedropdown from '../../data/sidedropdown.json'
+import sidedropdown from '../../../data/sidedropdown.json'
 
 export default {
   name: 'BaseSideDropdown',

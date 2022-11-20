@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { BButton, BSplitDropButton } from '../plugins/bootstrap'
+import { BButton, BSplitDropButton } from '../../plugins/bootstrap'
 // import { BButton, BDropdownButton, BSplitDropButton } from '../plugins/bootstrap'
 export default {
   name: 'TestingPage',

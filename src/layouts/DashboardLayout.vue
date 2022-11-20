@@ -1,30 +1,17 @@
 <template>
-  <section>
+  <section class="dashboard">
     <header>
       <!-- Sidebar -->
       <nav id="sidebar" link="sidebar" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
-          <div class="list-group list-group-flush mx-3 mt-4">
-            <!-- NOTE: Pass links to props -->
-            <router-link :to="{ name: 'youtube_view' }" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-              <span class="mdi mdi-youtube me-3"></span>
-              <span>Youtube</span>
-            </router-link>
-
-            <router-link :to="{ name: 'lequipe_view' }" class="list-group-item list-group-item-action py-2 ripple">
-              <span class="mdi mdi-wikipedia me-3"></span>
-              <span>L'équipe</span>
-            </router-link>
-
-            <router-link :to="{ name: 'spotify_view' }" class="list-group-item list-group-item-action py-2 ripple">
-              <span class="mdi mdi-spotify me-3"></span>
-              <span>Spotify</span>
-            </router-link>
-            <router-link :to="{ name: 'game_view' }" class="list-group-item list-group-item-action py-2 ripple">
-              <span class="mdi mdi-game me-3"></span>
-              <span>Game</span>
-            </router-link>
-          </div>
+          <keep-alive>
+            <div class="list-group list-group-flush mx-3 mt-4">
+              <router-link v-for="(link, i) in adminLinks" :key="i" :to="{ name: link.to }" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                <font-awesome-icon :icon="`fa-solid fa-${link.icon}`" class="me-3" />
+                <span>{{ link.title }}</span>
+              </router-link>
+            </div>
+          </keep-alive>
         </div>
       </nav>
 
@@ -35,12 +22,13 @@
             <i class="fas fa-bars"></i>
           </button>
 
-          <router-link :to="{ name: 'templates_view' }" class="navbar-brand">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" loading="lazy" alt="Image 4" />
+          <router-link to="/" class="navbar-brand">
+            <div class="fw-bold text-uppercase">Templates</div>
+            <!-- <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" loading="lazy" alt="Image 4" /> -->
           </router-link>
 
           <ul class="navbar-nav ms-auto d-flex flex-row">
-            <nav-item-vue :to="{ name: 'templates_view' }" link-name="Some link" />
+            <nav-item-vue :to="{ name: 'home_view' }" link-name="Some link" />
           </ul>
         </div>
       </nav>
@@ -49,7 +37,7 @@
     <!-- Main -->
     <main>
       <div :class="bodyClasses" class="container pt-4">
-        <slot></slot>
+        <router-view></router-view>
       </div>
     </main>
 
@@ -58,21 +46,12 @@
         <font-awesome-icon icon="fa-solid fa-arrow-up" />
       </button>
     </transition>
-
-    <!-- Footer -->
-    <base-footer-vue />
   </section>
 </template>
 
 <script>
-/*
- * A dashboard ttemplate that could be used for wrapping
- * components via the slot or by using a router view
- * 
- **/ 
+import _ from 'lodash'
 import { provide, ref } from 'vue'
-
-import BaseFooterVue from './BaseFooter.vue'
 
 import { useDarkMode } from '../composables/darkmode'
 import { scrollToTop } from '../utils'
@@ -80,9 +59,6 @@ import { useScroll } from '@vueuse/core'
 
 export default {
   name: 'DashboardLayout',
-  components: {
-    BaseFooterVue
-  },
   props: {
     bodyClasses: {
       type: String,
@@ -102,8 +78,23 @@ export default {
       arrivedState
     }
   },
+  computed: {
+    adminLinks () {      
+      const result = _.map(this.$router.getRoutes(), function (link) {
+        if (link.meta.adminLink) {
+          return { title: link.meta.title, to: link.name, icon: link.meta.icon }
+        }
+        return null
+      })
+      return _.filter(result, function (item) { 
+        return item !== null
+      })
+    }
+  },
   mounted () {
     this.target = window.document
+    const body = document.body
+    body.style.backgroundColor = '#fbfbfb'
   }
 }
 </script>

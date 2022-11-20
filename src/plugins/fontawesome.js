@@ -1,9 +1,10 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faComment, faThumbsUp, faThumbsDown, faFlag, faShare, faArrowUp, faCircleCheck, faFaceLaugh, faHeart, faMessage, faThumbTack, faBell, faBellSlash, faPlay, faPause, faGauge, faVolumeXmark, faVolumeHigh, faVolumeLow, faVolumeUp, faCog, faClose, faArrowLeft, faArrowRight, faEllipsisVertical, faPlus, faXmark, faCaretDown, faCaretUp, faFilter, faArrowDown, faSort, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faComment, faThumbsUp, faThumbsDown, faFlag, faShare, faArrowUp, faCircleCheck, faFaceLaugh, faHeart, faMessage, faThumbTack, faBell, faBellSlash, faPlay, faPause, faGauge, faVolumeXmark, faVolumeHigh, faVolumeLow, faVolumeUp, faCog, faClose, faArrowLeft, faArrowRight, faEllipsisVertical, faPlus, faXmark, faCaretDown, faCaretUp, faFilter, faArrowDown, faSort, faMagnifyingGlass, faTable, faList } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faArrowUp)
 library.add(faArrowUp)
 library.add(faArrowDown)
+// library.add()
 library.add(faComment)
 library.add(faCaretDown)
 library.add(faCaretDown)
@@ -13,10 +14,12 @@ library.add(faFlag)
 library.add(faFilter)
 library.add(faThumbsUp)
 library.add(faThumbsDown)
+library.add(faList)
 library.add(faMagnifyingGlass)
 library.add(faPlus)
 library.add(faShare)
 library.add(faSort)
+library.add(faTable)
 library.add(faXmark)
 
 // YouTube

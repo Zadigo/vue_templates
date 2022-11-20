@@ -186,7 +186,7 @@
 </template>
 
 <script>
-import DashboardLayoutVue from '../layouts/DashboardLayout.vue'
+import DashboardLayoutVue from '@/layouts/DashboardLayout.vue'
 
 import { scrollToSection } from '@/utils'
 import { breakpointsTailwind, useBreakpoints, useScroll } from '@vueuse/core'

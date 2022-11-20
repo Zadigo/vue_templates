@@ -29,7 +29,7 @@
     <!-- Copyright -->
     <div class="copyright text-center p-3">
       © 2020 Copyright:
-      <router-link :to="{ name: 'templates_view' }" :class="[darkMode ? 'text-light' : 'text-dark']">
+      <router-link to="/" :class="[darkMode ? 'text-light' : 'text-dark']">
         John Pendenque
       </router-link>
     </div>

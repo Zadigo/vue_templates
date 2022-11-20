@@ -5,11 +5,11 @@
             "links": [
                 {
                     "name": "Youtube",
-                    "to": "youtube_view"
+                    "to": "home_view"
                 },
                 {
                     "name": "L'équipe",
-                    "to": "lequipe_view"
+                    "to": "home_view"
                 }
             ]
         }
