@@ -1,7 +1,5 @@
 <template>
   <div ref="link" class="modal-wrapper">
-    <!-- <transition appear name="custom-classes" mode="out-in" enter-active-class="modal-animation dialog-fade-in-down" leave-active-class="modal-animation dialog-fade-out-up"> -->
-    <!-- <transition name="slide" mode="out-in"> -->
     <div v-if="show" :id="id" :class="modalClasses" :aria-modal="show" class="modal" role="dialog" tabindex="-1">
       <div :class="modalDialogClasses" class="modal-dialog">
         <div :class="modalContentClasses" class="modal-content">
@@ -20,11 +18,8 @@
         </div>
       </div>
     </div>
-    <!-- </transition> -->
 
-    <transition appear name="custom-classes" mode="out-in" enter-active-class="modal-animation dialog-fade-in" leave-active-class="modal-animation dialog-fade-out">
-      <div v-if="show && !nonInvasive" :class="{show}" class="modal-backdrop"></div>
-    </transition>
+    <div v-if="show && !nonInvasive" :class="{show}" class="modal-backdrop"></div>
   </div>
 </template>
 
@@ -94,7 +89,6 @@ export default {
           break
       }
       return [
-        // 'fade',
         this.show ? 'show' : null,
         position
       ]

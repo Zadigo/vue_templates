@@ -9,7 +9,33 @@
       <div class="task-cell task-cell-row-select">
         <base-checkbox id="select-rows" label="" @update:initial="(value) => { selectAllRows = value }" />
       </div>
-      <div class="task-cell">
+
+      <div v-for="header in headers" :key="header" class="task-cell" @click="show = !show">
+        {{ header }}
+        
+        <ul :class="{ show }" class="task-cell-menu">
+          <li>
+            <a href class="task-cell-menu-item" @click.prevent="handleSort(header)">
+              <font-awesome-icon icon="fa-solid fa-arrow-up" class="me-1" />
+              Sort ascending
+            </a>
+          </li>
+          <li>
+            <a href class="task-cell-menu-item" @click.prevent="handleSort(header)">
+              <font-awesome-icon icon="fa-solid fa-arrow-down" class="me-1" />
+              Sort descending
+            </a>
+          </li>
+          <li>
+            <a href class="task-cell-menu-item" @click.prevent>
+              <font-awesome-icon icon="fa-solid fa-filter" class="me-1" />
+              Filter
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div class="task-cell">
         Name1
       </div>
       <div class="task-cell">
@@ -17,7 +43,7 @@
       </div>
       <div class="task-cell">
         Age
-      </div>
+      </div> -->
     </div>
 
     <dynamic-table-row v-for="item in searchedItems" :key="item.id" :item="item" />
@@ -29,6 +55,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { getCurrentInstance, provide, ref } from 'vue'
 
 import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
@@ -42,6 +69,10 @@ export default {
     DynamicTableRow
   },
   props: {
+    headers: {
+      type: Array,
+      required: true
+    },
     items: {
       type: Array,
       default: () => []
@@ -61,7 +92,11 @@ export default {
   },
   data () {
     return {
-      search: null
+      search: null,
+      // TE
+      show: false,
+      currentSort: null,
+      currentSortMethod: 'asc'
     }
   },
   computed: {
@@ -89,9 +124,39 @@ export default {
           'tasks-editable': this.editable
         }
       ]
+    },
+    flatValues () {
+      // recreate the correct columns
+      // for sorting purposes
+      const builtItems = []
+      const values = []
+      this.items.forEach((item) => {
+        item.tasks.forEach((task, i) => {
+          task.header = this.headers[i]
+        })
+        values.push(item)
+      })
+      values.forEach((value) => {
+        const item = { id: value.id }
+        value.tasks.forEach((task) => {
+          item[task.header] = task.value
+        })
+        builtItems.push(item)
+      })
+      return builtItems
+    },
+    sortedValues () {
+      if (this.currentSort) {
+        return _.sortBy(this.flatValues, [this.currentSort])
+      }
+      return []
     }
   },
   methods: {
+    handleSort (column, method ='asc') {
+      method
+      this.currentSort = column
+    },
     selectRows () {}
   }
   // methods: {
@@ -164,6 +229,7 @@ export default {
 }
 
 .tasks .task-cell {
+  position: relative;
   transition: all .3s ease-in;
   padding: .5rem;
   /* background-color: white; */
@@ -178,6 +244,51 @@ export default {
   width: 10%;
   justify-items: center;
 }
+
+.task-cell .task-cell-menu {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  height: auto;
+  width: auto;
+  min-width: 10rem;
+  border-radius: .375rem;
+  z-index: 1000;
+  list-style: none;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+  margin: 0;
+  padding: .5rem;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  background-clip: padding-box;
+}
+
+.task-cell a.task-cell-menu-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  clear: both;
+  font-weight: 400;
+  text-align: inherit;
+  white-space: nowrap;
+  border: 0;
+  color: #212529;
+  background-color: transparent;
+  border-radius: .375rem;
+}
+
+.task-cell a.task-cell-menu-item:hover {
+  color: #1e2125;
+  background-color: #e9ecef;
+}
+
+.task-cell .task-cell-menu.show {
+  display: block;
+}
+
 /* 
 .tasks .task-row:first-child .task-cell:first-child {
   border-top-left-radius: 0.375rem;

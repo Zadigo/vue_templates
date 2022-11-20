@@ -71,7 +71,7 @@ ifnoinfoienfoeenifoei
           <div :class="{'bg-dark': darkMode}" class="card my-3">
             <div class="card-body">
               <h3 class="card-title">Pagination</h3>
-              <base-pagination :pages="4" />
+              <base-pagination :pages="15" />
             </div>
           </div>
           
@@ -93,7 +93,14 @@ ifnoinfoienfoeenifoei
           
               <hr>
 
-              <!-- Checkbox -->
+              <base-checkbox id="modal-sm" name="modal-size" :initial="true" :inline="true" :is-radio="true" label="sM" @update:initial="modalOptions.size = 'sm'" />
+              <base-checkbox id="modal-md" name="modal-size" :initial="true" :inline="true" :is-radio="true" label="MD" @update:initial="modalOptions.size = 'md'" />
+              <base-checkbox id="modal-lg" name="modal-size" :inline="true" :is-radio="true" label="LG" @update:initial="modalOptions.size = 'lg'" />
+              <base-checkbox id="modal-xl" name="modal-size" :inline="true" :is-radio="true" label="XL" @update:initial="modalOptions.size = 'xl'" />
+              <base-checkbox id="modal-fullscreen" name="modal-size" :inline="true" :is-radio="true" label="Fullscreen" @update:initial="modalOptions.size = 'fullscreen'" />
+              
+              <hr>
+
               <base-checkbox id="center" name="modal" :initial="true" :inline="true" :is-radio="true" label="Center" @update:initial="modalOptions.position = 'center'" />
               <base-checkbox id="top-left" name="modal" :inline="true" :is-radio="true" label="Top left" @update:initial="modalOptions.position = 'top-left'" />
               <base-checkbox id="top-right" name="modal" :inline="true" :is-radio="true" label="Top right" @update:initial="modalOptions.position = 'top-right'" />
@@ -102,7 +109,7 @@ ifnoinfoienfoeenifoei
               <base-checkbox id="top" name="modal" :inline="true" :is-radio="true" label="Top" @update:initial="modalOptions.position = 'top'" />
               <base-checkbox id="bottom" name="modal" :inline="true" :is-radio="true" label="Bottom" @update:initial="modalOptions.position = 'bottom'" />
 
-              <base-modal-vue id="test-modal1" :show="showModal1" :non-invasive="modalOptions.nonInvasive" :scrollable="false" :centered="false" :static-backdrop="true" :position="modalOptions.position" size="sm" @close="showModal1 = false">
+              <base-modal-vue id="test-modal1" :show="showModal1" :size="modalOptions.size" :non-invasive="modalOptions.nonInvasive" :scrollable="false" :centered="false" :static-backdrop="true" :position="modalOptions.position" @close="showModal1 = false">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugiat molestias 
                   sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus 
@@ -127,8 +134,6 @@ ifnoinfoienfoeenifoei
                 sit ipsum corporis similique nobis ipsam culpa est molestiae doloremque, natus
                 quasi aliquam ut veniam tempora aut quaerat repellat.
               </base-modal-vue>
-              <!-- <teleport to="body">
-              </teleport> -->
             </div>
           </base-template-card>
 
@@ -150,10 +155,11 @@ ifnoinfoienfoeenifoei
           <base-template-card class="my-3">
             <div class="card-body">
               <h3 class="card-title">Toast</h3>
-              <button type="button" class="btn btn-md btn-primary" @click="showToast = true">
+              <button type="button" class="btn btn-md btn-primary" @click="toasts.push({ text: 'Google1' })">
                 Toast
               </button>
-              <base-toast :show="showToast" />
+
+              <base-toast v-for="(item, i) in toasts" :key="i" :item="item" />
             </div>
           </base-template-card>
 
@@ -165,13 +171,11 @@ ifnoinfoienfoeenifoei
             </div>
           </div>
 
-          <!-- Card -->
+          <!-- Cards -->
           <div class="row">
+            <!-- Card -->
             <div v-for="i in 3" :key="i" class="col-sm-12 col-md-4">
               <base-card :image="require('@/assets/hero1.jpg')" :hoverable="false" :overlay="false" image-position="top" title="We can!" class="my-3">
-                <!-- <template #header>
-                  Do great
-                </template> -->
                 <template #body>
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                   Necessitatibus recusandae earum odio reprehenderit vero velit, 
@@ -181,21 +185,13 @@ ifnoinfoienfoeenifoei
 
                 <template #footer>
                   <button type="button" class="btn btn-primary">Add</button>
-                </template>
-
-                <template #reveal>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis tempore 
-                  vitae ratione omnis. Nihil numquam similique velit quidem in perspiciatis fugiat 
-                  nesciunt. Aspernatur deserunt enim, fugiat doloremque impedit aut repellendus?
                 </template>
               </base-card>
             </div>        
-
+            
+            <!-- Card Group -->
             <base-card-group>
               <base-card v-for="i in 3" :key="i" :image="require('@/assets/hero1.jpg')" :hoverable="true" :overlay="false" image-position="top" title="We can!" class="my-3 shadow-none">
-                <!-- <template #header>
-                  Do great
-                </template> -->
                 <template #body>
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                   Necessitatibus recusandae earum odio reprehenderit vero velit, 
@@ -206,14 +202,21 @@ ifnoinfoienfoeenifoei
                 <template #footer>
                   <button type="button" class="btn btn-primary">Add</button>
                 </template>
-
-                <template #reveal>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis tempore 
-                  vitae ratione omnis. Nihil numquam similique velit quidem in perspiciatis fugiat 
-                  nesciunt. Aspernatur deserunt enim, fugiat doloremque impedit aut repellendus?
-                </template>
               </base-card>          
             </base-card-group>
+
+            <!-- Card Reveal -->
+            <div class="col-4">
+              <base-card :image="require('@/assets/hero1.jpg')" title="We can!" class="my-3">
+                <base-card-reveal content="Google" />
+                <template #body>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Necessitatibus recusandae earum odio reprehenderit vero velit,
+                  non itaque magnam assumenda maxime nostrum voluptates quasi
+                  delectus ex, dolore exercitationem facilis eius fugiat.
+                </template>
+              </base-card>
+            </div>
           </div>
 
           <!-- Range -->
@@ -293,6 +296,11 @@ ifnoinfoienfoeenifoei
               </base-list-group>
             </div>
           </base-template-card>
+
+          <!-- Table -->
+          <base-template-card class="my-3">
+            <dynamic-table id="table1" :headers="['Firstname', 'Lastname', 'Age']" :items="table" />
+          </base-template-card>
         </section>
       </div>
     </div>
@@ -307,12 +315,14 @@ import navitems from '../data/navitems.json'
 import { useDarkMode } from '../composables/darkmode'
 import { useDark, useToggle } from '@vueuse/core'
 import { provide } from 'vue'
+import table from '@/data/table.json'
 
 import BaseAutocomplete from '@/layouts/bootstrap/BaseAutocomplete.vue'
 import BaseAccordion from '@/layouts/bootstrap/BaseAccordion.vue'
 import BaseCheckbox from '../layouts/bootstrap/BaseCheckbox.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue'
+import BaseCardReveal from '@/layouts/bootstrap/cards/BaseCardReveal.vue'
 import BaseCollapse from '@/layouts/bootstrap/BaseCollapse.vue'
 import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
 import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'
@@ -333,6 +343,7 @@ import BaseTimeline from '@/layouts/bootstrap/BaseTimeline.vue'
 import BaseToast from '@/layouts/bootstrap/BaseToast.vue'
 import BaseListGroupCheckbox from '@/layouts/bootstrap/listgroups/BaseListGroupCheckbox.vue'
 import BaseVideoPlayer from '@/layouts/bootstrap/players/BaseVideoPlayer.vue'
+import DynamicTable from '@/layouts/table/DynamicTable.vue'
 // import BaseVideoPlayerPlaylist from '@/layouts/bootstrap/players/BaseVideoPlayerPlaylist.vue'
 
 export default {
@@ -341,6 +352,7 @@ export default {
     BaseAccordion,
     BaseAutocomplete,
     BaseCheckbox,
+    BaseCardReveal,
     BaseCollapse,
     BaseDropdownButtonVue,
     BaseHorizontalTimeline,
@@ -363,6 +375,7 @@ export default {
     BaseRangeInput,
     BaseListGroupCheckbox,
     BaseVideoPlayer,
+    DynamicTable
     // BaseVideoPlayerPlaylist
 },
   setup () {
@@ -372,6 +385,7 @@ export default {
     var { darkMode, toggleDarkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {
+      table,
       d: dark,
       toggleDark,
       darkMode,
@@ -389,6 +403,9 @@ export default {
       showToast: false,
       singleRangeValue: 10,
       doubleRangeValue: [10, 50],
+      toasts: [
+        { text: 'Google' }
+      ],
       modalOptions: {
         position: 'center',
         nonInvasive: false

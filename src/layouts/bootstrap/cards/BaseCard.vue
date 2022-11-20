@@ -158,6 +158,10 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  position: relative;
+}
+
 .text-bg-dark {
   color: #fff !important;
   background-color: rgba(33, 37, 41, 1, 1) !important;
@@ -213,7 +217,7 @@ export default {
   transition: .3s ease-out;
 }
 
-.card-reveal {
+/* .card-reveal {
   overflow: hidden;
 }
 .reveal {
@@ -226,7 +230,7 @@ export default {
   border-radius: calc(.5rem - 1px);
   z-index: 5;
   padding: 1rem;
-}
+} */
 .slide-enter-active,
 .slide-leave-active {
   transition: all .3s ease-in-out;
