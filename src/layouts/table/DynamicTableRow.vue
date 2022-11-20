@@ -3,7 +3,9 @@
     <div class="task-cell task-cell-row-select">
       <base-checkbox id="select-row" label="" :initial="rowSelected" @update:initial="selectRow" />
     </div>
-    <dynamic-table-cell v-for="task in item.tasks" :key="task.id" :task="task" @update:selection="updateselection" />
+
+    <!-- Cell -->
+    <dynamic-table-cell v-for="header in headers" :key="header" :task="item[header]" :header="header" @update:selection="updateselection" />
   </div>
 </template>
 
@@ -14,6 +16,7 @@ import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
 import DynamicTableCell from './DynamicTableCell.vue'
 
 export default {
+  name: 'DynamicTableRow',
   components: {
     BaseCheckbox,
     DynamicTableCell
@@ -36,9 +39,11 @@ export default {
     const rowSelected = ref(false)
     provide('rowSelected', rowSelected)
     const selectAllRows = inject('selectAllRows')
+    const headers = inject('headers')
     return {
       selectAllRows,
-      rowSelected
+      rowSelected,
+      headers
     }
   },
   watch: {
@@ -52,7 +57,8 @@ export default {
       this.$emit('select-row', this.item)
     },
     updateselection (value) {
-      this.$emit('update:row:selection', value)
+      // value -> [header, task]
+      this.$emit('update:row:selection', [this.item, ...value])
     }
   }
 }

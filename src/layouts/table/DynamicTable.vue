@@ -1,52 +1,37 @@
 <template>
   <div :class="tableClasses" class="tasks">
-    <div class="py-4 d-flex justify-content-left align-items-center">
-      <!-- <h4 class="fw-bold w-50 me-3">Table Title</h4> -->
-      <base-input id="search" @update:initial="(value) => { search = value }" />
+    <!-- Table Heading -->
+    <div class="py-4">
+      <!-- Search -->
+      <div class="d-flex justify-content-left align-items-center">
+        <div class="w-50">
+          <base-input v-if="showSearch" id="search" v-model="search" placeholder="search" @focusout="showSearch = !showSearch" />
+          <button v-else type="button" class="btn btn-light shadow-none" @click="showSearch = !showSearch">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+          </button>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-left align-items-center">
+        <!-- Sort -->
+        <dynamic-table-sorting-badge :columns-to-sort="sortedColumns" />
+        <!-- Filter -->
+        <dynamic-table-filter-badge @update:filter-rules="handleFilterRules" />
+      </div>
     </div>
 
+    <!-- Table Headers -->
     <div class="task-row task-header">
       <div class="task-cell task-cell-row-select">
         <base-checkbox id="select-rows" label="" @update:initial="(value) => { selectAllRows = value }" />
       </div>
-
-      <div v-for="header in headers" :key="header" class="task-cell" @click="show = !show">
-        {{ header }}
-        
-        <ul :class="{ show }" class="task-cell-menu">
-          <li>
-            <a href class="task-cell-menu-item" @click.prevent="handleSort(header)">
-              <font-awesome-icon icon="fa-solid fa-arrow-up" class="me-1" />
-              Sort ascending
-            </a>
-          </li>
-          <li>
-            <a href class="task-cell-menu-item" @click.prevent="handleSort(header)">
-              <font-awesome-icon icon="fa-solid fa-arrow-down" class="me-1" />
-              Sort descending
-            </a>
-          </li>
-          <li>
-            <a href class="task-cell-menu-item" @click.prevent>
-              <font-awesome-icon icon="fa-solid fa-filter" class="me-1" />
-              Filter
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- <div class="task-cell">
-        Name1
-      </div>
-      <div class="task-cell">
-        Name3
-      </div>
-      <div class="task-cell">
-        Age
-      </div> -->
+      <dynamic-table-column-header v-for="header in headers" :key="header" :header="header" @update:sorting-rules="handleSortingRules" />
     </div>
 
+    <!-- Table Rows -->
     <dynamic-table-row v-for="item in searchedItems" :key="item.id" :item="item" />
+
+    <!-- Calculation Row -->
 
     <div class="py-3">
       Showing 1 to 10 of {{ items.length }} entries
@@ -57,16 +42,24 @@
 <script>
 import _ from 'lodash'
 import { getCurrentInstance, provide, ref } from 'vue'
+import { useFiltering } from './composables'
 
 import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
 import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
+import DynamicTableColumnHeader from './DynamicTableColumnHeader.vue'
+import DynamicTableFilterBadge from './DynamicTableFilterBadge.vue'
 import DynamicTableRow from './DynamicTableRow.vue'
+import DynamicTableSortingBadge from './DynamicTableSortingBadge.vue'
 
 export default {
+  name: 'DynamicTable',
   components: {
     BaseCheckbox,
     BaseInput,
-    DynamicTableRow
+    DynamicTableColumnHeader,
+    DynamicTableFilterBadge,
+    DynamicTableRow,
+    DynamicTableSortingBadge
   },
   props: {
     headers: {
@@ -86,37 +79,95 @@ export default {
     const selectAllRows = ref(false)
     provide('tableItems', app.props.items)
     provide('selectAllRows', selectAllRows)
+    provide('headers', app.props.headers)
+    const { availableFilters, filterValueOperation } = useFiltering()
     return {
-      selectAllRows
+      availableFilters,
+      selectAllRows,
+      filterValueOperation
     }
   },
   data () {
     return {
       search: null,
-      // TE
-      show: false,
-      currentSort: null,
-      currentSortMethod: 'asc'
+      sortedColumns: [],
+      filterRules: [],
+      showSearch: false
+      // currentSort: null,
+      // currentSortMethod: 'asc'
     }
   },
   computed: {
-    searchedItems () {
-      if (this.search) {
-        return this.items.filter((item) => {
-          const truthArray = []
-          item.tasks.forEach((task) => {
-            truthArray.push(
-              task.value === this.search ||
-              task.value.includes(this.search) ||
-              task.value.toLowerCase().includes(this.search)
+    sortedItems () {
+      if (this.sortedColumns.length > 0) {
+        const columns = _.map(this.sortedColumns, (item) => {
+          return item[0]
+        })
+
+        const methods = _.map(this.sortedColumns, (item) => {
+          return item[1]
+        })
+
+        console.log(columns, methods)
+        // return _.sortBy(this.items, columns, methods)
+        return _.orderBy(this.items, columns, methods)
+      } else {
+        return this.items
+      }
+    },
+    filteredItems () {
+      // Based on a set of rules, only
+      // show elements that respect the
+      // given constraints/rules
+      if (this.filterRules.length > 0) {
+        return _.filter(this.sortedItems, (item) => {
+          const truthArray = _.map(this.filterRules, (rule) => {
+            return this.filterValueOperation(
+              item[rule.column],
+              rule.operator,
+              rule.constraint
             )
           })
-          return truthArray.some((result) => {
-            return result === true
-          })
+          return _.some(truthArray)
         })
+      } else {
+        return this.sortedItems
       }
-      return this.items
+    },
+    searchedItems () {
+      // Returns a list of items based
+      // on whether they match a given
+      // string or not
+      if (this.search) {
+        return this.filteredItems.filter((item) => {
+          const truthArray = _.map(this.headers, (header) => {
+            const value = item[header].toString()
+            return (
+              value === this.search ||
+              value.includes(this.search) ||
+              value.toLowerCase() === this.search ||
+              value.toLowerCase().includes(this.search)
+            )
+          })
+          return _.some(truthArray)
+        })
+      } else {
+        return this.filteredItems
+      }
+    },
+    searchedItemsIds () {
+      // Returns the ids of the search
+      // elements which will then allow
+      // us to only select the rows of
+      // said items or eventually be used
+      // for an API call
+      if (!this.search) {
+        return []
+      }
+      
+      return _.map(this.searchedItems, (item) => {
+        return item.id
+      })
     },
     tableClasses () {
       return [
@@ -124,73 +175,31 @@ export default {
           'tasks-editable': this.editable
         }
       ]
-    },
-    flatValues () {
-      // recreate the correct columns
-      // for sorting purposes
-      const builtItems = []
-      const values = []
-      this.items.forEach((item) => {
-        item.tasks.forEach((task, i) => {
-          task.header = this.headers[i]
-        })
-        values.push(item)
-      })
-      values.forEach((value) => {
-        const item = { id: value.id }
-        value.tasks.forEach((task) => {
-          item[task.header] = task.value
-        })
-        builtItems.push(item)
-      })
-      return builtItems
-    },
-    sortedValues () {
-      if (this.currentSort) {
-        return _.sortBy(this.flatValues, [this.currentSort])
-      }
-      return []
     }
   },
   methods: {
-    handleSort (column, method ='asc') {
-      method
-      this.currentSort = column
+    handleSortingRules (rule) {
+      let columnNameExist = false
+      let columnNameExistIndex = null
+      const incomingColumn = rule[0]
+
+      for (const [i, item] of this.sortedColumns.entries()) {
+        if (item[0] === incomingColumn) {
+          columnNameExist = true
+          columnNameExistIndex = i
+        }
+      }
+
+      if (columnNameExist) {
+        this.sortedColumns.splice(columnNameExistIndex, 1, rule)
+      } else {
+        this.sortedColumns.push(rule)
+      }
     },
-    selectRows () {}
+    handleFilterRules (rules) {
+      this.filterRules = rules
+    }
   }
-  // methods: {
-  //   dragRow (e, item) {
-  //     e.dataTransfer.dropEffect = 'move'
-  //     e.dataTransfer.effectAllowed = 'move'
-  //     e.dataTransfer.setData('row', item.id)
-  //   },
-  //   dropRow (e) {
-  //     const row = e.dataTransfer.getData('row')
-  //     const rowData = this.items[_.findIndex(this.items, ['id', row * 1])]
-  //     this.items.splice(this.insertAt, 0, rowData)
-  //   },
-  //   dragOverRow (e, item) {
-  //     e
-  //     this.insertAt = _.findIndex(this.items, ['id', item.id])
-  //   },
-  //   addValue (value) {
-  //     this.items.push({
-  //       id: 4,
-  //       tasks: [
-  //         {
-  //           value: value
-  //         },
-  //         {
-  //           value: 3
-  //         },
-  //         {
-  //           value: 4
-  //         }
-  //       ]
-  //     })
-  //   }
-  // }
 }
 </script>
 
@@ -198,17 +207,17 @@ export default {
 .tasks {
   position: relative;
   background-color: #fff;
-  box-shadow: 0 2px 15px -3px rgb(0 0 0 / 7%), 0 10px 20px -2px rgb(0 0 0 / 4%);
   background-clip: border-box;
-  /* border: 1px solid rgba(0, 0, 0, 0.175); */
-  border-radius: 0.375rem;
-  padding: 1rem 1rem;
+  padding: .5rem;
   width: 100%;
   height: auto;
-  padding: .5rem;
+  /* box-shadow: 0 2px 15px -3px rgb(0 0 0 / 7%), 0 10px 20px -2px rgb(0 0 0 / 4%); */
+  /* border: 1px solid rgba(0, 0, 0, 0.175); */
+  /* border-radius: 0.375rem; */
+  /* padding: 1rem 1rem; */
 }
 
-.tasks>* {
+.tasks > * {
   color: #212529;
 }
 
@@ -217,7 +226,6 @@ export default {
   justify-content: space-around;
   flex-wrap: nowrap;
   width: 100%;
-  /* padding: 0 1rem 0 1rem; */
 }
 
 .tasks .task-row.task-header {
@@ -232,7 +240,6 @@ export default {
   position: relative;
   transition: all .3s ease-in;
   padding: .5rem;
-  /* background-color: white; */
   box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.05);
   margin: .15rem;
   width: 100%;
@@ -245,7 +252,8 @@ export default {
   justify-items: center;
 }
 
-.task-cell .task-cell-menu {
+/* .task-cell .task-cell-menu { */
+[class$="-menu"] {
   position: absolute;
   display: none;
   top: 0;
@@ -266,7 +274,8 @@ export default {
   background-clip: padding-box;
 }
 
-.task-cell a.task-cell-menu-item {
+/* .task-cell a.task-cell-menu-item { */
+[class$="-menu"] a[class$="-menu-item"] {
   display: block;
   width: 100%;
   padding: 0.25rem 1rem;
@@ -280,31 +289,23 @@ export default {
   border-radius: .375rem;
 }
 
-.task-cell a.task-cell-menu-item:hover {
+/* .task-cell a.task-cell-menu-item:hover { */
+[class$="-menu"] a[class$="-menu-item"]:hover {
   color: #1e2125;
   background-color: #e9ecef;
 }
 
-.task-cell .task-cell-menu.show {
+[class$="-menu"].show {
   display: block;
 }
 
-/* 
-.tasks .task-row:first-child .task-cell:first-child {
-  border-top-left-radius: 0.375rem;
+[class$="-menu"] hr[class$="-menu-item-divider"] {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.175);
+  opacity: 1;
 }
-
-.tasks .task-row:first-child .task-cell:last-child {
-  border-top-right-radius: 0.375rem;
-}
-
-.tasks .task-row:last-child .task-cell:first-child {
-  border-bottom-left-radius: 0.375rem;
-}
-
-.tasks .task-row:last-child .task-cell:last-child {
-  border-bottom-right-radius: 0.375rem;
-} */
 
 .tasks .task-cell:not(.task-cell.task-cell-row-select):hover {
   background-color: rgba(0, 0, 0, 0.075);
@@ -328,5 +329,13 @@ export default {
 
 .tasks.tasks-success .task-cell.active {
   background-color: #c1d6cc;
+}
+
+.tasks .tasks-sort {
+  position: relative;
+}
+
+.tasks .tasks-sort .badge {
+  cursor: pointer;
 }
 </style>

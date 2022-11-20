@@ -299,7 +299,7 @@ ifnoinfoienfoeenifoei
 
           <!-- Table -->
           <base-template-card class="my-3">
-            <dynamic-table id="table1" :headers="['Firstname', 'Lastname', 'Age']" :items="table" />
+            <dynamic-table id="table1" :headers="['firstname', 'lastname', 'age']" :items="table" />
           </base-template-card>
         </section>
       </div>

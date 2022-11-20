@@ -1,7 +1,6 @@
 <template>
-  <div :class="{active: selected || rowSelected || selectAllRows}" class="task-cell d-flex justify-content-between" @click.stop="select(task)">
-    <span>{{ task.value }}</span>
-    <!-- <button type="button" class="btn btn-sm btn-floating btn-light shadow-none">p</button> -->
+  <div :class="{active: selected || rowSelected || selectAllRows}" :aria-label="task" class="task-cell d-flex justify-content-between" @click.stop="select(header, task)">
+    <span :for="header">{{ task }}</span>
   </div>
 </template>
 
@@ -9,10 +8,15 @@
 import { inject, ref } from 'vue'
 
 export default {
+  name: 'DynamicTableCell',
   props: {
     task: {
-      type: Object,
-      default: () => {}
+      type: [String, Number],
+      default: null
+    },
+    header: {
+      type: String,
+      required: true
     }
   },
   emits: {
@@ -31,9 +35,9 @@ export default {
     }
   },
   methods: {
-    select (task) {
+    select (header, task) {
       this.selected = !this.selected
-      this.$emit('update:selection', task)
+      this.$emit('update:selection', [header, task])
     }
   }
 }
