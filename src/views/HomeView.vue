@@ -4,9 +4,17 @@
   <section>
     <!-- Navbar -->
     <!-- style="height: 100px;" -->
-    <base-navbar :fixed-top="true" nav-brand="Vue Templates">
-      <base-mega-dropdown :items="megamenu" />
-      <base-side-dropdown />
+    <base-navbar :fixed-top="true" nav-brand="Vue Templates">    
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <base-mega-dropdown :items="megamenu" />
+        <base-side-dropdown link-name="Templates" />
+        <nav-item :to="{ name: 'home_view' }" link-name="Google" />
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-link px-3 me-2">Login</button>
+        <button type="button" class="btn btn-primary me-3">Sign up for free</button>
+      </div>
     </base-navbar>
 
     <!-- Intro -->
@@ -67,6 +75,7 @@ import BaseMegaDropdown from '../layouts/bootstrap/nav/BaseMegaDropdown.vue'
 import BaseSideDropdown from '../layouts/bootstrap/nav/BaseSideDropdown.vue'
 import BaseFooter from '@/layouts/BaseFooter.vue'
 import BaseNavbar from '@/layouts/bootstrap/nav/BaseNavbar.vue'
+import NavItem from '@/layouts/bootstrap/nav/NavItem.vue'
 
 export default {
   name: 'HomeView',
@@ -75,7 +84,8 @@ export default {
     BaseFooter,
     BaseMegaDropdown,
     BaseSideDropdown,
-    BaseNavbar
+    BaseNavbar,
+    NavItem
   },
   setup () {
     var dark = useDark()

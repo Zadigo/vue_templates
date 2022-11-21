@@ -8,27 +8,9 @@
       <button :class="{ collapsed }" type="button" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" @click="collapsed = !collapsed">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <!-- collapse show -->
+      
       <div id="navbarNav" :class="{'collapse show': !collapsed}" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <slot></slot>
-
-          <!-- <li class="nav-item">
-            <router-link :to="{name: 'parallax_view'}" class="nav-link">
-              Parallax
-            </router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link :to="{ name: 'youtube_view' }" class="nav-link">
-              Dashboard
-            </router-link>
-          </li> -->
-          <!-- 
-          <base-mega-dropdown-vue :items="megamenu" />
-          <base-side-dropdown-vue /> -->
-        </ul>
+        <slot></slot>
       </div>
     </div>
   </nav>
