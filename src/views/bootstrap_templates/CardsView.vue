@@ -68,6 +68,28 @@
             </template>
           </base-card>
         </div>
+
+        <div class="col-4">
+          <base-card title="We can!" subtitle="Hey, how are you!" class="my-3">
+            <template #header>
+              <base-nav-pills :items="[{ name: 'A' }, { name: 'B' }, { name: 'C' }]" is-pills justified in-card @click:nav-pill="handleTab" />
+            </template>
+        
+            <template #body>
+              <div v-if="tab === 0">
+                Lorem ipsum dolor
+              </div>
+
+              <div v-if="tab === 1">
+                Amet consectetur adipisicing elit
+              </div>
+              
+              <div v-if="tab === 2">
+                Necessitatibus recusandae earum odio reprehenderit
+              </div>
+            </template>
+          </base-card>
+        </div>
       </div>
     </div>
   </div>
@@ -75,16 +97,29 @@
 
 <script>
 import BaseButton from '../../layouts/BaseButton.vue'
+import BaseNavPills from '@/layouts/bootstrap/BaseNavPills.vue';
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue';
 import BaseCardReveal from '@/layouts/bootstrap/cards/BaseCardReveal.vue'
 
 export default {
+  name: 'CardsView',
   components: {
     BaseButton,
     BaseCard,
     BaseCardGroup,
-    BaseCardReveal
+    BaseCardReveal,
+    BaseNavPills
+  },
+  data () {
+    return {
+      tab: 0
+    }
+  },
+  methods: {
+    handleTab (value) {
+      this.tab = value[0]
+    }
   }
 }
 </script>
