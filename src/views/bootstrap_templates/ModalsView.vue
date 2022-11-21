@@ -1,9 +1,13 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1">
-      <base-template-card class="my-3">
-        <div class="card-body">
-          <h3 class="card-title">Modal</h3>
+      <!-- Modal -->
+      <base-card class="my-3">
+        <template #header>
+          <h3 class="card-title">Modals</h3>
+        </template>
+
+        <template #body>
           <button type="button" class="btn btn-md btn-primary" @click="showModal1 = !showModal1">
             Modal 1
           </button>
@@ -11,6 +15,14 @@
           <button type="button" class="btn btn-md btn-primary mx-1" @click="showModal3 = !showModal3">
             Modal 3
           </button>
+
+          <!-- <div class="highlight">
+            <pre>
+              <code>
+                Google
+              </code>
+            </pre>
+          </div> -->
       
           <hr>
       
@@ -33,21 +45,39 @@
           <base-checkbox id="bottom-left" name="modal" :inline="true" :is-radio="true" label="Bottom left" @update:initial="modalOptions.position = 'bottom-left'" />
           <base-checkbox id="top" name="modal" :inline="true" :is-radio="true" label="Top" @update:initial="modalOptions.position = 'top'" />
           <base-checkbox id="bottom" name="modal" :inline="true" :is-radio="true" label="Bottom" @update:initial="modalOptions.position = 'bottom'" />
-        </div>
-      </base-template-card>
+        </template>
+      </base-card>
       
-      <base-template-card class="my-3">
-        <div class="card-body">
+      <!-- Offcanvas -->
+      <base-card class="my-3">
+        <template #header>
           <h3 class="card-title">Offcanvas</h3>
-          <button type="button" class="btn btn-md btn-primary" @click="showOffcanvas = !showOffcanvas">
-            Offcanvas
-          </button>
-        </div>
-      </base-template-card>      
+        </template>
+
+        <template #body>
+          <div class="d-flex gap-1">
+            <base-button @click="handleOffcanvas('start')">
+              start
+            </base-button>
+  
+            <base-button @click="handleOffcanvas('end')">
+              End
+            </base-button>
+
+            <base-button @click="handleOffcanvas('top')">
+              Top
+            </base-button>
+
+            <base-button @click="handleOffcanvas('bottom')">
+              Bottom
+            </base-button>
+          </div>
+        </template>
+      </base-card>      
     </div>
 
     <!-- Modal -->
-    <base-offcanvas id="test-offcanvas" :show="showOffcanvas" :allow-scroll="false" position="end" @close="showOffcanvas = false">
+    <base-offcanvas id="test-offcanvas" :show="showOffcanvas" :allow-scroll="false" :position="offcanvasOptions.position" @close="showOffcanvas = false">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim explicabo dolor
       id temporibus est eius voluptatibus fugit nihil deleniti natus voluptates saepe,
       repellendus architecto quasi unde doloremque excepturi eum ad.
@@ -82,17 +112,19 @@
 </template>
 
 <script>
+import BaseButton from '@/layouts/BaseButton.vue'
+import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
 import BaseModal from '@/layouts/bootstrap/BaseModal.vue'
 import BaseOffcanvas from '@/layouts/bootstrap/BaseOffcanvas.vue'
-import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 
 export default {
   components: {
+    BaseButton,
+    BaseCard,
     BaseCheckbox,
     BaseModal,
-    BaseOffcanvas,
-    BaseTemplateCard
+    BaseOffcanvas
   },
   data () {
     return {
@@ -103,8 +135,52 @@ export default {
         position: 'center',
         nonInvasive: false,
         size: 'md'
+      },
+      offcanvasOptions: {
+        position: 'end'
       }
+    }
+  },
+  methods: {
+    handleOffcanvas (position) {
+      this.offcanvasOptions.position = position
+      this.showOffcanvas = true
     }
   }
 }
 </script>
+
+<!-- <style scoped>
+.highlight {
+  padding: .75rem 1.25rem;
+  border-radius: 0.375;
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1rem;
+  background-color: #f8f9fa;
+}
+
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: .875em;
+}
+.highlight pre {
+  padding: 0;
+  margin-top: .625rem;
+  margin-right: 1.875rem;
+  margin-bottom: .625rem;
+  white-space: pre;
+  background-color: transparent;
+  border: 0;
+}
+
+pre code {
+  font-size: inherit;
+  color: #212529;
+  word-wrap: normal;
+}
+</style>
+ -->

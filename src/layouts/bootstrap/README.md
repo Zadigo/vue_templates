@@ -28,4 +28,22 @@
 </base-modal-vue>
 ```
 
+## Offcanvas
 
+```html
+<base-offcanvas id="..." :show="..." allow-scroll position="top">
+    ...
+</base-offcanvas>
+```
+
+### Attributes
+
+- `position` : top, bottom, start, end
+- `static-backdrop` : true, false
+- `allow-scroll` : true, false
+- `show` : true, false
+- `id`
+
+### Emits
+
+- @close

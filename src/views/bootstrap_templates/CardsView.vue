@@ -90,6 +90,26 @@
             </template>
           </base-card>
         </div>
+
+        <div class="col-4">
+          <base-card class="my-3">
+            <template #header>
+              <h3>Example card</h3>
+            </template>
+        
+            <template #body>
+              <div class="row">
+                <base-placeholder class="col-8 my-1 me-1" />
+                <base-placeholder class="col-4 my-1" />
+                <base-placeholder class="col-10 my-1" />
+              </div>
+            </template>
+
+            <template #footer>
+              <base-button id="button-id" class="col-6" placeholder></base-button>
+            </template>
+          </base-card>
+        </div>
       </div>
     </div>
   </div>
@@ -97,6 +117,7 @@
 
 <script>
 import BaseButton from '../../layouts/BaseButton.vue'
+import BasePlaceholder from '../../layouts/bootstrap/BasePlaceholder.vue'
 import BaseNavPills from '@/layouts/bootstrap/BaseNavPills.vue';
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCardGroup from '@/layouts/bootstrap/cards/BaseCardGroup.vue';
@@ -109,7 +130,8 @@ export default {
     BaseCard,
     BaseCardGroup,
     BaseCardReveal,
-    BaseNavPills
+    BaseNavPills,
+    BasePlaceholder
   },
   data () {
     return {
