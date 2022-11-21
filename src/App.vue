@@ -1,18 +1,10 @@
 <template>
-  <router-view />
+  <router-view :key="$route.name" />
 </template>
 
 <script>
-// import { useUrls, loadView } from './composables/utils'
-
 export default {
-  name: 'App',
-  setup () {
-    // const { rebuildPath } = useUrls()
-  }
-  // mounted () {
-  //   this.$session.create('something', 1)
-  // }
+  name: 'App'
 }
 </script>
 
