@@ -36,6 +36,9 @@ export default {
       type: String,
       required: true
     },
+    centered: {
+      type: Boolean
+    },
     nonInvasive: {
       type: Boolean
     },
