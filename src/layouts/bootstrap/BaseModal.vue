@@ -112,10 +112,10 @@ export default {
 
       return [
         {
-          [`modal-${this.size}`]: true
-        },
-        this.centered ? 'modal-dialog-centered' : null,
-        this.scrollable ? 'modal-dialog-scrollable' : null
+          [`modal-${this.size}`]: true,
+          'modal-dialog-centered': this.centered,
+          'modal-dialog-scrollable': this.scrollable
+        }
       ]
     },
     modalContentClasses () {
