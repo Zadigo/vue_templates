@@ -26,6 +26,16 @@ export function asyncTimeout (ms) {
 }
 
 export function useUtilities () {
+  function getRandomString (k = 10) {
+    let result = ''
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    const charactersLength = characters.length
+    for (let i = 0; i < k; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    }
+    return result
+  }
+
   function hasNull (items) {
     let itemsValues = []
 
@@ -49,14 +59,23 @@ export function useUtilities () {
       }
     })
   }
-  
+
   function incrementLastId (items) {
-    var lastItem = _.last(items)
-    if (!(typeof lastItem === 'object')) {
-      raiseError('incrementLastId', `${lastItem} is not a dictionnary`)
-      return null
+    if (!items) {
+      return 1
     } else {
-      return lastItem.id + 1
+      if (items.length === 0) {
+        return 1
+      }
+
+      const lastItem = _.last(items)
+
+      if (!(typeof lastItem === 'object')) {
+        raiseError('incrementLastId', `${lastItem} is not a dictionnary`)
+        return null
+      } else {
+        return lastItem.id + 1
+      }
     }
   }
 
@@ -80,19 +99,19 @@ export function useUtilities () {
       return readFile({ [`${file[0]}`]: file[1] })
     })
   }
-  
+
   function readVideoFile (files) {
     return URL.createObjectURL(files[0])
   }
-  
+
   function getVideoFrame (video) {
     const canvas = document.createElement('canvas')
     canvas.height = video.videoHeight
     canvas.width = video.videoWidth
-    
+
     const ctx = canvas.getContext('2d')
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    
+
     const img = new Image()
     const url = canvas.toDataURL()
     img.src = url
@@ -126,7 +145,7 @@ export function useUtilities () {
     }
     return items
   }
-  
+
   function dictionnaryListManager (items, item, key) {
     const result = _.filter(items, [key, item[key]])
     if (result.length > 0) {
@@ -137,7 +156,7 @@ export function useUtilities () {
     }
     return items
   }
-  
+
   function dictionnaryExists (items, key, test) {
     const result = _.filter(items, (item) => {
       const keyValue = item[key]
@@ -207,6 +226,7 @@ export function useUtilities () {
     dictionnaryExists,
     dictionnaryListManager,
     formatAsPercentage,
+    getRandomString,
     getVerticalScrollPercentage,
     getVideoFrame,
     hasNull,
@@ -238,7 +258,7 @@ export function useSocket () {
       return true
     }
   }, {
-    onTrigger(e) {
+    onTrigger (e) {
       console.log('watchEffect', e)
     }
   })
@@ -261,7 +281,7 @@ export function useSocket () {
     // socket.onclose = listeners.onclose
     // socket.onmessage = listeners.onmessage
     // socket.onerror = listeners.onerror
-    
+
     // return socket
 
     const instance = new WebSocket(websocketRootAddress(path))
