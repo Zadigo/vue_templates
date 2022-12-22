@@ -11,9 +11,24 @@ const router = createRouter({
             component: loadView('HomeView')
         },
         {
+            path: '/test',
+            name: 'test_view',
+            component: loadView('TestView')
+        },
+        {
             path: '/bootstrap',
             component: loadLayout('DashboardLayout'),
             children: [
+                {
+                    path: 'buttons',
+                    name: 'buttons_view',
+                    component: loadView('bootstrap_templates/ButtonsView'),
+                    meta: {
+                        adminLink: true,
+                        title: 'Buttons',
+                        icon: 'table'
+                    }
+                },
                 {
                     path: 'cards',
                     name: 'cards_view',
