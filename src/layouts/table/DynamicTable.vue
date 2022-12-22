@@ -10,6 +10,34 @@
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
           </button>
         </div>
+
+        <!-- Additional options -->
+        <div class="dropdown">
+          <button type="button" class="btn btn-light shadow-none" @click="showAdditionalOptionsMenu = !showAdditionalOptionsMenu">
+            <font-awesome-icon icon="fa-solid fa-ellipsis" />
+          </button>
+
+          <ul :class="{ show: showAdditionalOptionsMenu }" class="task-cell-menu">
+            <li>
+              <a href class="task-cell-menu-item" @click.prevent="showAdditionalOptionsMenu = false, showPropertiesMenu = true">
+                <font-awesome-icon icon="fa-solid fa-columns" class="me-2" />
+                Properties
+              </a>
+            </li>
+          </ul>
+
+          <ul :class="{ show: showPropertiesMenu }" class="task-cell-menu">
+            <li v-for="(header, i) in headers" :key="i">
+              <a href class="task-cell-menu-item d-flex justify-content-between align-items-center" @click.prevent>
+                <span>{{ header }}</span>
+
+                <button type="button" class="btn btn-sm btn-light shadow-none" @click="handleColumnVisibility(header)">
+                  <font-awesome-icon icon="fa-solid fa-eye" />
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       
       <div class="d-flex justify-content-left align-items-center">
@@ -26,7 +54,7 @@
         <!-- <base-checkbox id="select-rows" label="" @update:initial="(value) => { selectAllRows = value }" /> -->
         <base-checkbox id="select-rows" v-model="selectAllRows" label="" />
       </div>
-      <dynamic-table-column-header v-for="header in headers" :key="header" :header="header" @update:sorting-rules="handleSortingRules" />
+      <dynamic-table-column-header v-for="header in visibleColumns" :key="header" :header="header" @update:sorting-rules="handleSortingRules" />
     </div>
 
     <!-- Table Rows -->
@@ -35,7 +63,7 @@
     <!-- Calculation Row -->
 
     <div class="py-3">
-      Showing 1 to 10 of {{ items.length }} entries
+      Showing 1 to {{ items.length }} of {{ items.length }} entries
     </div>
   </div>
 </template>
@@ -44,6 +72,7 @@
 import _ from 'lodash'
 import { getCurrentInstance, provide, ref } from 'vue'
 import { useFiltering } from './composables'
+import { useHeaders } from './composables/index'
 
 import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
 import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
@@ -80,11 +109,17 @@ export default {
     const selectAllRows = ref(false)
     provide('tableItems', app.props.items)
     provide('selectAllRows', selectAllRows)
-    provide('headers', app.props.headers)
+    const headers = app.props.headers
+    const { handleColumnVisibility, maskedColumns, visibleColumns } = useHeaders(headers) 
+    provide('headers', visibleColumns)
+    provide('maskedColumns', maskedColumns)
     const { availableFilters, filterValueOperation } = useFiltering()
     return {
       availableFilters,
+      maskedColumns,
+      handleColumnVisibility,
       selectAllRows,
+      visibleColumns,
       filterValueOperation
     }
   },
@@ -93,7 +128,8 @@ export default {
       search: null,
       sortedColumns: [],
       filterRules: [],
-      showSearch: false
+      showSearch: false,
+      showAdditionalOptionsMenu: false,
       // currentSort: null,
       // currentSortMethod: 'asc'
     }
@@ -129,7 +165,9 @@ export default {
               rule.constraint
             )
           })
-          return _.some(truthArray)
+          console.info(truthArray)
+          // return _.some(truthArray)
+          return _.every(truthArray)
         })
       } else {
         return this.sortedItems
@@ -227,6 +265,7 @@ export default {
   justify-content: space-around;
   flex-wrap: nowrap;
   width: 100%;
+  /* align-items: center; */
 }
 
 .tasks .task-row.task-header {
@@ -245,6 +284,7 @@ export default {
   margin: .15rem;
   width: 100%;
   cursor: pointer;
+  border-radius: .15em;
 }
 
 .task-cell.task-cell-row-select {

@@ -38,13 +38,29 @@ export default {
   setup () {
     const rowSelected = ref(false)
     provide('rowSelected', rowSelected)
+    const maskedColumns = inject('maskedColumns')
     const selectAllRows = inject('selectAllRows')
     const headers = inject('headers')
     return {
       selectAllRows,
       rowSelected,
+      maskedColumns,
       headers
     }
+  },
+  computed: {
+    // visibleColumns () {
+    //   // Only show columns that marked
+    //   // as visible by the user. By default
+    //   // all columns are visible
+    //   if (this.maskedColumns.length === 0) {
+    //     return this.headers
+    //   } else {
+    //     return _.filter(this.headers, (header) => {
+    //       return !this.maskedColumns.includes(header)
+    //     })
+    //   }
+    // }
   },
   watch: {
     selectAllRows (current) {

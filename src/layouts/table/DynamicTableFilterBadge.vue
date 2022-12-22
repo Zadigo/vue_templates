@@ -1,11 +1,14 @@
 <template>
   <div class="tasks-filter pt-3">
     <div class="d-flex justify-content-left">
-      <div v-for="(rule, i) in rules" :key="i" class="badge rounded-pill text-bg-info p-2 me-1 d-flex justify-content-around align-items-center">
+      <!-- Rules -->
+      <!-- TODO: Make this is a unique component -->
+      <!-- <div v-for="(rule, i) in rules" :key="i" class="badge rounded-pill text-bg-info p-2 me-1 d-flex justify-content-around align-items-center">
         <font-awesome-icon icon="fa-solid fa-filter" class="me-2" />
-        {{ `${rule.column}: ${rule.constraint}` }}
+        {{ getRuleText(rule) }}
         <font-awesome-icon icon="fa-solid fa-caret-down" class="ms-2" />
-      </div>
+      </div> -->
+      <dynamic-table-rule v-for="(rule, i) in rules" :key="i" :index="i" :rule="rule" />
   
       <button type="button" class="btn btn-light shadow-none" @click="showFilterMenu = !showFilterMenu">
         <font-awesome-icon icon="fa-solid fa-plus" class="me-1" />
@@ -60,7 +63,13 @@
 import { inject } from 'vue'
 import { useFiltering } from './composables'
 
+import DynamicTableRule from './DynamicTableRule.vue'
+
 export default {
+  name: 'DynamicTableFilterBadge',
+  components: {
+    DynamicTableRule
+  },
   emits: {
     'update:filter-rules' () {
       return true
@@ -108,9 +117,3 @@ export default {
   }
 }
 </script>
-
-<!-- <style scoped>
-.tasks-filter-menu {
-  bottom: 130%;
-}
-</style> -->

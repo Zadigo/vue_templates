@@ -1,3 +1,7 @@
+import _ from 'lodash'
+import { useUtilities } from '@/composables/utils'
+import { computed, ref } from 'vue'
+
 export function useFiltering () {
   const availableFilters = [
     'Is',
@@ -59,5 +63,33 @@ export function useFiltering () {
   return {
     filterValueOperation,
     availableFilters
+  }
+}
+
+export function useHeaders (headers) {
+  const maskedColumns = ref([])
+  const { listManager } = useUtilities()
+
+  const visibleColumns = computed(() => {
+    // Only show columns that marked
+    // as visible by the user. By default
+    // all columns are visible
+    if (maskedColumns.value.length === 0) {
+      return headers
+    } else {
+      return _.filter(headers, (header) => {
+        return !maskedColumns.value.includes(header)
+      })
+    }
+  })
+
+  function handleColumnVisibility (header) {
+    listManager(maskedColumns.value, header)
+  }
+
+  return {
+    handleColumnVisibility,
+    visibleColumns,
+    maskedColumns
   }
 }
