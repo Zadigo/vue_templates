@@ -1,5 +1,5 @@
 <template>
-  <div :class="{active: selected || rowSelected || selectAllRows}" :aria-label="task" class="task-cell d-flex justify-content-between" @click.stop="select(header, task)">
+  <div :class="{ active: cellSelected || rowSelected || selectAllRows }" :aria-label="task" class="task-cell d-flex justify-content-between" @click.stop="select(header, task)">
     <span :for="header">{{ task }}</span>
   </div>
 </template>
@@ -27,16 +27,16 @@ export default {
   setup () {
     const rowSelected = inject('rowSelected')
     const selectAllRows = inject('selectAllRows')
-    const selected = ref(false)
+    const cellSelected = ref(false)
     return {
-      selected,
+      cellSelected,
       rowSelected,
       selectAllRows
     }
   },
   methods: {
     select (header, task) {
-      this.selected = !this.selected
+      this.cellSelected = !this.cellSelected
       this.$emit('update:selection', [header, task])
     }
   }

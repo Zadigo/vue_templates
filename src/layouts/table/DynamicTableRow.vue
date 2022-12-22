@@ -1,7 +1,7 @@
 <template>
   <div class="task-row">
     <div class="task-cell task-cell-row-select">
-      <base-checkbox id="select-row" label="" :initial="rowSelected" @update:initial="selectRow" />
+      <base-checkbox id="select-row" v-model="rowSelected" label="" :initial="rowSelected" />
     </div>
 
     <!-- Cell -->
@@ -52,10 +52,10 @@ export default {
     }
   },
   methods: {
-    selectRow (state) {
-      this.rowSelected = state
-      this.$emit('select-row', this.item)
-    },
+    // selectRow (state) {
+    //   this.rowSelected = state
+    //   this.$emit('select-row', this.item)
+    // },
     updateselection (value) {
       // value -> [header, task]
       this.$emit('update:row:selection', [this.item, ...value])

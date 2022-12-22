@@ -23,7 +23,8 @@
     <!-- Table Headers -->
     <div class="task-row task-header">
       <div class="task-cell task-cell-row-select">
-        <base-checkbox id="select-rows" label="" @update:initial="(value) => { selectAllRows = value }" />
+        <!-- <base-checkbox id="select-rows" label="" @update:initial="(value) => { selectAllRows = value }" /> -->
+        <base-checkbox id="select-rows" v-model="selectAllRows" label="" />
       </div>
       <dynamic-table-column-header v-for="header in headers" :key="header" :header="header" @update:sorting-rules="handleSortingRules" />
     </div>

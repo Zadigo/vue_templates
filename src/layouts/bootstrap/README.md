@@ -36,6 +36,28 @@
 </base-offcanvas>
 ```
 
+## Dynmamic table
+
+An advanced data table to filter, sort and manipulate data efficiently.
+
+```html
+<dynamic-table id="table1" :headers="['firstname', 'lastname', 'age']" :items="table" />
+```
+
+The `items` attribute receive data structured as below:
+
+```json
+[
+    {
+        "id": 1,
+        "firstname": "Kendall",
+        "lastname": "Jenner",
+        "age": 35
+    }
+]
+```
+
+
 ### Attributes
 
 - `position` : top, bottom, start, end
