@@ -118,6 +118,16 @@ const router = createRouter({
                         title: 'Pagination',
                         icon: 'list'
                     }
+                },
+                {
+                    path: 'carousel',
+                    name: 'carousel_view',
+                    component: loadView('bootstrap_templates/CarouselView'),
+                    meta: {
+                        adminLink: true,
+                        title: 'Carousel',
+                        icon: 'image'
+                    }
                 }
             ]
         },

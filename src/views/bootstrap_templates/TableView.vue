@@ -3,7 +3,7 @@
     <div class="col-12">
       <base-card>
         <template #body>
-          <dynamic-table id="table1" :headers="['firstname', 'lastname', 'age']" :items="table" />
+          <dynamic-table id="table1" :headers="['firstname', 'lastname', 'age', 'ranking']" :items="table" />
         </template>
       </base-card>
     </div>

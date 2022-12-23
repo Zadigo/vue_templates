@@ -19,22 +19,70 @@
 <base-pagination :pages="4" />
 ```
 
+## Dropdown
+
+A dropdown menu represents a container to be used as a menu
+
+```html
+<dropdown-menu :show="show" animation="slideup">
+    <dropdown-item-input link-name="Example input" />
+    <dropdown-item link-name="Link 1" :active="true" />
+    <dropdown-item-header link-name="Example header" />
+    <dropdown-item link-name="Link 3" />
+    <dropdown-item-divider />
+    <dropdown-item link-name="Link 4" />
+    <dropdown-item link-name="Link 5" icon="table" />
+</dropdown-menu>
+```
+
+A dropdown menu needs to wrapped in order to benefit from the drop functionnalities
+
+```html
+<dropdown-button id="drop-1" v-slot="{show}">
+    <dropdown-menu :show="show" animation="slide">
+        <dropdown-item-input link-name="Example input" />
+    </dropdown-menu>
+</dropdown-button>
+```
 
 ## Modal
 
 ```html
-<base-modal-vue id="test-modal" :show="showModal" :non-invasive="false" :scrollable="false" :centered="false" :static-backdrop="true" position="top-right" size="sm" @close="showModal = false">
+<base-modal-vue id="..." :show="..." non-invasive scrollable centered static-backdrop position="top-right" size="sm" @close="...">
     <p>...</p>
 </base-modal-vue>
 ```
 
+### Attributes
+
+* `show`: true, false
+* `non-invasive`: true, false
+* `scrollable`: true, false
+* `centered`: true, false
+* `position`: top-right, top-left, bottom-right, bottom-left
+* `size`: sm, md, lg, xl, fullscreen
+
+### Events
+
+* `@close`
+
 ## Offcanvas
 
 ```html
-<base-offcanvas id="..." :show="..." allow-scroll position="top">
+<base-offcanvas id="..." :show="..." allow-scroll position="..." @close="...">
     ...
 </base-offcanvas>
 ```
+
+### Attributes
+
+* `show`: true, false
+* `allow-scroll`: true, false
+* `position`: top, bottom, start, end
+
+### Events
+
+* `@close`
 
 ## Dynmamic table
 

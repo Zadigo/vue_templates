@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import BaseButton from '../../layouts/BaseButton.vue'
+import BaseButton from '../../layouts/bootstrap/buttons/BaseButton.vue'
 import BasePlaceholder from '../../layouts/bootstrap/BasePlaceholder.vue'
 import BaseNavPills from '@/layouts/bootstrap/BaseNavPills.vue';
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'

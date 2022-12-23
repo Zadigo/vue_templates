@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import BaseButton from '@/layouts/BaseButton.vue'
+import BaseButton from '@/layouts/bootstrap/buttons/BaseButton.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
 import BaseModal from '@/layouts/bootstrap/BaseModal.vue'

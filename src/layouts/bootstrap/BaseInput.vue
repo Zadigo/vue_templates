@@ -17,16 +17,16 @@ export default {
       default: 'text'
     },
     modelValue: {
-      type: String
+      type: [String, Number, Boolean]
     }
   },
   emits: {
-    'update:modelValue'() {
+    'update:modelValue' () {
       return true
     }
   },
   setup () {
-    const darkMode =  inject('darkMode', false)
+    const darkMode = inject('darkMode', false)
     return {
       darkMode
     }

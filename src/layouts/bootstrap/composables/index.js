@@ -1,16 +1,20 @@
 import _ from 'lodash'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
-export function useClickOutside (actionType, onbefore = () => { }, onafter = () => { }) {
+export function useClickOutside (onbefore = () => { }, onafter = () => { }) {
+  // Handle menu state when click outside
   const show = ref(false)
-  const action = actionType
-  action
+  
   function handleButtonClickOutside (e) {
     const target = e.target
 
     onbefore(e)
 
     if (target.classList.contains('dropdown-header')) {
+      return
+    }
+    
+    if (target.classList.contains('dropdown-input')) {
       return
     }
 
@@ -25,7 +29,7 @@ export function useClickOutside (actionType, onbefore = () => { }, onafter = () 
     onafter(e)
   }
 
-  function toggleShow() {
+  function handleClick() {
     show.value = !show.value
   }
 
@@ -39,7 +43,7 @@ export function useClickOutside (actionType, onbefore = () => { }, onafter = () 
 
   return {
     show,
-    toggleShow
+    handleClick
   }
 }
 
@@ -85,5 +89,28 @@ export function useLists (items, onbefore = () => { }, onafter = () => { }) {
     selected,
     selectedIds,
     selectItem
+  }
+}
+
+export function useEventListener (el, event, callback) {
+  onMounted(() => {
+    el?.value?.addEventListener(event, callback)
+  })
+
+  onBeforeUnmount(() => {
+    el?.value?.removeEventListener(event, callback)
+  })
+}
+
+export function useUtilities () {
+  // Generate a random ID for a component
+  // for cases where the user has not
+  // provided one
+  function generateId (suffix) {
+    return `__BID__${Math.random().toString().slice(2, 8)}___B_${suffix}__`
+  }
+
+  return {
+    generateId
   }
 }
