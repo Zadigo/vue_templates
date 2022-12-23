@@ -24,7 +24,7 @@
           <div class="text-white">
             <h1 class="mb-3 display-3 fw-bold">Vue Template</h1>
             <h4 class="mb-3 fw-light">A simple VueJS projects for template demonstrations</h4>
-            <router-link :to="{ name: 'cards_view' }" class="btn btn-primary btn-lg">
+            <router-link :to="{ name: 'buttons_view' }" class="btn btn-primary btn-lg">
               Bootstrap templates
             </router-link>
             <!-- <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a> -->

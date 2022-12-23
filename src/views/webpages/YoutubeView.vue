@@ -538,7 +538,7 @@ import video from '@/data/video'
 import { ref, provide } from 'vue'
 
 // import BaseDropGroupVue from '@/layouts/BaseDropGroup.vue'
-import BaseCarousel from '@/layouts/BaseCarousel.vue'
+import BaseCarousel from '@/layouts/bootstrap/BaseCarousel.vue'
 import BaseVideoPlayerVue from '@/layouts/bootstrap/players/BaseVideoPlayer.vue'
 import BaseScrollbarVue from '@/layouts/BaseScrollbar.vue'
 import BaseDropdownButtonVue from '@/layouts/bootstrap/BaseDropdownButton.vue'

@@ -12,11 +12,12 @@
           <base-list-group-checkbox id="google1" :items="listgroups" />
         </div>
       </base-template-card>
-  
+      
+      <!-- Base List Group -->
       <base-template-card class="my-3">
         <div class="card-body">
-          <base-list-group>
-            <base-list-group-item-action v-for="(item, i) in [{text: 'A'}, {text: 'B'}]" :key="i">
+          <base-list-group v-slot="{ listGroupItems, handleSelection }" :items="items">
+            <base-list-group-item-action v-for="(item, i) in listGroupItems" :key="i" @click="handleSelection(i, item)">
               {{ item.text }}
             </base-list-group-item-action>
           </base-list-group>
@@ -35,10 +36,10 @@
 
 <script>
 import BaseAccordion from '@/layouts/bootstrap/BaseAccordion.vue'
-import BaseListGroupCheckbox from '@/layouts/bootstrap/listgroups/BaseListGroupCheckbox.vue'
+import BaseListGroupCheckbox from '@/layouts/bootstrap/listgroup/BaseListGroupCheckbox.vue'
 import BaseListGroup from '@/layouts/bootstrap/listgroup/BaseListGroup.vue'
 import BaseListGroupItemAction from '@/layouts/bootstrap/listgroup/BaseListGroupItemAction.vue'
-import BaseListGroupItemRadio from '@/layouts/bootstrap/listgroups/BaseListGroupItemRadio.vue'
+import BaseListGroupItemRadio from '@/layouts/bootstrap/listgroup/BaseListGroupItemRadio.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 
 export default {
@@ -52,6 +53,10 @@ export default {
   },
   data () {
     return {
+      items: [
+        { text: 'First item of the group' },
+        { text: 'Second item of the group' }
+      ],
       listgroups: [
         { name: 'First radio', subtitle: 'With support text underneath to add more detail' },
         { name: 'Second radio', subtitle: 'With support text underneath to add more detail', disabled: true },
