@@ -14,37 +14,16 @@
       
           <button type="button" class="btn btn-md btn-primary mx-1" @click="showModal3 = !showModal3">
             Modal 3
-          </button>
-
-          <!-- <div class="highlight">
-            <pre>
-              <code>
-                Google
-              </code>
-            </pre>
-          </div> -->
-      
-          <hr>
-      
-          <base-checkbox id="invasive" :bigger="true" label="Non invasive" @update:initial="modalOptions.nonInvasive = !modalOptions.nonInvasive" />
-      
-          <hr>
-      
-          <base-checkbox id="modal-sm" name="modal-size" :initial="true" :inline="true" :is-radio="true" label="sM" @update:initial="modalOptions.size = 'sm'" />
-          <base-checkbox id="modal-md" name="modal-size" :initial="true" :inline="true" :is-radio="true" label="MD" @update:initial="modalOptions.size = 'md'" />
-          <base-checkbox id="modal-lg" name="modal-size" :inline="true" :is-radio="true" label="LG" @update:initial="modalOptions.size = 'lg'" />
-          <base-checkbox id="modal-xl" name="modal-size" :inline="true" :is-radio="true" label="XL" @update:initial="modalOptions.size = 'xl'" />
-          <base-checkbox id="modal-fullscreen" name="modal-size" :inline="true" :is-radio="true" label="Fullscreen" @update:initial="modalOptions.size = 'fullscreen'" />
-      
-          <hr>
-      
-          <base-checkbox id="center" name="modal" :initial="true" :inline="true" :is-radio="true" label="Center" @update:initial="modalOptions.position = 'center'" />
-          <base-checkbox id="top-left" name="modal" :inline="true" :is-radio="true" label="Top left" @update:initial="modalOptions.position = 'top-left'" />
-          <base-checkbox id="top-right" name="modal" :inline="true" :is-radio="true" label="Top right" @update:initial="modalOptions.position = 'top-right'" />
-          <base-checkbox id="bottom-right" name="modal" :inline="true" :is-radio="true" label="Bottom right" @update:initial="modalOptions.position = 'bottom-right'" />
-          <base-checkbox id="bottom-left" name="modal" :inline="true" :is-radio="true" label="Bottom left" @update:initial="modalOptions.position = 'bottom-left'" />
-          <base-checkbox id="top" name="modal" :inline="true" :is-radio="true" label="Top" @update:initial="modalOptions.position = 'top'" />
-          <base-checkbox id="bottom" name="modal" :inline="true" :is-radio="true" label="Bottom" @update:initial="modalOptions.position = 'bottom'" />
+          </button>      
+          
+          <div class="d-flex gap-2 justify-content-around align-items-center">
+            <base-select id="modal-size" v-model="modalOptions.size" :items="['sm', 'md', 'lg', 'xl', 'fullscreen']" />      
+            <base-select id="modal-position" v-model="modalOptions.position" :items="['center', 'top-left', 'top-right', 'bottom-right', 'bottom-left', 'top', 'bottom']" />      
+          </div>
+           
+          <div class="py-4">
+            <base-checkbox id="invasive" :bigger="true" label="Non invasive" @update:initial="modalOptions.nonInvasive = !modalOptions.nonInvasive" />
+          </div>   
         </template>
       </base-card>
       
@@ -112,6 +91,7 @@
 </template>
 
 <script>
+import BaseSelect from '@/layouts/bootstrap/BaseSelect.vue'
 import BaseButton from '@/layouts/bootstrap/buttons/BaseButton.vue'
 import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseCheckbox from '@/layouts/bootstrap/BaseCheckbox.vue'
@@ -121,6 +101,7 @@ import BaseOffcanvas from '@/layouts/bootstrap/BaseOffcanvas.vue'
 export default {
   components: {
     BaseButton,
+    BaseSelect,
     BaseCard,
     BaseCheckbox,
     BaseModal,
@@ -134,7 +115,7 @@ export default {
       modalOptions: {
         position: 'center',
         nonInvasive: false,
-        size: 'md'
+        size: 'sm'
       },
       offcanvasOptions: {
         position: 'end'
