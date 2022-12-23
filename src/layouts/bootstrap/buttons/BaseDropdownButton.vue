@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
-    <base-button :id="id" :aria-expanded="show" class="dropdown-toggle" type="button" @click="show = !show">
-      Drop
+    <base-button :id="id" :size="size" :aria-expanded="show" class="dropdown-toggle" type="button" @click="show = !show">
+      {{ linkName }}
     </base-button>
     
     <!-- <base-drop-menu :show="show" @click:dropdown-item="show = !show" /> -->
@@ -21,6 +21,14 @@ export default {
   },
   props: {
     id: {
+      type: String,
+      required: true
+    },
+    size: {
+      type: String,
+      default: 'md'
+    },
+    linkName: {
       type: String,
       required: true
     }

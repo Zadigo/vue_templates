@@ -1,34 +1,37 @@
 <template>
   <div class="row">
-    <div class="col-10 offset-1">
+    <div class="col-6">
+      <!-- Buttons -->
       <base-card>
         <template #body>
-          <div class="d-flex mb-3 gap-1">
+          <div class="d-flex mb-3 gap-1 justify-content-center align-items-center">
             <base-button id="button-1" color="dark">
-              <base-spinner class="me-1" size="sm" grow />
-              Button 1
+              <base-spinner class="me-2" size="sm" grow />
+              With spinner
             </base-button>
 
             <base-button id="button-1" color="danger">
-              Button 3
+              Simple button
             </base-button>
 
             <base-button :to="{ name: 'home_view' }" color="warning">
-              Link
+              Go to home
             </base-button>
           </div>
           
-          <base-dropdown-button id="button-4" :items="items" animation="scale" button-name="Dropdown" />
+          <!-- <base-dropdown-button id="button-4" :items="items" animation="scale" button-name="Dropdown" /> -->
         </template>
       </base-card>
+    </div>
 
-      <!-- Dropdown -->
+    <!-- Dropdown -->
+    <div class="col-6">
       <base-card class="my-3">
         <template #body>
           <div class="d-flex gap-3">
             <!-- <test-base-dropdown-button /> -->
 
-            <test-base-dropdown-button id="drop-1" v-slot="{show}">
+            <base-dropdown-button id="drop-1" v-slot="{show}" link-name="Dropdown">
               <dropdown-menu :show="show" animation="slideup">
                 <dropdown-item-input link-name="Example input" />
                 <dropdown-item link-name="Link 1" :active="true" />
@@ -38,9 +41,9 @@
                 <dropdown-item link-name="Link 4" />
                 <dropdown-item link-name="Link 5" icon="table" />
               </dropdown-menu>
-            </test-base-dropdown-button>
+            </base-dropdown-button>
   
-            <base-dropdown-button-split id="drop-2" v-slot="{show}">
+            <base-dropdown-button-split id="drop-2" v-slot="{show}" link-name="Split dropdown">
               <dropdown-menu :show="show">
                 <dropdown-item link-name="Link 5" icon="table" />
               </dropdown-menu>

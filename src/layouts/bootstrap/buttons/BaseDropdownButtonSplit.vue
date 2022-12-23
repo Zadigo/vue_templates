@@ -1,6 +1,6 @@
 <template>
   <div class="btn-group">
-    <base-button :id="id" class="btn btn-primary">Action</base-button>
+    <base-button :id="id">{{ linkName }}</base-button>
     
     <base-button :aria-expanded="show" class="btn btn-primary dropdown-toggle dropdown-toggle-split" @click="show = !show">
       <span class="visually-hidden">Toggle Dropdown</span>
@@ -22,6 +22,10 @@ export default {
   },
   props: {
     id: {
+      type: String,
+      required: true
+    },
+    linkName: {
       type: String,
       required: true
     }
