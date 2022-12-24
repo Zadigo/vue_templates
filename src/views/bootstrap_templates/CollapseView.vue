@@ -2,8 +2,11 @@
   <div class="row">
     <div class="col-10 offset-1">
       <base-template-card class="my-3">
-        <div class="card-body">
+        <div class="card-header">
           <h3 class="card-title">Collapse</h3>
+        </div>
+        
+        <div class="card-body">
           <base-collapse id="collapse-1" v-slot="{ darkMode }" button-name="Collapse">
             <div :class="[darkMode ? 'bg-dark text-light' : null]" class="card">
               <div class="card-body">
