@@ -28,6 +28,22 @@ export default {
     placeholder: {
       type: Boolean
     },
+    outline: {
+      type: Boolean
+    },
+    size: {
+      type: String,
+      default: 'md'
+    },
+    rounded: {
+      type: Boolean
+    },
+    floating: {
+      type: Boolean
+    },
+    block: {
+      type: Boolean
+    },
     to: {
       type: [String, Object]
     }
@@ -45,8 +61,13 @@ export default {
       return [
         'btn',
         {
-          [`btn-${this.color}`]: true,
+          [`btn-${this.size}`]: true,
+          [`btn-${this.color}`]: !this.outline,
           'disabled': this.placeholder || this.disabled,
+          [`btn-outline-${this.color}`]: this.outline,
+          'btn-rounded': this.rounded,
+          'btn-block': this.block,
+          'btn-floating': this.floating,
           'placeholder': this.placeholder 
         }
       ]

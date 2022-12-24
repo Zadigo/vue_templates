@@ -131,6 +131,32 @@ const router = createRouter({
                 }
             ]
         },
+        {
+            path: '/ecommerce',
+            component: loadLayout('EcommerceLayout'),
+            children: [
+                {
+                    path: '',
+                    name: 'products_view',
+                    component: loadView('ecommerce/ProductsView')
+                },
+                {
+                    path: 'products/:id(\\d+)',
+                    name: 'product_view',
+                    component: loadView('ecommerce/ProductView')
+                },
+                {
+                    path: 'checkout',
+                    name: 'checkout_view',
+                    component: loadView('ecommerce/CheckoutView')
+                },
+                {
+                    path: 'payment',
+                    name: 'payment_view',
+                    component: loadView('ecommerce/PaymentView')
+                }
+            ]
+        }
         // {
         //     path: '',
         //     name: 'templates_view',
