@@ -3,24 +3,35 @@
         "id": 1,
         "firstname": "Kendall",
         "lastname": "Jenner",
-        "age": 35
+        "age": 35,
+        "ranking": 2
     },
     {
         "id": 3,
         "firstname": "Jusine",
         "lastname": "Astana",
-        "age": 30
+        "age": 30,
+        "ranking": 1
     },
     {
         "id": 4,
         "firstname": "Aurelie",
         "lastname": "Konate",
-        "age": 41
+        "age": 41,
+        "ranking": 3
     },
     {
         "id": 5,
         "firstname": "Kylie",
         "lastname": "Jenner",
-        "age": 49
+        "age": 49,
+        "ranking": 4
+    },
+    {
+        "id": 6,
+        "firstname": "Madison",
+        "lastname": "Keys",
+        "age": 19,
+        "ranking": 5
     }
 ]

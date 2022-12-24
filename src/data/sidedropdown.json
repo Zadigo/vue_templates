@@ -1,14 +1,74 @@
 [
     {
-        "to": null,
+        "to": {
+            "name": "cards_view"
+        },
         "href": "#",
-        "name": "Drop down item 1",
+        "name": "Cards",
         "subMenu": []
     },
     {
-        "to": null,
+        "to": {
+            "name": "table_view"
+        },
         "href": "#",
-        "name": "Drop down item 2",
+        "name": "Table",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "timeline_view"
+        },
+        "href": "#",
+        "name": "Timeline",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "modals_view"
+        },
+        "href": "#",
+        "name": "Modals",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "form_view"
+        },
+        "href": "#",
+        "name": "Form",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "collapse_view"
+        },
+        "href": "#",
+        "name": "Collapse",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "video_view"
+        },
+        "href": "#",
+        "name": "Video player",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "list_group_view"
+        },
+        "href": "#",
+        "name": "List Group",
+        "subMenu": []
+    },
+    {
+        "to": {
+            "name": "pagination_view"
+        },
+        "href": "#",
+        "name": "Pagination",
         "subMenu": []
     },
     {
