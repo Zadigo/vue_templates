@@ -1,5 +1,7 @@
 <template>
   <section class="dashboard">
+    <div class="sidebar-overlay"></div>
+    <!-- Header -->
     <header>
       <!-- Sidebar -->
       <nav id="sidebar" link="sidebar" class="collapse d-lg-block sidebar collapse bg-white">
@@ -28,7 +30,7 @@
           </router-link>
 
           <ul class="navbar-nav ms-auto d-flex flex-row">
-            <nav-item-vue :to="{ name: 'home_view' }" link-name="Some link" />
+            <nav-item :to="{ name: 'home_view' }" link-name="Some link" />
           </ul>
         </div>
       </nav>
@@ -51,14 +53,19 @@
 
 <script>
 import _ from 'lodash'
-import { provide, ref } from 'vue'
 
+import { provide, ref } from 'vue'
 import { useDarkMode } from '../composables/darkmode'
 import { scrollToTop } from '../utils'
 import { useScroll } from '@vueuse/core'
 
+import NavItem from './bootstrap/nav/NavItem.vue'
+
 export default {
   name: 'DashboardLayout',
+  components: {
+    NavItem
+  },
   props: {
     bodyClasses: {
       type: String,
@@ -93,94 +100,10 @@ export default {
   },
   mounted () {
     this.target = window.document
-    const body = document.body
-    body.style.backgroundColor = '#fbfbfb'
   }
 }
 </script>
 
 <style scoped>
-body {
-  background-color: #fbfbfb;
-}
-
-main {
-  margin-top: 58px;
-  margin-bottom: 58px;
-}
-
-@media (min-width: 991.98px) {
-  main {
-    padding-left: 240px;
-  }
-
-  footer {
-    padding-left: 240px;
-  }
-}
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  padding: 58px 0 0;
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 240px;
-  z-index: 600;
-}
-
-@media (max-width: 991.98px) {
-  .sidebar {
-    width: 100%;
-  }
-}
-
-.sidebar .active {
-  border-radius: 5px;
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-}
-
-.router-link-exact-active {
-    z-index: 2;
-    color: #fff;
-    background-color: #1266f1;
-    border-color: #1266f1;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-}
-
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  height: calc(100vh - 48px);
-  padding-top: 0.5rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-#back-to-top {
-  position: fixed;
-  z-index: 1000;
-  top: 90%;
-  right: 2%;
-}
-
-.pop-enter-active
-.pop-leave-active {
-  transition: opacity .4s ease;
-  transition: scale .2s ease;
-}
-.pop-enter-from,
-.pop-leave-to {
-  opacity: 0;
-  transform: scale(1.2, 1.2);
-}
-
-.pop-enter-to,
-.pop-leave-from {
-  opacity: 1;
-  transform: scale(1, 1);
-}
+@import url('@/layouts/bootstrap/css/dashboard1.css');
 </style>
