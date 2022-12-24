@@ -1,7 +1,7 @@
 <template>
   <div :id="id" class="list-group mx-0 w-auto">
     <label v-for="(item, i) in items" :key="i" :class="{ 'text-bg-dark': darkMode }" class="list-group-item d-flex gap-2">
-      <input :id="`${id}-${i}`" :checked="isSelected(i)" :disabled="item.disabled" :value="i" :name="`${id}-1`" class="form-check-input flex-shrink-0" type="checkbox" @click="selectItem($event, i), $emit('list-group-selection', selected)">
+      <input :id="`${id}-${i}`" :checked="isSelected(i)" :disabled="item.disabled" :value="i" :name="`${id}-1`" class="form-check-input flex-shrink-0" type="checkbox" @click="selectItem($event, i), $emit('list-group-selection', selectedByIndex)">
       <span>
         {{ item.name }}
         <small v-if="item.subtitle" class="d-block text-muted">{{ item.subtitle }}</small>
@@ -40,13 +40,14 @@ export default {
   },
   setup () {
     const app = getCurrentInstance()
-    const { selected, selectItem, isSelected } = useLists(app.props.items)
+    const { selected, selectItem, isSelected, selectedByIndex } = useLists(app.props.items)
     const darkMode = inject('darkMode', false)
     return {
       selected,
       selectItem,
       darkMode,
-      isSelected
+      isSelected,
+      selectedByIndex
     }
   }
 }

@@ -2,30 +2,50 @@ body {
     background-color: #fbfbfb;
 }
 
-main {
-    margin-top: 58px;
+.dashboard main {
+    margin-top: calc(58px + .5rem);
     margin-bottom: 58px;
 }
 
 @media (min-width: 991.98px) {
-    main {
+    .dashboard main {
         padding-left: 240px;
     }
 
-    footer {
+    .dashboard footer {
         padding-left: 240px;
     }
 }
 
 .sidebar {
     position: fixed;
-    z-index: 600;
     top: 0;
     bottom: 0;
     left: 0;
     padding: 58px 0 0;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
     width: 240px;
+    z-index: 600;
+}
+
+.sidebar-activable .sidebar {
+    z-index: 1035;
+}
+
+.sidebar-activable .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background: rgb(38, 38, 38);
+    z-index: 1034;
+    opacity: 0.5;
+}
+
+.sidebar-activable main {
+    padding-left: 0px;
 }
 
 @media (max-width: 991.98px) {

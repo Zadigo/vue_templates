@@ -117,3 +117,24 @@ The `items` attribute receive data structured as below:
 ### Emits
 
 - @close
+
+
+## List Groups
+
+```html
+<base-list-group>
+    <base-list-group-item-action v-for="(item, i) in []" :key="i">
+        {{ item.text }}
+    </base-list-group-item-action>
+</base-list-group>
+```
+
+If you wish to handle the items that were selected for future manipluation, you must pass the list of items to the `base-list-group` and then use the `handleSelection` function.
+
+```html
+<base-list-group v-slot="{ listGroupItems, handleSelection }" :items="items">
+    <base-list-group-item-action v-for="(item, i) in listGroupItems" :key="i" @click="handleSelection(i, item)">
+        {{ item.text }}
+    </base-list-group-item-action>
+</base-list-group>
+```
