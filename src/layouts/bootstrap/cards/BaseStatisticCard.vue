@@ -5,31 +5,21 @@
       <slot name="header"></slot>
     </div>
 
-    <!-- Image Top -->
-    <img v-if="image && imagePosition === 'top'" :src="image" :alt="imageAlt" :class="imageClasses">
+    <div class="stats">
+      <div class="one-third">
+        <div class="stat">$20</div>
+        <div class="stat-value">Training</div>
+      </div>
     
-    <div v-if="overlay" class="card-img-overlay">
-      <slot></slot>
-    </div>
-
-    <!-- Body -->
-    <div v-else class="card-body">
-      <h5 v-if="title" class="card-title">{{ title }}</h5>
-      <h6 v-if="subtitle" class="card-subtitle mb-2 text-muted">{{ subtitle }}</h6>
-      
-      <p class="card-text"><slot name="body"></slot></p>
-      
-      <a v-for="(link, i) in links" :key="i" href="#" class="card-link">Card link</a>
-    </div>
-
-    <slot></slot>
-
-    <!-- Image Bottom -->
-    <img v-if="image && imagePosition === 'bottom'" :src="image" :alt="imageAlt" :class="imageClasses">
+      <div class="one-third">
+        <div class="stat">16</div>
+        <div class="stat-value">Speed</div>
+      </div>
     
-    <!-- Footer -->
-    <div v-if="!overlay && hasFooter" class="card-footer">
-      <slot name="footer"></slot>
+      <div class="one-third">
+        <div class="stat">$150</div>
+        <div class="stat-value">Cost</div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,31 +30,8 @@ import { inject } from 'vue'
 export default {
   name: 'BaseCard',
   props: {
-    image: {
-      type: String
-    },
     hoverable: {
       type: Boolean
-    },
-    imagePosition: {
-      type: String,
-      default: 'top'
-    },
-    imageAlt: {
-      type: String,
-    },
-    overlay: {
-      type: Boolean
-    },
-    title: {
-      type: String,
-    },
-    subtitle: {
-      type: String,
-    },
-    links: {
-      type: Array,
-      default: () => []
     }
   },
   setup (props, { slots }) {
@@ -92,35 +59,8 @@ export default {
       return [
         {
           'bg-dark': this.darkMode,
-          'hoverable': this.hoverable,
-          'text-bg-dark': this.overlay,
-          'card-reveal': this.hasReveal
+          'hoverable': this.hoverable
         }
-      ]
-    },
-    imageClasses () {
-      if (this.overlay) {
-        return [
-          'card-img'
-        ]
-      }
-      
-      if (this.imagePosition === 'top') {
-        return [
-          'card-img-top'
-          // 'waves-effect'
-          // 'shadow-sm'
-        ]
-      }
-      
-      if (this.imagePosition === 'bottom') {
-        return [
-          'card-img-top'
-        ]
-      }
-
-      return [
-        'card-img-top'
       ]
     }
   },
@@ -152,6 +92,7 @@ export default {
   /* border-top: 1px solid rgba(0, 0, 0, 0.175); */
   text-align: center;
 }
+
 .stats .one-third {
   width: 33%;
   float: left;
@@ -168,10 +109,12 @@ export default {
   font-weight: 400;
   font-size: 12px;
 }
+
 .stats .one-third:not(:last-child) {
   /* border-right: 1px solid #bd7c2f; */
   border-right: 1px solid rgba(0, 0, 0, 0.175);
 }
+
 .card .halfway-fab {
   position: absolute;
   right: 24px;
@@ -208,24 +151,23 @@ export default {
 .slide-leave-active {
   transition: all .3s ease-in-out;
 }
+
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
   transform: translateY(100%);
 }
+
 .slide-enter-to,
 .slide-leave-from {
   opacity: 1;
   transform: translateY(0%);
 }
-.card-reveal .card-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .card.hoverable {
   transition: transform 0.1s ease-in-out;
 }
+
 .card.hoverable:hover {
   transform: translateY(-0.5rem) scale(1.0125);
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
