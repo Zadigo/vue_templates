@@ -5,9 +5,11 @@
       <!-- Breadcrumb -->
       <div class="col-12">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><router-link :to="{ name: 'products_view' }">Home</router-link></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
+          <ol class="breadcrumb fw-light">
+            <li class="breadcrumb-item"><router-link :to="{ name: 'products_view' }" class="link-dark">Home</router-link></li>
+            <li class="breadcrumb-item" aria-current="page">Vêtements pour femmes</li>
+            <li class="breadcrumb-item" aria-current="page">Robes pour femmes</li>
+            <li class="breadcrumb-item active" aria-current="page">Robe moulante à imprimé à ruché</li>
           </ol>
         </nav>
       </div>
@@ -16,18 +18,24 @@
       <div class="col-sm-12 col-md-7 mb-4">
         <div class="images d-flex justify-content-between gap-2">
           <div class="preview-images d-flex flex-column justify-content-start gap-2">
-            <img v-for="i in 4" id="cta-preview-image" :key="i" :src="require('@/assets/ecommerce1.jpg')" height="100" width="100" class="img-fluid" alt="Image 1">
+            <div v-for="i in 4" id="gallery-preview-image" :key="i" class="preview-image">
+              <img :src="require('@/assets/ecommerce1.jpg')" height="80" width="80" class="img-fluid" alt="Image 1">
+            </div>
           </div>
 
           <div class="main-image">
             <img :src="require('@/assets/ecommerce1.jpg')" class="img-fluid" alt="Product name">
+            <div class="gallery-navigation d-flex justify-content-between align-items-center">
+              <base-button id="btn-image-previous" class="shadow-none" color="light" floating><font-awesome-icon icon="fa-solid fa-arrow-left" /></base-button>
+              <base-button id="btn-image-next" class="shadow-none" color="light" floating><font-awesome-icon icon="fa-solid fa-arrow-right" /></base-button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Product information -->
-      <div class="col-sm-12 col-md-5 mb-4">
-        <div class="p-44">
+      <div class="col-sm-12 col-md-5 mb-4" style="position:relative;">
+        <div class="px-2" style="position:sticky;top:0;z-index:1;">
           <h1 class="fs-5">Jupe Kendall</h1>
           <p class="fw-light mb-1">SKU: sw2210184966428951</p>
           <div class="rating mb-2">
@@ -40,13 +48,13 @@
           <div class="choose-color my-3">
             <p class="mb-1 fs-6 mb-3"><span class="fw-bold">Couleur :</span> Bleu</p>
             <div class="colors">
-              <div v-for="i in 3" id="cta-product-color" :key="i" :class="{ active: i === 1 }" class="color">
-                <div class="inner">
-                  <img :src="require('@/assets/color.jpg')">
-                </div>
+              <div v-for="i in 3" :key="i" class="color">
+                <input :id="`start-${i}`" class="color-value" name="swatch" type="radio">
+                <label :for="`start-${i}`" class="color-link">
+                  <img :src="require('@/assets/color.jpg')" value="starlight" class="color-swatch">
+                </label>
               </div>
             </div>
-            <!-- <router-link v-for="i in 3" :key="i" :to="{ name: 'product_view', params: { id: 1 } }">Color {{ i }}</router-link> -->
           </div>
 
           <div class="choose-size my-4">
@@ -60,6 +68,11 @@
             <a id="cta-size-guide" href class="fw-bold my-3 d-block" @click.prevent="showSizeGuide = true">
               Guide des tailles
             </a>
+          </div>
+
+          <div class="alert alert-info fw-light lh-1">
+            Certains produits peuvent bénéficier de "QuickShip", qui offre une livraison plus rapide. 
+            Veuillez consulter la politique de livraison ci-dessous pour plus de détails.
           </div>
 
           <div class="d-flex justify-content-left gap-2 my-4">
@@ -174,47 +187,6 @@ export default {
 </script>
 
 <style scoped>
-.colors {
-  display: flex;
-  justify-content: left;
-  gap: .5rem;
-  align-items: center;
-}
-
-.colors .color {
-  position: relative;
-  padding: 3px;
-  border-radius: 50%;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  line-height: 28px;
-}
-
-.colors .color:hover:not(.color.active) {
-  border: 1px solid rgb(38, 38, 38);
-}
-
-.colors .inner {
-  position: absolute;
-  top: 0px;
-  left: 2px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-}
-
-.colors img {
-  height: 28px;
-  width: 28px;
-  vertical-align: middle;
-  border-radius: 50%;
-}
-
-.colors .active {
-  border: 2px solid rgb(38, 38, 38);
-}
-
 .sizes {
   display: flex;
   justify-content: start;
@@ -227,5 +199,100 @@ export default {
   border-radius: 10rem;
   vertical-align: bottom;
   text-align: center;
+}
+
+.main-image {
+  position: relative;
+  transition: all .5s ease-in-out;
+}
+
+.main-image:hover .gallery-navigation {
+  visibility: visible;
+}
+
+.gallery-navigation {
+  position: absolute;
+  padding: 1rem;
+  top: 50%;
+  width: 100%;
+  visibility: hidden;
+}
+
+.preview-images img {
+  cursor: pointer;
+}
+
+.preview-images img::before {
+  border: 1px solid rgb(38, 38, 38);
+  box-shadow: inset 0 0 0 2px #fff;
+  background: transparent;
+}
+
+.breadcrumb {
+  font-size: .85rem;
+}
+
+.colors {
+  display: flex;
+  justify-content: left;
+  gap: .5rem;
+  align-items: center;
+}
+
+.colors .color-value {
+  /* Hides the radio input */
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(0 0 99.9% 99.9%);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
+}
+
+.colors .color-link {
+  border: 2px solid #fff;
+  /* border: 2px solid rgb(38, 38, 38); */
+  border-radius: 50%;
+  box-sizing: border-box;
+  color: rgb(38, 38, 38);
+  cursor: pointer;
+  padding: 3px;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  z-index: 1;
+  margin-bottom: 0;
+  /* float: left; */
+}
+
+.colors .color-value:checked+.color-link {
+  /* Formats the active element */
+  border: 2px solid rgb(38, 38, 38);
+}
+
+.colors .color-link:hover {
+  border: 1px solid #d2d2d7;
+  text-decoration: none;
+  padding: 4px;
+}
+
+.colors .color-swatch {
+  background: #f5f5f7 50%;
+  border-radius: 50%;
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.colors .color-swatch::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 10%);
+  display: block;
+  height: inherit;
+  width: inherit;
 }
 </style>
