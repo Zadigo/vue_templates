@@ -1,0 +1,61 @@
+[
+    {
+        "id": 1,
+        "name": "Robe pure ajustée",
+        "unit_price": 109.95,
+        "usd_unit_price": 136.17,
+        "color": "Yellow",
+        "category": "Dresses",
+        "sizes": [],
+        "get_main_image": {
+            "id": 1,
+            "name": "bandeau et culotte floral0",
+            "variant": null,
+            "mid_size": "ecommerce1.jpg",
+            "thumbnail": "ecommerce1.jpg",
+            "is_main_image": false
+        },
+        "images": [
+            {
+                "id": 1,
+                "name": "Some skirt name1",
+                "variant": null,
+                "mid_size": "ecommerce1.jpg",
+                "thumbnail": "ecommerce1.jpg",
+                "is_main_image": false
+            },
+            {
+                "id": 2,
+                "name": "Some skirt name2",
+                "variant": null,
+                "mid_size": "ecommerce1.jpg",
+                "thumbnail": "ecommerce1.jpg",
+                "is_main_image": false
+            },
+            {
+                "id": 3,
+                "name": "Some skirt name3",
+                "variant": null,
+                "mid_size": "ecommerce1.jpg",
+                "thumbnail": "ecommerce1.jpg",
+                "is_main_image": false
+            },
+            {
+                "id": 4,
+                "name": "Some skirt name4",
+                "variant": null,
+                "mid_size": "ecommerce1.jpg",
+                "thumbnail": "ecommerce1.jpg",
+                "is_main_image": false
+            }
+        ],
+        "video": null,
+        "get_price": "133.50",
+        "sale_value": 0,
+        "sale_price": 133.50,
+        "on_sale": false,
+        "active": true,
+        "display_new": false,
+        "slug": "robe-pure"
+    }
+]

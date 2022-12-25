@@ -1,5 +1,5 @@
 <template>
-  <article class="col-sm-12 col-md-3" @mouseenter="handleShowCart" @mouseleave="handleHideCart">
+  <article :class="`col-sm-12 col-md-${rowSize}`" @mouseenter="handleShowCart" @mouseleave="handleHideCart">
     <base-template-card class="shadow-none">
       <div class="cart-wrapper">
         <router-link id="link-product-details" :to="{ name: 'product_view', params: { id: 1 } }">
@@ -13,7 +13,7 @@
         </transition>
       </div>
 
-      <div class="card-body px-0 py-1">
+      <div :class="bodyClasses" class="card-body px-0 py-1">
         <router-link id="link-product-details" :to="{ name: 'product_view', params: { id: 1 } }" class="text-muted mb-1 text-left link-dark">
           Robe Kendall
         </router-link>
@@ -42,6 +42,13 @@ export default {
     allowAddToCart: {
       type: Boolean,
       default: true
+    },
+    bodyClasses: {
+      type: String
+    },
+    rowSize: {
+      type: Number,
+      default: 3
     }
   },
   emits: {
