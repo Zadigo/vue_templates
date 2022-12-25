@@ -4,7 +4,7 @@
 
 <template>
   <div class="offcanvas-wrapper">
-    <div :id="id" ref="link" :class="offcanvasClasses" class="offcanvas" tabindex="-1" aria-labelledby="offcanvasLabel">
+    <div :id="id" ref="link" :class="offcanvasClasses" tabindex="-1" aria-labelledby="offcanvasLabel">
       <div class="offcanvas-header">
         <h5 v-if="title" id="offcanvasLabel" class="offcanvas-title">
           {{ title }}
@@ -20,7 +20,7 @@
     </div>
 
     <!-- Backdrop -->
-    <div v-if="show && !allowScroll" :class="[show ? 'show' : null]" class="offcanvas-backdrop fade" @click="handleStatic"></div>
+    <div v-if="show && !allowScroll" :class="{ show }" class="offcanvas-backdrop fade" @click="handleStatic"></div>
   </div>
 </template>
 
@@ -64,11 +64,12 @@ export default {
   computed: {
     offcanvasClasses () {
       return [
+        'offcanvas',
         {
+          'text-bg-dark': this.darkMode,
           show: this.show
         },
         // this.darkMode ? 'bg-dark text-light' : 'bg-white text-dark',
-        this.darkMode ? 'text-bg-dark' : null,
         {
           [`offcanvas-${this.position}`]: true
         }
@@ -77,7 +78,7 @@ export default {
   },
   watch: {
     show (current) {
-      var body = document.body
+      const body = document.body
       if (current) {
         if (!this.allowScroll) {
           body.style.overflow = 'hidden'
