@@ -3,7 +3,7 @@
   <!-- dropdown-menu-end show -->
   <transition :name="animation" mode="in-out">
     <ul v-if="show" :class="dropMenuClasses" class="dropdown-menu mt-2" aria-labelledby="navbarDropdownMenuLink">
-      <slot @click:dropdown-item="$emit('click:dropdown-menu')"></slot>
+      <slot></slot>
     </ul>  
   </transition>
 </template>
@@ -34,7 +34,6 @@ export default {
       return true
     },
     'click:dropdown-menu' () {
-      console.log('click:dropdown-menu')
       return true
     }
   },

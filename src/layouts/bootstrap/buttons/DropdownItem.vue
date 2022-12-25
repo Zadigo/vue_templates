@@ -2,7 +2,7 @@
   <li>
     <a :class="dropdownItemClasses" href @click.prevent="$emit('click:dropdown-item', linkName)">
       <font-awesome-icon :icon="`fa-solid fa-${icon}`" />
-      <span>{{ linkName }}</span>
+      <span><slot>{{ linkName }}</slot></span>
     </a>
   </li>
 </template>
@@ -18,7 +18,6 @@ export default {
     },
     linkName: {
       type: String,
-      required: true
     },
     active: {
       type: Boolean 

@@ -1,5 +1,5 @@
 <template>
-  <select v-model="value" class="form-select" @change="emitValue($event)">
+  <select v-model="value" class="form-select">
     <option v-for="(item, i) in items" :key="i">
       {{ item }}
     </option>
@@ -33,20 +33,10 @@ export default {
     }
   },
   methods: {
-    emitValue (e) {
-      let value = e.target.value
-      if (this.inputType === 'number') {
-        value = value * 1
-      }
-      this.$emit('update:modelValue', value)
-    }
+    
   }
 }
 </script>
 
 <style scoped>
-.form-select option {
-  min-height: 3em;
-  padding: .5rem 1rem;
-}
 </style>
