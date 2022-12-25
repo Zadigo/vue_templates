@@ -1,17 +1,7 @@
 // import { setupDevtools } from "../devtools"
 import functions from './functions'
+import { createScript } from '../utils'
 
-/**
- * Standard function for creating a product
- * standardized for Google Analytics
- * 
- * @param {String|Number} id - Product ID
- * @param {String} name - Product name
- * @param {String|Number} price - Product price
- * @param {String} brand - Brand related to the product
- * @param {String} category - Product category
- * @param {String|Number} index - Product's position in the list
- */
 function createProduct (id, name, price, brand, category, index) {
     return {
         item_id: id,
@@ -46,41 +36,44 @@ function mapToFields (products, mapping) {
 }
 
 function createGoogleAnalytics (tag, options) {
-    const { currency, brand } = options
-    
+    const { currency, brand, optimize_tag, debug } = options
+
     functions.DEFAULT_CURRENCY = currency || functions.DEFAULT_CURRENCY
     functions.DEFAULT_BRAND = brand
 
-    const head = document.querySelector('head')
-
-    // Create the no script tag
-    const noScript = document.createElement('script')
-    const srcAttribute = document.createAttribute('src')
+    // 1. Create the no script tag
     const url = new URL('https://www.googletagmanager.com/gtag/js')
-
     url.searchParams.append('id', tag)
-    srcAttribute.value = url.toString()
+    const noScript = createScript(url.toString(), true)
+    document.head.appendChild(noScript)
 
-    const asyncAttribute = document.createAttribute('async')
-    noScript.setAttributeNode(srcAttribute)
-    noScript.setAttributeNode(asyncAttribute)
+    let datalayerSettings = null
+    if (debug) {
+        datalayerSettings = `{ currency: '${functions.DEFAULT_CURRENCY}', debug_mode: true }`
+    } else {
+        datalayerSettings = `{ currency: '${functions.DEFAULT_CURRENCY}' }`
+    }
 
+    // 2. Create the main Analytics script tag
     const script = document.createElement('script')
     const content = document.createTextNode(`
     window.dataLayer = window.dataLayer || []
     function gtag() { dataLayer.push(arguments) }
     gtag('js', 1 * new Date())
-    gtag('config', '${ tag }', { currency: '${ functions.DEFAULT_CURRENCY }' })`)
+    gtag('config', '${tag}', ${datalayerSettings})`)
 
     script.appendChild(content)
 
-    // additionalProperties.forEach((property) => {
-    //     var textObject = document.createTextNode(`gtag('config', '${property}', { currency: '${functions.DEFAULT_CURRENCY}' })`)
-    //     script.appendChild(textObject)
-    // })
-
-    head.appendChild(script)
+    document.head.appendChild(script)
     script.parentNode.insertBefore(noScript, script)
+
+    if (optimize_tag) {
+        // 3. Google Optimize
+        const url = new URL('https://www.googleoptimize.com/optimize.js')
+        url.searchParams.append('id', optimize_tag)
+        const optimize = createScript(url, true)
+        document.head.appendChild(optimize)
+    }
 
     return {
         install: (app) => {
@@ -95,16 +88,8 @@ function createGoogleAnalytics (tag, options) {
     }
 }
 
-/**
- * Creates a composable for components
- */
-function useAnalytics () {
-    // pass
-}
-
 export {
     createProduct,
     createGoogleAnalytics,
-    mapToFields,
-    useAnalytics
+    mapToFields
 }
