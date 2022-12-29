@@ -16,6 +16,11 @@ const router = createRouter({
             component: loadView('TestView')
         },
         {
+            path: '/features',
+            name: 'features_view',
+            component: loadView('FeaturesView')
+        },
+        {
             path: '/bootstrap',
             component: loadLayout('DashboardLayout'),
             children: [

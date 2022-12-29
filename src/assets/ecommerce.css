@@ -1,0 +1,27 @@
+#ecommerce main {
+    /* margin-top: calc(58px + .5rem); */
+    margin-top: calc(58px + 72px + 1rem);
+    margin-bottom: 1rem;
+}
+
+#ecommerce .page-footer {
+    bottom: 0;
+    color: #fff;
+    background-color: rgba(38, 38, 38, 1);
+    /* background-color: #929FBA; */
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: all .15s ease-in-out;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    opacity: 0;
+}
+
+.slide-enter-to,
+.slide-leave-from {
+    opacity: 1;
+}

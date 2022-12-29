@@ -1,0 +1,260 @@
+<template>
+  <section id="features">
+    <div class="container my-5">
+      <!-- Feature 1 -->
+      <section class="p-5 shadow">
+        <h3 class="fw-bold text-center p-4">Booking with us is easy</h3>
+
+        <div class="row text-center mt-5">
+          <div class="col-4">
+            <img :src="require('@/assets/icons/pin.png')" height="90" width="90" class="img-fluid mb-3" alt="Pin">
+            <h5 class="fw-bold">Find the perfect rental</h5>
+            <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+          </div>
+          <div class="col-4">
+            <img :src="require('@/assets/icons/rocket.png')" height="90" width="90" class="img-fluid mb-3" alt="Pin">
+            <h5 class="fw-bold">Book with confidence</h5>
+            <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+          </div>
+          <div class="col-4">
+            <img :src="require('@/assets/icons/rocket.png')" height="90" width="90" class="img-fluid mb-3" alt="Pin">
+            <h5 class="fw-bold">Enjoy your vacation</h5>
+            <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 2 -->
+      <section class="p-5 shadow my-4">
+        <div class="row align-items-center">
+          <div class="col-sm-12 col-md-7">
+            <img :src="require('@/assets/hero3.jpg')" class="img-fluid rounded" alt="Hero">
+          </div>
+  
+          <div class="col-sm-12 col-md-5 py-3 gx-5">
+            <h2 class="fw-bold">Find the perfect rental</h2>
+
+            <div class="mt-5">
+              <div class="d-flex justify-content-around align-top gap-4">
+                <div class="mt-2">
+                  <img :src="require('@/assets/icons/rocket.png')" height="130" width="130" class="img-fluid" alt="Rocket">
+                </div>
+                <div>
+                  <h5 class="fw-bold mb-1">Custom conversion tracking</h5>
+                  <p class="text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo voluptates molestias obcaecati.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-5">
+              <h5 class="fw-bold mb-1">Custom conversion tracking</h5>
+              <p class="text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo voluptates molestias obcaecati.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 3 -->
+      <section class="p-5 shadow">      
+        <div class="row mt-5">
+          <div class="col-sm-12 col-md-4 gx-5">
+            <img :src="require('@/assets/ecommerce1.jpg')" class="img-fluid mb-3 rounded" alt="Pin">
+            <h5 class="fw-bold mt-2 mb-4">Find the perfect rental</h5>
+            <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+          </div>
+          <div class="col-sm-12 col-md-4 gx-5">
+            <img :src="require('@/assets/ecommerce1.jpg')" class="img-fluid mb-3 rounded" alt="Pin">
+            <h5 class="fw-bold mt-2 mb-4">Book with confidence</h5>
+            <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+          </div>
+          <div class="col-sm-12 col-md-4 gx-5">
+            <img :src="require('@/assets/ecommerce1.jpg')" class="img-fluid mb-3 rounded" alt="Pin">
+            <h5 class="fw-bold mt-2 mb-4">Enjoy your vacation</h5>
+            <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 4 -->
+      <section class="p-5 shadow my-4">
+        <div class="mx-5 mb-5">
+          <h2 class="fw-bold mb-1">Booking with us is easy</h2>
+          <p class="text-muted fs-5">Converter Ipod Video Taking Portable Video Viewing To A Whole New Level</p>
+        </div>
+
+        <img :src="require('@/assets/strip.webp')" class="img-fluid" alt="Image">
+
+        <div class="row justify-content-center pt-5 mx-5">
+          <div class="col-4">
+            <h5 class="mb-3">Native Integrations</h5>
+            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+          </div>
+          <div class="col-4">
+            <h5 class="mb-3">Simple Migrations</h5>
+            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+          </div>
+          <div class="col-4">
+            <h5 class="mb-3">Flexible API</h5>
+            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 5 -->
+      <section class="shadow d-flex justify-content-between gap-2 align-items-center">
+        <div class="me-4">
+          <img :src="require('@/assets/hero1.jpg')" class="img-fluid" alt="">
+        </div>
+
+        <div class="p-5">
+          <h2 class="fw-bold">Booking with us is easy</h2>
+          <p class="text-muted my-3">
+            The Emerald Buddha is a figurine of a sitting Budha, that is the is the palladium of 
+            the Kingdom of Thailand. The Buddha is made of green jade, suprisingly not of emerald, 
+            clothed in gold is approximately 45 cm tall.
+          </p>
+          <button type="button" class="btn btn-lg btn-dark mt-2">Disover more</button>
+        </div>
+      </section>
+
+      <!-- Feature 6 -->
+      <section :style="`background-image: url(${require('@/assets/hero3.jpg')})`" class="p-5 shadow my-4 bg-image">
+        <div class="row align-items-center">
+          <div class="col-sm-12 col-md-6">
+            <img :src="require('@/assets/hero3.jpg')" class="img-fluid rounded" alt="Hero">
+          </div>
+      
+          <div class="col-sm-12 col-md-6 gx-5">
+            <p class="text-muted text-uppercase mb-2 fs-7 fw-bold">Modern design</p>
+            <h2 class="fw-bold mb-5">If you had to eat just one thing for the rest of your life, what would you choose?</h2>
+      
+            <div class="d-flex justify-content-start gap-3 mt-5">
+              <button type="button" class="btn btn-lg btn-outline-dark">See others</button>
+              <button type="button" class="btn btn-lg btn-dark">Make lemonade</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 7 -->
+      <section class="p-5 shadow">
+        <div class="row align-items-center">
+          <div class="col-sm-12 col-md-12">
+            <img :src="require('@/assets/hero3.jpg')" class="img-fluid rounded" alt="Hero">
+          </div>
+      
+          <div class="col-sm-12 col-md-8 offset-md-2 gy-5 text-center">
+            <h2 class="fw-bold">Understanding Operating Systems</h2>
+            <p class="text-muted my-4">If you are looking for great ways to decorate your home or office, then you know as well as I do that you have nearly countless options.</p>
+            <div class="d-flex justify-content-center gap-3">
+              <button type="button" class="btn btn-lg btn-dark">Make lemonade</button>
+              <button type="button" class="btn btn-lg btn-outline-dark">See others</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 8 -->
+      <section class="p-5 shadow my-4">      
+        <img :src="require('@/assets/strip.webp')" class="img-fluid rounded" alt="Image">
+      
+        <div class="row justify-content-center pt-5 mx-5">
+          <div class="col-4">
+            <h5 class="mb-3">Native Integrations</h5>
+            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+          </div>
+          <div class="col-4">
+            <h5 class="mb-3">Simple Migrations</h5>
+            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+          </div>
+          <div class="col-4">
+            <h5 class="mb-3">Flexible API</h5>
+            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 9 -->
+      <section class="p-5 shadow bg-light">
+        <div class="row p-4">
+          <div class="col-12">
+            <h2 class="text-center mb-5">Checkout the services</h2>
+          </div>
+          
+          <div v-for="i in 6" :key="i" :class="{ 'border-bottom': i > 3, 'border-start': i === 1 || i === 4 }" class="col-4 border-top border-end p-5 text-center">
+            <font-awesome-icon icon="fa-solid fa-table" size="2x" class="mb-3" />
+            <p class="fw-bold mb-1">Construction Work</p>
+            <p class="fw-light text-muted">Cellulite is fat that is caught between bands of connective tissue directly beneath.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 10 -->
+      <!-- TODO: Padding overflow -->
+      <section class="shadow my-4">
+        <div class="row">
+          <div :style="`background-image: url(${require('@/assets/hero3.jpg')});`" class="col-sm-12 col-md-6 p-5 bg-image text-light">
+            <h3 class="fw-bold">Cultivate value-added ROI</h3>
+            <p class="my-4">Do you want to download free song for ipod? If so, reading this article could save you from getting in to a lot of trouble!</p>
+            <button type="button" class="btn btn-dark btn-lg btn-rounded">View more</button>
+          </div>
+          
+          <div class="col-sm-12 col-md-6 p-5 text-dark">
+            <h3 class="fw-bold">Cultivate value-added ROI</h3>
+            <p class="my-4">Do you want to download free song for ipod? If so, reading this article could save you from getting in to a lot of trouble!</p>
+            <button type="button" class="btn btn--outline-dark btn-lg btn-rounded">View more</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimony  1 -->
+      <section class="p-5 shadow text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-11 offset-md-1">
+              <img :src="require('@/assets/brands/airbnb.webp')" alt="">
+              <h5 class="fw-bold mt-5 fs-2 lh-2">“Amazing experience i love it a lot. Thanks to the team that dreams come true, great!”</h5>
+              <p class="m-0 mt-3 fs-5">Jorge Peterson, CEO Optimisation</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimony  2 -->
+      <section class="p-5 shadow text-center my-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-1 d-flex justify-content-center align-items-center">
+              <button type="button" class="btn btn-floating shadow-none btn-light btn-lg">
+                <font-awesome-icon icon="fa-solid fa-arrow-left" />
+              </button>
+            </div>
+
+            <div class="col-sm-12 col-md-10">
+              <img :src="require('@/assets/avatar.webp')" width="80" height="80" class="rounded-circle" alt="">
+              <h5 class="fw-bold my-3 fs-2 lh-2">“Amazing experience i love it a lot. Thanks to the team that dreams come true, great!”</h5>
+              <p class="m-0 mt-3 fs-5">Jorge Peterson, CEO Optimisation</p>
+            </div>
+            
+            <div class="col-md-1 d-flex justify-content-center align-items-center">
+              <button type="button" class="btn btn-floating shadow-none btn-light btn-lg">
+                <font-awesome-icon icon="fa-solid fa-arrow-right" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</template>
+
+<script>
+export default {
+  mounted () {
+    document.body.style.background = 'rgba(249, 249, 249, 1)'
+  },
+  beforeUnmount () {
+    document.body.style.background = null
+  }
+}
+</script>
