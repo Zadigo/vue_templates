@@ -185,3 +185,23 @@ html {
     background-color: hsla(0, 0%, 100%, 0);
     border-top: 2px solid #f5f5f5;
 }
+
+
+/* 
+ Transitions
+*/
+
+.menu-slideup-enter-active,
+.menu-slideup-leave-active {
+    transition: all .25s ease-in-out;
+}
+
+.menu-slideup-enter-from,
+.menu-slideup-leave-to {
+    transform: translateY(8px);
+}
+
+.menu-slideup-enter-to,
+.menu-slideup-leave-from {
+    transform: translateY(0px);
+}

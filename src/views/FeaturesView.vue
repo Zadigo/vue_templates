@@ -2,10 +2,17 @@
   <section id="features">
     <div class="container my-5">
       <!-- Feature 1 -->
-      <section class="p-5 shadow">
-        <h3 class="fw-bold text-center p-4">Booking with us is easy</h3>
-
-        <div class="row text-center mt-5">
+      <section class="p-5 shadow text-center">
+        <div class="col-md-8 ms-auto me-auto">
+          <h3 class="fw-bold p-4">Booking with us is easy</h3>
+          <!-- <p class="description">
+            This is the paragraph where you can write more details about your product. Keep you user 
+            engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise 
+            he wouldn't scroll to get here. Add a button if you want the user to see more.
+          </p> -->
+        </div>
+        
+        <div class="row mt-5">
           <div class="col-4">
             <img :src="require('@/assets/icons/pin.png')" height="90" width="90" class="img-fluid mb-3" alt="Pin">
             <h5 class="fw-bold">Find the perfect rental</h5>
@@ -244,6 +251,51 @@
           </div>
         </div>
       </section>
+
+      <!-- Pricing -->
+      <section class="shadow p-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card card-pricing card-margin">
+                <div class="card-body">
+                  <h6 class="card-category">HTML Package</h6>
+                  <h1 class="card-title"><small>$</small>79</h1>
+                  <ul>
+                    <li><b>HTML/CSS/JS/SASS</b> Files</li>
+                    <li><b>Fully Coded</b> Components</li>
+                    <li><b>Responsive</b> Design</li>
+                    <li>Product<b> Documentation</b></li>
+                  </ul>
+                  <button type="button" class="btn btn-primary btn-rounded mt-3">
+                    Buy Now!
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="card card-pricing">
+                <div class="card-body">
+                  <h6 class="card-category">HTML &amp; Photoshop Package</h6>
+                  <h1 class="card-title"><small>$</small>139</h1>
+                  <ul>
+                    <li><b>HTML/CSS/JS/SASS</b> Files</li>
+                    <li><b>Fully Coded</b> Components</li>
+                    <li><b>Responsive</b> Design</li>
+                    <li>Product<b> Documentation</b></li>
+                    <li><b>+ Photoshop</b> Files</li>
+                    <li><b>+ Components</b> on Layers</li>
+                  </ul>
+                  <button type="button" class="btn btn-primary btn-rounded mt-3">
+                    Buy Now!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 </template>
@@ -258,3 +310,53 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card-pricing {
+  text-align: center;
+}
+.index-page .section-pricing .card-margin,
+.presentation-page .section-pricing .card-margin {
+  margin-top: 80px;
+}
+.card .card-category:not([class*=text-]) {
+  color: #999;
+}
+.card .card-category {
+  margin-top: 10px;
+}
+.card-pricing ul {
+  list-style: none;
+  padding: 0;
+  max-width: 240px;
+  margin: 10px auto;
+}
+.card-pricing ul li {
+  color: #999;
+  text-align: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(153, 153, 153, .3);
+}
+.card-pricing ul li b {
+  color: #000;
+}
+.card-pricing h1 small {
+  font-size: 18px;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  height: 0;
+}
+.card-pricing h1 small:first-child {
+  position: relative;
+  top: -17px;
+  font-size: 26px;
+}
+.card-pricing .card-title {
+  margin-top: 30px;
+}
+.card-description,
+.description,
+.footer-big p {
+  color: #999;
+}
+</style>

@@ -1,5 +1,11 @@
 <template>
   <input :id="id" :value="modelValue" :type="inputType" :name="id" :class="inputClasses" class="form-control" @input="emitValue($event)">
+
+  <!-- <div class="b-slot">
+    <div class="b-field-slot">
+      <input :id="id" :value="modelValue" :type="inputType" :name="id" :class="inputClasses" class="form-control" @input="emitValue($event)">
+    </div>
+  </div> -->
 </template>
 
 <script>
@@ -53,10 +59,40 @@ export default {
 </script>
 
 <style scoped>
-.form-control {
-  padding-inline-start: 16px;
-  padding-inline-end: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+.b-slot {
+  align-items: center;
+  display: flex;
+  margin-bottom: 8px;
+  min-height: inherit;
+  position: relative;
+  transition: .3s cubic-bezier(.25, .8, .5, 1);
+  transition-property: height, min-height;
+  width: 100%;
+  border-radius: .25rem;
+  cursor: text;
+  padding: 0 12px;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 }
+
+.b-field-slot {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+}
+
+.b-field-slot input {
+  flex: 1 1 auto;
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  max-height: 32px;
+}
+
+/* .b-field-slot .form-control:focus {
+  border-color: inherit;
+  box-shadow: none;
+  outline: none;
+  outline-style: none;
+} */
 </style>

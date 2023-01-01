@@ -21,6 +21,27 @@ const router = createRouter({
             component: loadView('FeaturesView')
         },
         {
+            path: '/authentication',
+            component: loadLayout('BaseAuthenticationLayout'),
+            children: [
+                {
+                    path: 'login',
+                    name: 'login_view',
+                    component: loadView('authentication/LoginView')
+                },
+                {
+                    path: 'signup',
+                    name: 'signup_view',
+                    component: loadView('authentication/SignupView')
+                },
+                {
+                    path: 'forgot-password',
+                    name: 'forgot_password_view',
+                    component: loadView('authentication/ForgotPasswordView')
+                }
+            ]
+        },
+        {
             path: '/bootstrap',
             component: loadLayout('DashboardLayout'),
             children: [
