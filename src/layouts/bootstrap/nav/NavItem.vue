@@ -1,6 +1,7 @@
 <template>
   <li class="nav-item">
-    <router-link :to="to" class="nav-link">
+    <a v-if="href" :href="href" class="nav-link">{{ linkName }}</a>
+    <router-link v-else :to="to" class="nav-link">
       {{ linkName }}
     </router-link>
   </li>
@@ -13,6 +14,10 @@ export default {
     to: {
       type: Object,
       required: true
+    },
+    href: {
+      type: String,
+      default: null
     },
     linkName: {
       type: String,

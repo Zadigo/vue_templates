@@ -1,15 +1,33 @@
 {
     "sections": [
         {
-            "title": "Templates",
+            "title": "Bootstrap",
             "links": [
                 {
-                    "name": "Youtube",
-                    "to": "home_view"
+                    "name": "Templates",
+                    "to": "buttons_view"
+                }
+            ]
+        },
+        {
+            "title": "Ecommerce",
+            "links": [
+                {
+                    "name": "Products page",
+                    "to": "products_view"
+                }
+            ]
+        },
+        {
+            "title": "Authentication",
+            "links": [
+                {
+                    "name": "Login",
+                    "to": "login_view"
                 },
                 {
-                    "name": "L'équipe",
-                    "to": "home_view"
+                    "name": "Signup",
+                    "to": "signup_view"
                 }
             ]
         }

@@ -1,15 +1,15 @@
 <template>
   <footer :class="[darkMode ? 'bg-dark text-light' : 'bg-light']">
     <div class="container p-4">
-      <section class="mb-4 text-center">
-        <a v-for="(social, i) in footer.socials" :key="i" :href="social.href" :style="`background-color: #${getColor(social.name)}`" class="btn btn-primary btn-floating m-1" role="button">
-          <i class="fab fa-facebook-f"></i>
+      <section v-if="items.socials.length > 0" class="mb-4 text-center">
+        <a v-for="(social, i) in items.socials" :key="i" :href="social.href" :style="`background-color: #${getColor(social.name)}`" class="btn btn-primary btn-floating m-1" role="button">
+          <font-awesome-icon :icon="`fa-brands ${ getIcon(social.name) }`" />
         </a>
       </section>
 
       <section class="text-left my-4">
         <div class="row">
-          <div v-for="(section, i) in footer.sections" :key="i" class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <div v-for="(section, i) in items.sections" :key="i" class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">
               {{ section.title }}
             </h5>
@@ -22,15 +22,17 @@
               </li>
             </ul>
           </div>
+
+          <slot></slot>
         </div>
       </section>
     </div>
 
     <!-- Copyright -->
     <div class="copyright text-center p-3">
-      © 2020 Copyright:
+      © {{ new Date().getFullYear() }} Copyright:
       <router-link to="/" :class="[darkMode ? 'text-light' : 'text-dark']">
-        John Pendenque
+        {{ brand }}
       </router-link>
     </div>
   </footer>
@@ -38,15 +40,22 @@
 
 <script>
 import { inject } from 'vue'
-import footer from '../data/footer.json'
 
 export default {
   name: 'BaseFooter',
+  props: {
+    items: {
+      type: Object,
+      default: () => {}
+    },
+    brand: {
+      type: String
+    }
+  },
   setup () {
-    const darkMode = inject('darkMode')
+    const darkMode = inject('darkMode', false)
     return {
-      darkMode,
-      footer: footer
+      darkMode
     }
   },
   methods: {
@@ -59,6 +68,13 @@ export default {
         'Linkedin': '#0082ca'
       }
       return colors[name]
+    },
+    getIcon (name) {
+      if (name === 'Facebook') {
+        return 'fa-facebook-f'
+      } else {
+        return `fa-${name.toLowerCase() }`
+      }
     }
   }
 }

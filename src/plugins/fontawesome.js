@@ -1,4 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
 import { faComment, faThumbsUp, faThumbsDown, faFlag, faShare, faArrowUp, faCircleCheck, faFaceLaugh, faHeart, faMessage, faThumbTack, faBell, faBellSlash, faPlay, faPause, faGauge, faVolumeXmark, faVolumeHigh, faVolumeLow, faVolumeUp, faCog, faClose, faArrowLeft, faArrowRight, faEllipsisVertical, faPlus, faXmark, faCaretDown, faCaretUp, faFilter, faArrowDown, faSort, faMagnifyingGlass, faTable, faList, faColumns, faEllipsis, faEye, faImage, faStar, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faArrowUp)
@@ -27,6 +28,7 @@ library.add(faEye)
 library.add(faImage)
 library.add(faStar)
 library.add(faShoppingBag)
+library.add(faFacebookF)
 
 // YouTube
 library.add(faCircleCheck)

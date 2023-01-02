@@ -16,11 +16,6 @@ const router = createRouter({
             component: loadView('TestView')
         },
         {
-            path: '/features',
-            name: 'features_view',
-            component: loadView('FeaturesView')
-        },
-        {
             path: '/authentication',
             component: loadLayout('BaseAuthenticationLayout'),
             children: [

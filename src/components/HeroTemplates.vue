@@ -1,6 +1,7 @@
 <template>
   <section id="features">
     <div class="container my-5">
+      <h2 class="alert alert-info">Features</h2>
       <!-- Feature 1 -->
       <section class="p-5 shadow text-center">
         <div class="col-md-8 ms-auto me-auto">
@@ -214,6 +215,8 @@
         </div>
       </section>
 
+      <h4 class="alert alert-info mt-5">Testimonies</h4>
+
       <!-- Testimony  1 -->
       <section class="p-5 shadow text-center">
         <div class="container">
@@ -251,6 +254,8 @@
           </div>
         </div>
       </section>
+
+      <h4 class="alert alert-info mt-5">Pricing</h4>
 
       <!-- Pricing -->
       <section class="shadow p-5">
