@@ -215,6 +215,109 @@
         </div>
       </section>
 
+      <!-- Feature 11 - Ecommerce -->
+      <section class="p-4 shadow position-relative">
+        <div class="row pb-2 pb-sm-3 pb-md-4 mb-xxl-2 g-4">
+          <div class="col-md-6">
+            <div class="hotspots hotspots-alt">
+              <img :src="require('@/assets/ecommerce/deco1.jpg')" class="d-block rounded-1 img-fluid" alt="Image">
+              <a class="hotspot" style="top: 20%; left: 27%;" tabindex="0" role="button">
+                <div class="hotspot-inner"></div>
+              </a>
+              
+              <a class="hotspot" style="top: 14.7%; right: 32.7%;" tabindex="0" role="button">
+                <div class="hotspot-inner"></div>
+              </a>
+              
+              <a class="hotspot" style="bottom: 41%; left: 34.6%;" tabindex="0" role="button">
+                <div class="hotspot-inner"></div>
+              </a>
+              
+              <a class="hotspot" style="bottom: 24.3%; right: 27.5%;" tabindex="0" role="button">
+                <div class="hotspot-inner"></div>
+              </a>
+            </div>
+          </div>
+  
+          <div class="col-sm-6 col-md-3">
+            <img :src="require('@/assets/ecommerce/deco2.jpg')" class="d-block rounded-4 mb-4 img-fluid" alt="Image">
+            <img :src="require('@/assets/ecommerce/deco4.jpg')" class="rounded-4 img-fluid" alt="Image">
+          </div>
+          
+          <div class="col-sm-6 col-md-3">
+            <img :src="require('@/assets/ecommerce/deco3.jpg')" class="rounded-4 img-fluid" alt="Image">
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature 12 - Ecommerce -->
+      <section class="p-4 shadow container my-4">
+        <div class="mt-n3 mt-sm-0 pb-5 mb-1 mb-sm-2 mb-lg-3 mb-xl-4 mb-xxl-5">
+          <div class="row g-4 pb-2 pb-md-4">
+            <div class="col-md-4">
+              <!-- Card-->
+              <div class="card zoom-effect h-100 border-0 rounded-1 overflow-hidden" style="min-height:320px;">
+                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-10 zindex-2"></span>
+                
+                <div class="zoom-effect-wrapper rounded-1 position-absolute top-0 start-0 w-100 h-100">
+                  <div :style="`background-image: url(${require('@/assets/ecommerce/intro1.jpg')});`" class="zoom-effect-img bg-size-cover bg-position-bottom-center position-absolute top-0 start-0 w-100 h-100"></div>
+                </div>
+                
+                <a class="card-body d-flex flex-column justify-content-end align-items-start position-absolute top-0 start-0 w-100 h-100 text-decoration-none zindex-3" href="shop-catalog.html">
+                  <span class="bg-light text-dark rounded-pill fs-sm fw-semibold lh-1 py-3 px-4">For the living room</span>
+                </a>
+              </div>
+            </div>
+  
+            <div class="col-md-8">
+              <!-- Card-->
+              <div class="card zoom-effect border-0 rounded-1 overflow-hidden">
+                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-10 zindex-2"></span>
+                
+                <div class="zoom-effect-wrapper rounded-1">
+                  <img :style="`background-image: url(${require('@/assets/ecommerce/intro2.jpg')});`" class="zoom-effect-img" alt="Category image">
+                </div>
+                
+                <a class="card-body d-flex flex-column justify-content-end align-items-start position-absolute top-0 start-0 w-100 h-100 text-decoration-none zindex-3" href="shop-catalog.html">
+                  <span class="bg-light text-dark rounded-pill fs-sm fw-semibold lh-1 py-3 px-4">For the kitchen</span>
+                </a>
+              </div>
+              <div class="row g-4 pt-4">
+                <div class="col-sm-6">
+                  <!-- Card-->
+                  <div class="card zoom-effect border-0 rounded-1 overflow-hidden">
+                    <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-10 zindex-2"></span>
+                    
+                    <div class="zoom-effect-wrapper rounded-1">
+                      <img :style="`background-image: url(${require('@/assets/ecommerce/intro3.jpg')});`" class="zoom-effect-img" alt="Category image">
+                    </div>
+                    
+                    <a class="card-body d-flex flex-column justify-content-end align-items-start position-absolute top-0 start-0 w-100 h-100 text-decoration-none zindex-3" href="shop-catalog.html">
+                      <span class="bg-light text-dark rounded-pill fs-sm fw-semibold lh-1 py-3 px-4">For the bathroom</span>
+                    </a>
+                  </div>
+                </div>
+  
+                <div class="col-sm-6">
+                  <!-- Card-->
+                  <div class="card zoom-effect border-0 rounded-1 overflow-hidden">
+                    <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-10 zindex-2"></span>
+                    
+                    <div class="zoom-effect-wrapper rounded-1">
+                      <img :style="`background-image: url(${require('@/assets/ecommerce/intro4.jpg')});`" class="zoom-effect-img" alt="Category image">
+                    </div>
+                    
+                    <a class="card-body d-flex flex-column justify-content-end align-items-start position-absolute top-0 start-0 w-100 h-100 text-decoration-none zindex-3" href="shop-catalog.html">
+                      <span class="bg-light text-dark rounded-pill fs-sm fw-semibold lh-1 py-3 px-4">For the bedroom</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <h4 class="alert alert-info mt-5">Testimonies</h4>
 
       <!-- Testimony  1 -->
@@ -363,5 +466,71 @@ export default {
 .description,
 .footer-big p {
   color: #999;
+}
+
+/* Ecommerce - Gallery */
+.hotspots,
+.hotspots-alt {
+  position: relative;
+}
+.hotspots .hotspot,
+.hotspots-alt .hotspot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .25s ease-in-out, background-color .25s ease-in-out;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+.hotspots .hotspot {
+  width: 2rem;
+  height: 2rem;
+  border: 1px rgba(255, 255, 255, .4);
+}
+.hotspots .hotspot-inner,
+.hotspots-alt .hotspot-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .25s ease-in-out, background-color .25s ease-in-out;
+  border-radius: 50%;
+}
+
+.hotspots .hotspot-inner {
+  width: calc(2rem - 1rem);
+  height: calc(2rem - 1rem);
+  background-color: #fff;
+  color: #448c74;
+  font-weight: 600;
+}
+.hotspots-alt .hotspot {
+  background-color: rgba(255, 255, 255, .1);
+  backdrop-filter: blur(0.25rem);
+}
+.hotspots .hotspot:hover,
+.hotspots .hotspot:focus {
+  background-color: rgba(68, 140, 115, 0.2);
+  border-color: #448c74;
+}
+
+.hotspots .hotspot:hover hotspot-inner,
+.hotspots .hotspot:focus hotspot-inner  {
+  background-color: #448c74;
+  color: #fff;
+}
+.zoom-effect-wrapper {
+  position: relative;
+  transform: translateZ(0);
+  overflow: hidden;
+}
+.zoom-effect:hover .zoom-effect-img {
+  transform: scale(1.05);
+}
+
+.zoom-effect-img {
+  display: block;
+  transition: transform .4s ease-in-out;
 }
 </style>
