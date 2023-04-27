@@ -1,7 +1,7 @@
 <template>
   <li class="nav-item dropdown">
     <a :class="{ show }" class="nav-link dropdown-toggle" href @click.prevent="showDropdown">
-      Menu item
+      {{ linkName }}
     </a>
 
     <ul ref="link" :class="{ show, 'dropdown-menu-dark' : darkMode }" class="dropdown-menu p-2" @mouseleave="show = false">
@@ -15,6 +15,7 @@
             <div :class="[item.subMenu.length === 1 ? 'justify-content-start' : 'justify-content-around']" class="d-flex gap-2 w-auto align-items-left">
               <div v-for="(subItem, y) in item.subMenu" :key="y" class="w-auto">
                 <h6 class="title">{{ subItem.title }}</h6>
+
                 <ul class="list-unstyled">
                   <li v-for="(link, z) in subItem.links" :key="z">
                     <a :href="link.href" :class="{'text-light': darkMode, 'text-dark': !darkMode}" class="rounded-2">
@@ -24,6 +25,7 @@
                 </ul>
               </div>
             </div>
+
             <!-- <div class="row">
               <div class="col-12">
                 <h6 class="title">{{ item.subMenu.title }}</h6>
@@ -40,7 +42,11 @@
         </li>
 
         <li v-else>
-          <a :href="item.href" :class="{ 'text-light': darkMode }" class="dropdown-item">
+          <router-link v-if="item.to" :to="item.to" :class="{ 'text-light': darkMode }" class="dropdown-item">
+            {{ item.name }}
+          </router-link>
+
+          <a v-else :href="item.href" :class="{ 'text-light': darkMode }" class="dropdown-item">
             {{ item.name }}
           </a>
         </li>
@@ -87,6 +93,12 @@ import sidedropdown from '../../../data/sidedropdown.json'
 
 export default {
   name: 'BaseSideDropdown',
+  props: {
+    linkName: {
+      type: String,
+      required: true
+    }
+  },
   setup () {
     const target = null
     const show = ref(false)
