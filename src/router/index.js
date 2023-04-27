@@ -11,9 +11,19 @@ const router = createRouter({
             component: loadView('HomeView')
         },
         {
+            path: '/excel',
+            name: 'excel_view',
+            component: loadView('ExcelView')
+        },
+        {
             path: '/test',
             name: 'test_view',
             component: loadView('TestView')
+        },
+        {
+            path: '/contact',
+            name: 'contact_view',
+            component: loadView('ContactView')
         },
         {
             path: '/authentication',
@@ -164,7 +174,8 @@ const router = createRouter({
                 {
                     path: 'products/:id(\\d+)',
                     name: 'product_view',
-                    component: loadView('ecommerce/ProductView')
+                    // component: loadView('ecommerce/ProductView')
+                    component: loadView('ecommerce/ProductView2')
                 },
                 {
                     path: 'checkout',
