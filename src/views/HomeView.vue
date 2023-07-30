@@ -224,6 +224,9 @@ export default {
         }
       ]
     }
+  },
+  beforeMount () {
+    // this.$localstorage.getOrCreate('darkMode', this.darkMode)
   }
 }
 </script>

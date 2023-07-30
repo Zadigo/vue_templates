@@ -44,6 +44,9 @@ export default {
     block: {
       type: Boolean
     },
+    shadow: {
+      type:Boolean
+    },
     to: {
       type: [String, Object]
     }
@@ -68,6 +71,7 @@ export default {
           'btn-rounded': this.rounded,
           'btn-block': this.block,
           'btn-floating': this.floating,
+          'shadow-none': !this.shadow,
           'placeholder': this.placeholder 
         }
       ]

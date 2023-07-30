@@ -70,6 +70,8 @@ declare function useUtilities (): {
     getVerticalScrollPercentage (el: HTMLElement): number
     /** Quickly sort a list of items */
     quickSort (items: [], ascending?: boolean): []
+    /** Generate a random number */
+    getRandomNumber (min: number, max: number): number
 }
  
 declare function useUrls(): {

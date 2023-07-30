@@ -48,6 +48,34 @@ export declare interface VueLocalStorage {
      */
     create(key: DictionnaryKey, value: unknown): void
     /**
+     * Checks if a value exists in a dictionnary
+     * 
+     * @param key - key under which to save the element
+     * @returns boolean
+     */ 
+    exists(key: DictionnaryKey): boolean
+    /**
+     * Gets a value and immediately deletes it
+     * 
+     * @param key - key under which to save the element
+     * @returns any
+     */
+    getDelete(key: DictionnaryKey): any
+    /**
+     * Increment a value by one
+     * 
+     * @param key - key under which to increment the element
+     * @returns null
+     */
+    increment (key: DictionnaryKey): void
+    /**
+     * Decrement a value by one
+     * 
+     *  @param key - key under which to decrement the element
+     *  @returns null
+     */
+    decrement (key: DictionnaryKey): void
+    /**
      * Removes an element stored under a given key
      *
      * @param key key of the element to remove
@@ -55,21 +83,69 @@ export declare interface VueLocalStorage {
      */
     remove(key: DictionnaryKey): void
     /**
-     * Saves an item globally in the local storage
+     * Increment a value by a certain quantity
+     * 
+     * @param key - key under which to increment the element
+     * @param k - value to increment by
+     * @returns null
+     */
+    incrementBy (key: DictionnaryKey, k: number = 1): void
+    /**
+     * Decrement a value by a certain quantity
+     * 
+     * @param key - key under which to increment the element
+     * @param k - value to decrement by
+     * @returns null
+     */
+    decrementBy (key: DictionnaryKey, k: number = 1): void
+    /**
+     * Gets or creates a new value if it does not exist
+     *
+     * @param key - key under which to save the element
+     * @param value - number, array or dictionnary
+     * @returns any
+     */
+    getOrCreate (key: DictionnaryKey, value: any): any
+    /**
+     * Pushes a value in a list
      *
      * @param key - key under which to save the element
      * @param value - number, array or dictionnary
      * @returns null
      */
-    save(key: DictionnaryKey, value: unknown): void
+    listPush (key: DictionnaryKey, value: any): void
     /**
-     * Returns a value saved globally and not under the session key
+     * Like listPush but will create a new list if it
+     * does not exist
      *
      * @param key - key under which to save the element
-     * @returns number, array or dictionnary
+     * @param value - number, array or dictionnary
+     * @returns null
      */
-    getValue(key: DictionnaryKey): object | string | number
-
+    defaultList (key: DictionnaryKey, value: any): void
+    /**
+     * Merges two lists under a given key
+     *
+     * @param key - key under which to merge the elements
+     * @param values - array to merge
+     * @returns null
+     */
+    listMerge (key: DictionnaryKey, values: object): void
+    /**
+     * Counts the number of items under a given list
+     *
+     * @param key - key under which to merge the elements
+     * @returns number
+     */
+    listCount (key: DictionnaryKey): number
+    /**
+     * Toggles a value under a given key
+     *
+     * @param key - key under which to save the element
+     * @returns null
+     */
+    toggle(key: DictionnaryKey): void
+    
     install(app: App): void
 }
 

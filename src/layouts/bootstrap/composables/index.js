@@ -2,8 +2,12 @@ import _ from 'lodash'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 export function useClickOutside (onbefore = () => { }, onafter = () => { }) {
-  // Handle menu state when click outside
+  // Handle menu state when the user clicks
+  // outside of the dropdown
+
   const show = ref(false)
+  // var targets = []
+  var clickedElementId = null
   
   function handleButtonClickOutside (e) {
     const target = e.target
@@ -23,27 +27,40 @@ export function useClickOutside (onbefore = () => { }, onafter = () => { }) {
     }
 
     if (!target.classList.contains('dropdown-toggle')) {
+      // Close the corresponding dropdown when we get
+      // a click outside
       show.value = false
+    } else {
+      Array.from(document.querySelectorAll('.dropdown-toggle')).forEach((element) => {
+        const dropdownMenu = element.querySelector('.dropdown-menu')
+        clickedElementId
+        console.log(dropdownMenu)
+      })
     }
     
     onafter(e)
   }
 
-  function handleClick() {
-    show.value = !show.value
+  function memorizeClickedItem (e) {
+    // Memorize the dropdown's ID
+    if (e.target.classList.contains('dropdown-toggle')) {
+      clickedElementId = e.target.getAttribute('id')
+    }
   }
-
+  
   onMounted(() => {
+    // targets.push(...Array.from(document.querySelectorAll('.dropdown-menu')))
+    window.addEventListener('click', memorizeClickedItem)
     window.addEventListener('click', handleButtonClickOutside)
   })
 
   onBeforeUnmount(() => {
+    window.removeEventListener('click', memorizeClickedItem)
     window.removeEventListener('click', handleButtonClickOutside)
   })
-
+  
   return {
-    show,
-    handleClick
+    show
   }
 }
 

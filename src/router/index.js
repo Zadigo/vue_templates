@@ -151,12 +151,32 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: 'images',
+                    name: 'images_view',
+                    component: loadView('bootstrap_templates/ImagesView'),
+                    meta: {
+                        adminLink: true,
+                        title: 'Images',
+                        icon: 'image'
+                    }
+                },
+                {
                     path: 'carousel',
                     name: 'carousel_view',
                     component: loadView('bootstrap_templates/CarouselView'),
                     meta: {
                         adminLink: true,
                         title: 'Carousel',
+                        icon: 'image'
+                    }
+                },
+                {
+                    path: 'miscellanous',
+                    name: 'miscellanous_view',
+                    component: loadView('bootstrap_templates/MiscellanousView'),
+                    meta: {
+                        adminLink: true,
+                        title: 'Other',
                         icon: 'image'
                     }
                 }

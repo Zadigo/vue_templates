@@ -19,6 +19,22 @@
 <base-pagination :pages="4" />
 ```
 
+## Dropdown button
+
+```html
+<base-dropdown-button id="drop-1" v-slot="{show}" link-name="Dropdown">
+    <dropdown-menu id="some-menu" :show="show" animation="slideup">
+        <dropdown-item-input link-name="Example input" />
+        <dropdown-item link-name="Link 1" :active="true" />
+        <dropdown-item-header link-name="Example header" />
+        <dropdown-item link-name="Link 3" />
+        <dropdown-item-divider />
+        <dropdown-item link-name="Link 4" />
+        <dropdown-item link-name="Link 5" icon="table" @click="handleExampleClick" />
+    </dropdown-menu>
+</base-dropdown-button>
+```
+
 ## Dropdown
 
 A dropdown menu represents a container to be used as a menu

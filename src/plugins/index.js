@@ -10,6 +10,7 @@ export async function loadFonts () {
     webFontLoader.load({
         google: {
             families: [
+                'Lato',
                 // 'Roboto:100,300,400,500,700,900&display=swap',
                 'Ubuntu:100,300,400,500,700,900&display=swap'
             ]

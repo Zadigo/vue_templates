@@ -6,6 +6,7 @@
         <base-mega-dropdown :items="megamenu" />
         <base-side-dropdown link-name="Templates" />
         <nav-item href="#hero-features" link-name="Hero templates" />
+        <nav-item :to="{ name: 'contact_view' }" link-name="Contact" />
       </ul>
 
       <div class="d-flex align-items-center">

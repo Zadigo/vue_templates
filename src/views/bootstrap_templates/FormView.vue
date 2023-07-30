@@ -3,15 +3,21 @@
     <div class="col-10 offset-1">
       <base-template-card class="my-3">
         <div class="card-body">
-          <base-input id="search" v-model="search1" aria-label="Google" label="Recherche de votre vie rapidement ici" placeholder="Rechercher" class="my-1 p-3" />
+          <div class="d-flex justify-content-around gap-4 align-items-center">
+            <!-- Input -->
+            <base-input id="search" v-model="search1" aria-label="Google" label="Recherche de votre vie rapidement ici" placeholder="Rechercher" />
+  
+            <!-- Select -->
+            <base-select v-model="selectValue" :items="['Kendall Jenner', 'Kylie Jenner']" />
+          </div>
 
-          <div class="select-multiple">
+          <!-- <div class="select-multiple">
             <div class="wrapper">
               <div class="arrow"></div>
               <a href @click.prevent>Kendall</a>
               <a href @click.prevent>Jenner</a>
             </div>
-          </div>
+          </div> -->
         </div>
       </base-template-card>
   
@@ -47,6 +53,7 @@ import multipleSelect from '@/data/multiple_select.json'
 import BaseAutocomplete from '@/layouts/bootstrap/BaseAutocomplete.vue'
 import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
 import BaseRangeInput from '@/layouts/BaseRangeInput.vue'
+import BaseSelect from '@/layouts/bootstrap/BaseSelect.vue'
 import BaseTemplateCard from '@/layouts/bootstrap/cards/BaseTemplateCard.vue'
 import BaseMultipleSelect from '@/layouts/bootstrap/BaseMultipleSelect.vue'
 
@@ -55,6 +62,7 @@ export default {
     BaseAutocomplete,
     BaseInput,
     BaseRangeInput,
+    BaseSelect,
     BaseTemplateCard,
     BaseMultipleSelect
   },
@@ -68,7 +76,8 @@ export default {
       search1: null,
       search3: null,
       singleRangeValue: 10,
-      doubleRangeValue: [10, 50]
+      doubleRangeValue: [10, 50],
+      selectValue: 'Kendall Jenner'
     }
   }
 }

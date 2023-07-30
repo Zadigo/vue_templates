@@ -5,7 +5,7 @@
       <!-- Breadcrumb -->
       <div class="col-12">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb fw-light">
+          <ol class="breadcrumb" style="font-weight:500;">
             <li class="breadcrumb-item"><router-link :to="{ name: 'products_view' }" class="link-dark">Home</router-link></li>
             <li class="breadcrumb-item" aria-current="page">Vêtements pour femmes</li>
             <li class="breadcrumb-item" aria-current="page">Robes pour femmes</li>
@@ -34,8 +34,8 @@
       </div>
 
       <!-- Product information -->
-      <div class="col-sm-12 col-md-5 mb-4" style="position:relative;">
-        <div class="px-2" style="position:sticky;top:0;z-index:1;">
+      <div class="col-sm-12 col-md-5 mb-4 position-sticky">
+        <div class="px-2">
           <h1 class="fs-5">Jupe Kendall</h1>
           <p class="fw-light mb-1">SKU: sw2210184966428951</p>
           <div class="rating mb-2">

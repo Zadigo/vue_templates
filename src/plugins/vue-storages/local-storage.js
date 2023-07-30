@@ -81,6 +81,34 @@ class VueLocalStorage {
         this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
     }
 
+    _getValueForOperation (key) {
+        // Return the numeric value stored under a key
+        // to run a given operation
+        // var storedData = this.data
+        // let result = storedData[key]
+        const result = this.retrieve(key)
+
+        if (typeof result === 'undefined') {
+            return 0
+        }
+
+        if (typeof result !== 'number') {
+            throw new Error('Value for increment or decrement operation should be a number')
+        }
+        return result
+    }
+
+    _getList (key) {
+        // Returns the value of the key if the
+        // item is Array otherwise raises an error
+        var storedData = this.data
+        const result = storedData[key]
+        if (!Array.isArray(result)) {
+            throw new Error('Object is not an array')
+        }
+        return result
+    }
+
     retrieve(key) {
         return this.data[key]
     }
@@ -89,6 +117,101 @@ class VueLocalStorage {
         var storedData = this.data
         storedData[key] = value
         this._save(storedData)
+    }
+
+    exists (key) {
+        const storedData = this.data
+        return Object.keys(storedData).includes(key)
+    }
+
+    getDelete (key) {
+        let returnValue = null
+        var storedData = this.data
+
+        returnValue = storedData[key]
+        delete storedData[key]
+
+        this._save(storedData)
+        return returnValue
+    }
+
+    increment (key) {
+        let result = this._getValueForOperation(key)
+        result = result += 1
+        this.create(key, result)
+    }
+
+    decrement (key) {
+        let result = this._getValueForOperation(key)
+        result = result -= 1
+        this.create(key, result)
+    }
+
+    incrementBy (key, k = 1) {
+        let result = this._getValueForOperation(key)
+        result = result += k
+        this.create(key, result)
+    }
+
+    decrementBy (key, k = 1) {
+        let result = this._getValueForOperation(key)
+        result = result -= k
+        this.create(key, result)
+    }
+
+    getOrCreate (key, value) {
+        const result = this.exists(key)
+        let returnValue = null
+        let returnArray
+        if (result) {
+            returnValue = this.retrieve(key)
+            returnArray = [false, returnValue]
+        } else {
+            this.create(key, value)
+            returnValue = value
+            returnArray = [true, returnValue]
+        }
+        return returnArray
+    }
+
+    listPush (key, value) {
+        const result = this._getList(key)
+        result.push(value)
+        this.create(key, result)
+    }
+
+    defaultList (key, value) {
+        if (this.exists(key)) {
+            this.listPush(key, value)
+        } else {
+            this.create(key, [value])
+        }
+    }
+
+    listMerge (key, values) {
+        var newList = null
+        const result = this._getList(key)
+
+        if (!Array.isArray(values)) {
+            throw new Error('Is not an array')
+        }
+
+        newList = [...result, ...values]
+        this.create(key, newList)
+    }
+
+    listCount (key) {
+        const result = this._getList(key)
+        return result.length
+    }
+
+    toggle (key) {
+        var result = this.retrieve(key)
+        if (typeof result === 'boolean') {
+            this.create(key, !result)
+        } else {
+            this.create(key, true)
+        }
     }
 
     remove(key) {
@@ -100,12 +223,8 @@ class VueLocalStorage {
     save(key, value) {
         this.storage.setItem(key, value)
     }
-
-    getValue(key) {
-        return this.storage.getItem(key)
-    }
-
-    install(app) {
+    
+    all(app) {
         setupDevtools(app, this)
         // app.provide(storageSymbol, this)
         app.config.globalProperties.$localstorage = this

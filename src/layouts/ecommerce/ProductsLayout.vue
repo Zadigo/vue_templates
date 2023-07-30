@@ -15,13 +15,16 @@
       </div>
 
       <!-- Header -->
-      <div class="p-5 bg-light rounded mb-1">
-        <h3>Some title</h3>
+      <div class="p-5 bg-light rounded mb-1 bg-image" :style="`background-image:url(${require('@/assets/hero/hero6.jpg')});`">
+        <!-- <h3>Cozy corner for the living room at <span class="text-info">a discount up to 40%</span></h3>
         <p class="fw-light">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam sint, sapiente
           voluptatibus provident commodi magni error! Exercitationem nostrum labore sint numquam,
           voluptates culpa ea sapiente eveniet repellendus ex! Natus, fuga?
-        </p>
+        </p> -->
+
+        <h2 class="mb-0 fs-1">Cozy corner for the living room</h2>
+        <h2 class="mb-5 fs-1">at <span class="text-light">a discount up to 40%</span></h2>
         <div class="d-flex justify-content-left gap-2">
           <base-button v-for="i in 4" id="cta-popular-search" :key="i" :to="{ name: 'product_view', params: { id: 1 } }" rounded color="light" class="shadow-none border">
             Search {{ i }}

@@ -62,7 +62,7 @@ export default {
         this.$emit('close:dropdown-menu')
       }
     }
-  },
+  }
 }
 </script>
 

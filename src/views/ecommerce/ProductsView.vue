@@ -1,5 +1,5 @@
 <template>
-  <products-layout-with-aside>
+  <products-layout>
     <!-- Products -->
     <div class="row my-4">
       <div class="col-12 d-flex justify-content-end gap-3 align-items-center py-2 mb-2">
@@ -29,7 +29,7 @@
       <!-- Modals -->
       <base-modal id="quick-product-details" :show="showQuickProductDetails" static-backdrop @close="showQuickProductDetails = false" />
     </div>
-  </products-layout-with-aside>
+  </products-layout>
 </template>
 
 <script>
@@ -39,8 +39,8 @@ import BaseModal from '@/layouts/bootstrap/BaseModal.vue'
 import DropdownItem from '@/layouts/bootstrap/buttons/DropdownItem.vue'
 import DropdownMenu from '@/layouts/bootstrap/buttons/DropdownMenu.vue'
 import ProductCard from '@/components/ecommerce/ProductCard.vue'
-// import ProductsLayout from '@/layouts/ecommerce/ProductsLayout.vue'
-import ProductsLayoutWithAside from '@/layouts/ecommerce/ProductsLayoutWithAside.vue'
+import ProductsLayout from '@/layouts/ecommerce/ProductsLayout.vue'
+// import ProductsLayoutWithAside from '@/layouts/ecommerce/ProductsLayoutWithAside.vue'
 
 export default {
   name: 'ProductsView',
@@ -51,8 +51,8 @@ export default {
     DropdownItem,
     DropdownMenu,
     ProductCard,
-    // ProductsLayout,
-    ProductsLayoutWithAside
+    ProductsLayout,
+    // ProductsLayoutWithAside
   },
   data () {
     return {

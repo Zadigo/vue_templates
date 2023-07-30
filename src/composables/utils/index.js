@@ -218,6 +218,17 @@ export function useUtilities () {
     })
   }
 
+  function getRandomNumber (min, max) {
+    // Generate a random decimal between 0 (inclusive) and 1 (exclusive)
+    const randomDecimal = Math.random()
+
+    // Scale the random decimal to the desired range (min to max)
+    const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min
+
+    return randomNumber
+  }
+
+
   return {
     capitalizeFirstLetter,
     capitalizeLetters,
@@ -227,6 +238,7 @@ export function useUtilities () {
     dictionnaryListManager,
     formatAsPercentage,
     getRandomString,
+    getRandomNumber,
     getVerticalScrollPercentage,
     getVideoFrame,
     hasNull,

@@ -1,6 +1,7 @@
 <template>
   <article :class="`col-sm-12 col-md-${rowSize}`" @mouseenter="handleShowCart" @mouseleave="handleHideCart">
-    <base-template-card class="shadow-none">
+    <base-template-card class="shadow-none position-relative">
+      <span class="badge rounded-pill text-bg-danger position-absolute top-0 start-0 ms-2 mt-2">Sale</span>
       <div class="cart-wrapper">
         <router-link id="link-product-details" :to="{ name: 'product_view', params: { id: 1 } }">
           <img :src="require('@/assets/ecommerce1.jpg')" class="card-img-top" alt="Robe Kendall">
@@ -90,6 +91,10 @@ export default {
   bottom: 5%;
   left: 30%;
   z-index: 200;
+}
+
+.badge {
+  z-index: 100;
 }
 
 /* article {
