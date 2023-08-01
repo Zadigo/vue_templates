@@ -77,9 +77,9 @@
             </div>
 
             <div v-if="showQualitySettings" :key="3" class="list-group">
-              <a href type="button" class="list-group-item list-group-item-action bg-transparent text-light" @click.prevent>1080p</a>
-              <a href type="button" class="list-group-item list-group-item-action bg-transparent text-light" @click.prevent>720p</a>
-              <a href type="button" class="list-group-item list-group-item-action bg-transparent text-light" @click.prevent>480p</a>
+              <a v-for="quality in videoQualities" :key="quality" href type="button" class="list-group-item list-group-item-action bg-transparent text-light" @click.prevent="handleVideoQuality(quality)">
+                {{ quality }}
+              </a>
             </div>
           </div>
         </transition>
@@ -190,6 +190,7 @@ export default {
       quality: '1080p',
       volume: 0.5,
       speeds: [2, 1.75, 1.5, 1, 0.75, 0.5],
+      videoQualities: ['4K', '1080p', '720p', '480p'],
 
       showVideoSettings: false,
       showSpeedSettings: false,
@@ -299,8 +300,10 @@ export default {
       const trackWidth = volumeControl.offsetWidth
       let value = result / trackWidth * 100
       value = Math.round(value / 1) * 1
+      
       const currentVolume = Math.max(0, Math.min(100, value))
       this.volume = Math.round((currentVolume / 100) * 10) / 10
+      this.$refs.videoPlayer.volume = this.volume
       this.$emit('update:volume', this.volume)
     },
     percentageLoaded (event) {
@@ -332,6 +335,10 @@ export default {
       // const resultY = containerWidth - mousePositionY
       this.$refs.interactiveMenu.style.left = `${mousePositionX}px`
       this.$refs.interactiveMenu.style.top = `${mousePositionY}px`
+    },
+    handleVideoQuality (quality) {
+      this.quality = quality
+      this.showQualitySettings = false
     },
     getFrames () {
       // Get a couple of frames from 

@@ -7,8 +7,8 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><router-link :to="{ name: 'products_view' }">Home</router-link></li>
-              <li class="breadcrumb-item">Library</li>
-              <li class="breadcrumb-item active" aria-current="page">Current product name</li>
+              <li class="breadcrumb-item">Products</li>
+              <!-- <li class="breadcrumb-item active" aria-current="page">Current product name</li> -->
             </ol>
           </nav>
         </div>
@@ -40,6 +40,7 @@
 
 <script>
 import BaseButton from '@/layouts/bootstrap/buttons/BaseButton.vue'
+
 export default {
   name: 'ProductsLayout',
   components: {

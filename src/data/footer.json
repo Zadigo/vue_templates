@@ -4,8 +4,28 @@
             "title": "Bootstrap",
             "links": [
                 {
-                    "name": "Templates",
+                    "name": "Buttons",
                     "to": "buttons_view"
+                },
+                {
+                    "name": "Cards",
+                    "to": "cards_view"
+                },
+                {
+                    "name": "Tables",
+                    "to": "table_view"
+                },
+                {
+                    "name": "Timeline",
+                    "to": "timeline_view"
+                },
+                {
+                    "name": "Modals",
+                    "to": "modals_view"
+                },
+                {
+                    "name": "Forms",
+                    "to": "form_view"
                 }
             ]
         },

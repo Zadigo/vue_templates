@@ -1,5 +1,5 @@
 <template>
-  <footer :class="[darkMode ? 'bg-dark text-light' : 'bg-light']">
+  <footer :class="footerClasses">
     <div class="container p-4">
       <section v-if="items.socials.length > 0" class="mb-4 text-center">
         <a v-for="(social, i) in items.socials" :key="i" :href="social.href" :style="`background-color: #${getColor(social.name)}`" class="btn btn-primary btn-floating m-1" role="button">
@@ -9,11 +9,13 @@
 
       <section class="text-left my-4">
         <div class="row">
+          <!-- Section -->
           <div v-for="(section, i) in items.sections" :key="i" class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">
               {{ section.title }}
             </h5>
 
+            <!-- Pages -->
             <ul class="list-unstyled mb-0">
               <li v-for="(link, t) in section.links" :key="t">
                 <router-link :to="{ name: link.to }" :class="[darkMode ? 'text-light' : 'text-dark']">
@@ -58,8 +60,19 @@ export default {
       darkMode
     }
   },
+  computed: {
+    footerClasses () {
+      return [
+        {
+          'bg-dark text-light': this.darkMode,
+          'bg-light': !this.darkMode
+        }
+      ]
+    }
+  },
   methods: {
     getColor (name) {
+      // Get social media color
       const colors = {
         'Facebook': '#3b5998',
         'Google': '#dd4b39',
@@ -70,6 +83,7 @@ export default {
       return colors[name]
     },
     getIcon (name) {
+      // Returns the correct social media icon
       if (name === 'Facebook') {
         return 'fa-facebook-f'
       } else {

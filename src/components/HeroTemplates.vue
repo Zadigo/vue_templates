@@ -2,6 +2,7 @@
   <section id="features">
     <div class="container my-5">
       <h2 class="alert alert-info">Features</h2>
+      
       <!-- Feature 1 -->
       <section class="p-5 shadow text-center">
         <div class="col-md-8 ms-auto me-auto">

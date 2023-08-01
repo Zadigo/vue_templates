@@ -47,6 +47,7 @@ import _ from 'lodash'
 import BaseButton from './buttons/BaseButton.vue'
 import DropdownMenu from './buttons/DropdownMenu.vue'
 import DropdownItem from './buttons/DropdownItem.vue'
+
 export default {
   name: 'BaseMultipleSelect',
   components: {
@@ -58,11 +59,12 @@ export default {
     items: {
       type: Array,
       default: () => []
-    },
-    // initialUnselected: {
-    //   type: Array,
-    //   default: () => []
-    // }
+    }
+  },
+  emits: {
+    'update:item-selection' () {
+      return true
+    }
   },
   data () {
     return {
@@ -74,6 +76,7 @@ export default {
   },
   computed: {
     searchedItems () {
+      // Filter by searched items
       if (this.search === null || this.search === '') {
         return this.items
       } else {
@@ -114,6 +117,7 @@ export default {
       }
     },
     unselectedItems () {
+      // List of unselected items
       if (this.selectedItemsId.length === 0) {
         return this.searchedItems
       }
@@ -122,6 +126,7 @@ export default {
       })
     }, 
     selectedItems () {
+      // List of selected items
       return _.filter(this.items, (item) => {
         return this.selectedItemsId.includes(item.id)
       })
@@ -129,17 +134,21 @@ export default {
   },
   methods: {
     selectItem (itemId) {
+      // Logic to add or remoeve an item from the list
       if (this.selectedItemsId.includes(itemId)) {
         const index = _.indexOf(this.selectedItemsId, itemId)
         this.selectedItemsId.splice(index, 1)
       } else {
         this.selectedItemsId.push(itemId)
       }
+      this.$emit('update:item-selection', this.selectedItemsId)
     },
     handleSelection (item) {
+      // Adds an item to the selection list
       this.selectItem(item.id)
     },
     handleAddAll () {
+      // Adds all items to the list
       if (this.search === null || this.search === '') {
         this.selectedItemsId = _.map(this.items, (item) => {
           return item.id
@@ -150,9 +159,12 @@ export default {
         })
         this.search = null
       }
+      this.$emit('update:item-selection', this.selectedItemsId)
     },
     handleRemoveAll () {
+      // Remove all items from the list
       this.selectedItemsId = []
+      this.$emit('update:item-selection', [])
     }
   }
 }

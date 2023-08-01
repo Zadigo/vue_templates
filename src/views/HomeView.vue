@@ -22,11 +22,11 @@
   <section class="hero">
     <!-- Navbar -->
     <base-navbar :fixed-top="true" nav-brand="Vue Templates">    
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <navbar-nav class="me-auto mb-2 mb-lg-0">
         <base-mega-dropdown :items="megamenu" />
         <base-side-dropdown link-name="Templates" />
         <nav-item href="#hero-features" link-name="Hero templates" />
-      </ul>
+      </navbar-nav>
 
       <div class="d-flex align-items-center">
         <router-link :to="{ name: 'login_view' }" class="btn btn-link px-3 me-2">Login</router-link>
@@ -47,14 +47,14 @@
               Bootstrap templates
             </router-link>
 
-            <!-- <div class="d-flex justify-content-center align-items-center gap-5 text-center mt-5">
+            <div class="d-flex justify-content-center align-items-center gap-5 text-center mt-5">
               <img :src="require('@/assets/brands/brand1.webp')" alt="Brand1">
               <img :src="require('@/assets/brands/brand2.webp')" alt="Brand2">
               <img :src="require('@/assets/brands/brand3.webp')" alt="Brand3">
-            </div> -->
+            </div>
           </div>
         </div>
-
+        
         <!-- Left -->
         <div v-else-if="heroSettings.type === 'left'" class="d-flex justify-content-start align-items-center h-100 text-light text-right">
           <div class="col-6 mx-5">
@@ -99,6 +99,7 @@
           </div>
         </div>
 
+        <!-- Multiple -->
         <div v-else-if="heroSettings.type === 'multiple'" class="d-flex justify-content-center align-items-center text-center h-100 text-light">
           <div class="col-6">
             <h1>The Mortgage Process Simplified</h1>
@@ -125,9 +126,12 @@
             </div>
           </div>
         </div>
+
+        <!-- Video -->
       </div>
     </div>
 
+    <!-- Features -->
     <hero-templates id="hero-features" />
 
     <!-- Settings -->
@@ -140,7 +144,7 @@
     <template-settings />
 
     <!-- Footer -->
-    <base-footer class="mt-3" :items="footer" brand="Vue Templates" />
+    <base-footer class="mt-3" :items="footer" brand="Vue Templates"></base-footer>
   </section>
 </template>
 
@@ -158,11 +162,15 @@ import BaseCard from '@/layouts/bootstrap/cards/BaseCard.vue'
 import BaseInput from '@/layouts/bootstrap/BaseInput.vue'
 import BaseMegaDropdown from '../layouts/bootstrap/nav/BaseMegaDropdown.vue'
 import BaseSideDropdown from '../layouts/bootstrap/nav/BaseSideDropdown.vue'
-import BaseFooter from '@/layouts/BaseFooter.vue'
+import BaseFooter from '@/layouts/bootstrap/BaseFooter.vue'
 import BaseNavbar from '@/layouts/bootstrap/nav/BaseNavbar.vue'
 import HeroTemplates from '@/components/HeroTemplates.vue'
 import NavItem from '@/layouts/bootstrap/nav/NavItem.vue'
+import NavbarNav from '@/layouts/bootstrap/nav/NavbarNav.vue'
 import TemplateSettings from '@/components/TemplateSettings.vue'
+
+// Heros
+// import CenteredHero from '@/layouts/bootstrap/hero/CenteredHero.vue'
 
 export default {
   name: 'HomeView',
@@ -176,13 +184,17 @@ export default {
     BaseNavbar,
     HeroTemplates,
     NavItem,
-    TemplateSettings
+    NavbarNav,
+    TemplateSettings,
+
+    // Heros
+    // CenteredHero
   },
   setup () {
-    var dark = useDark()
-    var toggleDark = useToggle(dark)
+    const dark = useDark()
+    const toggleDark = useToggle(dark)
 
-    var { darkMode, toggleDarkMode } = useDarkMode()
+    const { darkMode, toggleDarkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {
       footer,

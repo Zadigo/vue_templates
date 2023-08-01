@@ -1,18 +1,22 @@
 <template>
   <div ref="link" :class="[darkMode ? 'dark' : null]" class="slider-wrapper">
+    <!-- Slider -->
     <div class="slider" @mousedown="handleRightSlider($event)">
+      <!-- Track -->
       <div class="slider-track">
         <div class="track-low"></div>
         <div :class="[showTrack || isRange ? 'track-selection-primary' : null]" class="track-selection"></div>
         <div class="track-high"></div>
       </div>
-  
+      
+      <!-- Tooltip -->
       <div class="tooltip slider-tooltip" role="presentation">
         <div class="inner">{{ percentages[1] }}</div>
       </div>
-  
+      
+      <!-- Handles -->
       <div v-if="isRange" class="handle-left" :aria-valuetext="percentages[0]" :aria-valuenow="percentages[0]" :aria-valuemin="0" :aria-valuemax="100" />
-      <div class="handle-right" :aria-valuetext="percentages[1]" :aria-valuenow="percentages[1]" :aria-valuemin="0" :aria-valuemax="100" />
+      <div class="handle-right" :aria-valuetext="percentages[1]" :aria-valuenow="percentages[1]" :aria-valuemin="0" :aria-valuemax="100" @dblclick="handleDoubleClick" />
     </div>
 
     <!-- <input :value="modelValue" :aria-valuenow="modelValue" type="range" min="0" max="100" class="form-range d-none"> -->
@@ -120,6 +124,7 @@ export default {
       this.$emit('update:slider', this.percentages[1])
     },
     handleTrack () {
+      // Handles the colored track
       const trackSelection = this.$refs.link.querySelector('.track-selection')
       trackSelection.style.right = '0'
       trackSelection.style.left = '0'
@@ -139,6 +144,9 @@ export default {
     handleTooltip () {
 
     },
+    handleDoubleClick () {
+      
+    },
     getPercentage (e) {
       const mousePosition = e.pageX
       const handleOffsetLeft = this.handleOffsets.left
@@ -147,6 +155,9 @@ export default {
       let value = result / trackWidth * 100
       value = Math.round(value / 1) * 1
       return Math.max(0, Math.min(100, value))
+    },
+    emitValue () {
+      this.$emit('update:slider')
     }
   }
 }
@@ -221,6 +232,7 @@ export default {
 [class^="handle-"] {
   position: absolute;
   background-color: #fff !important;
+  cursor: pointer;
   /* background-color: #dc3545 !important; */
   background-image: none !important;
   background-repeat: repeat-x;
