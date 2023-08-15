@@ -1,5 +1,5 @@
 <template>
-  <section class="hero">
+  <section :class="siteClasses" class="hero">
     <!-- Navbar -->
     <base-navbar :fixed-top="true" nav-brand="Vue Templates">
       <navbar-nav>
@@ -8,7 +8,7 @@
         <nav-item href="#hero-features" link-name="Hero templates" />
         <nav-item :to="{ name: 'contact_view' }" link-name="Contact" />
       </navbar-nav>
-      
+
       <div class="d-flex align-items-center">
         <router-link :to="{ name: 'login_view' }" class="btn btn-link px-3 me-2">Login</router-link>
         <router-link :to="{ name: 'signup_view' }" class="btn btn-primary me-3 btn-rounded">Signup</router-link>
@@ -51,12 +51,18 @@ export default {
     BaseNavbar,
     NavItem,
     NavbarNav
-},
+  },
+  props: {
+    background: {
+      type: String,
+      default: 'bg-white'
+    }
+  },
   setup () {
-    var dark = useDark()
-    var toggleDark = useToggle(dark)
+    const dark = useDark()
+    const toggleDark = useToggle(dark)
 
-    var { darkMode, toggleDarkMode } = useDarkMode()
+    const { darkMode, toggleDarkMode } = useDarkMode()
     provide('darkMode', darkMode)
     return {
       footer,
@@ -96,6 +102,13 @@ export default {
         {
           name: 'Fourth'
         }
+      ]
+    }
+  },
+  computed: {
+    siteClasses () {
+      return [
+        this.background
       ]
     }
   }

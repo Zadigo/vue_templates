@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Sophisme",
+        "subtitle": null,
+        "category": "Définition",
+        "text": "Un sophisme est une manière trompeuse ou fallacieuse de présenter un argument afin de convaincre les autres, même s'il ne repose pas sur une logique solide ou sur des preuves réelles. Cela implique souvent l'utilisation de raisonnements trompeurs pour sembler convaincant, mais en réalité, n'est en réalité pas valide au sens de la logique. Il est différent du paralogisme ou l'émetteur ne cherche pas nécessairement à tromper le récepteur.",
+        "html": "<div>Un sophisme est une mani&egrave;re trompeuse ou fallacieuse de pr&eacute;senter un argument afin de convaincre les autres, m&ecirc;me s&apos;il ne repose pas sur une logique solide ou sur des preuves r&eacute;elles .<br><br><strong>Cela implique souvent l&apos;utilisation de raisonnements trompeurs pour sembler convaincant,</strong> mais en r&eacute;alit&eacute;, n&apos;est en r&eacute;alit&eacute; pas valide au sens de la logique.</div><p><br></p><p>Il est diff&eacute;rent du <a href=\"#id-paralogisme\">paralogisme</a> ou l&apos;&eacute;metteur ne cherche pas n&eacute;cessairement &agrave; tromper le r&eacute;cepteur.</p>"
+    },
+    {
+        "id": 2,
+        "title": "Paralogisme",
+        "subtitle": null,
+        "category": "Définition",
+        "text": "Le paralogisme est une erreur de raisonnement ou une déduction incorrecte due à une mauvaise utilisation de la logique. Cela se produit lorsque quelqu'un tire une conclusion erronée en utilisant des prémisses incorrectes, des sauts illogiques ou des erreurs dans le processus de raisonnement. En d'autres termes, c'est une faute dans la façon dont quelqu'un construit un argument, conduisant à une conclusion qui ne suit pas correctement les règles de la logique.",
+        "html": "<p>Le paralogisme est une erreur de raisonnement ou une d&eacute;duction incorrecte due &agrave; une mauvaise utilisation de la logique. <strong>Cela se produit lorsque quelqu&apos;un tire une conclusion erron&eacute;e en utilisant des pr&eacute;misses incorrectes, des sauts illogiques ou des erreurs dans le processus de raisonnement.</strong></p><p>En d&apos;autres termes, c&apos;est une faute dans la fa&ccedil;on dont quelqu&apos;un construit un argument, conduisant &agrave; une conclusion qui ne suit pas correctement les r&egrave;gles de la logique.</p>"
+    },
+    {
+        "id": 2,
+        "title": "Extension du sujet",
+        "subtitle": null,
+        "category": "Définition",
+        "text": "Le paralogisme est une erreur de raisonnement ou une déduction incorrecte due à une mauvaise utilisation de la logique. Cela se produit lorsque quelqu'un tire une conclusion erronée en utilisant des prémisses incorrectes, des sauts illogiques ou des erreurs dans le processus de raisonnement. En d'autres termes, c'est une faute dans la façon dont quelqu'un construit un argument, conduisant à une conclusion qui ne suit pas correctement les règles de la logique.",
+        "html": "<div><p>L&apos;extension du sujet dans le changement de cat&eacute;gorie ontologique, &eacute;galement connue sous le nom de &quot;conversion cat&eacute;gorielle&quot;, est un concept philosophique introduit par le philosophe et logicien Gottlob Frege. Il concerne la mani&egrave;re dont la signification des termes peut changer lorsque l&apos;on passe d&apos;une cat&eacute;gorie ontologique &agrave; une autre.</p><p>En d&apos;autres termes, lorsque nous transformons une expression d&apos;une cat&eacute;gorie &agrave; une autre (par exemple, d&apos;un nom propre &agrave; un pr&eacute;dicat), la signification du terme peut changer en fonction de la nouvelle cat&eacute;gorie &agrave; laquelle il appartient.</p><p>Prenons un exemple : consid&eacute;rons l&apos;expression &quot;Platon&quot; en tant que nom propre (individu) et &quot;philosophe&quot; en tant que pr&eacute;dicat (caract&eacute;ristique). Lorsque nous disons &quot;Platon est un philosophe&quot;, nous utilisons une extension du sujet en changeant Platon de la cat&eacute;gorie d&apos;individu &agrave; la cat&eacute;gorie de caract&eacute;ristique (philosophe).</p><p>Ce concept soul&egrave;ve des questions int&eacute;ressantes sur la mani&egrave;re dont la signification des termes d&eacute;pend de leur r&ocirc;le dans les phrases et comment le sens peut &eacute;voluer lorsque nous effectuons des conversions cat&eacute;gorielles.</p></div>"
+    }
+]

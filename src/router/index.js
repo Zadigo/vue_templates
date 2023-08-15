@@ -208,7 +208,31 @@ const router = createRouter({
                     component: loadView('ecommerce/PaymentView')
                 }
             ]
+        },
+        {
+            path: '/lequipe',
+            name: 'lequipe_view',
+            component: loadView('webpages/LequipeView')
+        },
+        {
+            path: '/linkedin',
+            name: 'linkedin_articles_view',
+            component: loadView('linkedin/ArticlesView')
+        },
+        {
+            path: '/chess',
+            name: 'chess_view',
+            component: loadView('ChessView')
         }
+        // {
+        //     path: 'web-pages',
+        //     component: loadLayout('BaseSite'),
+        //     children: [
+        //     ]
+        // }
+        // {
+        //     path: '/logical-fallacies'
+        // },
         // {
         //     path: '',
         //     name: 'templates_view',
@@ -218,11 +242,6 @@ const router = createRouter({
         //     path: '/youtube',
         //     name: 'youtube_view',
         //     component: loadView('YoutubeView')
-        // },
-        // {
-        //     path: '/lequipe',
-        //     name: 'lequipe_view',
-        //     component: loadView('LequipeView')
         // },
         // {
         //     path: '/spotify',
