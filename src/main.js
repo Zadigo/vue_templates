@@ -20,13 +20,13 @@ loadFonts()
 
 const app = createApp(App)
 
+const pinia = createPinia()
 const session = createVueSession()
 const localstorage = createLocalStorage()
-const pinia = createPinia()
 
+app.use(pinia)
 app.use(router)
 app.use(session)
-app.use(pinia)
 app.use(localstorage)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 

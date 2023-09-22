@@ -223,7 +223,7 @@ const router = createRouter({
             path: '/chess',
             name: 'chess_view',
             component: loadView('ChessView')
-        }
+        },
         // {
         //     path: 'web-pages',
         //     component: loadLayout('BaseSite'),
