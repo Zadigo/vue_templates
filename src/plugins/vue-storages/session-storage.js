@@ -1,6 +1,6 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
-function setupDevtools(app, storage) {
+function setupDevtools (app, storage) {
     // let trackId = 0
     let devtoolsApi
     const devtools = {}
@@ -49,7 +49,7 @@ function setupDevtools(app, storage) {
                             value: storage.data
                         }
                     ]
-                }   
+                }
             }
         })
 
@@ -66,15 +66,15 @@ function setupDevtools(app, storage) {
 }
 
 class VueSession {
-    constructor (options) {
+    constructor(options) {
         const defaultOptions = options || {}
         const { sessionKey, persistent, initial } = defaultOptions
-        
+
         this.storage = sessionStorage
         this._history = []
-        
+
         this.DEFAULT_KEY_NAME = sessionKey || 'vue-session'
-        
+
         // TODO: Implement functionnalities for persistence
         // and for implementing initial data
         this.isPersistent = persistent || false
@@ -86,7 +86,7 @@ class VueSession {
             this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
         }
     }
-    
+
     get data () {
         return JSON.parse(this.storage.getItem(this.DEFAULT_KEY_NAME))
     }
@@ -108,7 +108,7 @@ class VueSession {
         this._history.push(['save', data])
         this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
     }
-    
+
     create (key, value) {
         // this._precheck()
         const storedData = this.data
@@ -234,7 +234,7 @@ class VueSession {
             return false
         }
     }
-    
+
     clear () {
         // Fails silently if there is no
         // session in the storage
@@ -246,12 +246,12 @@ class VueSession {
             return false
         }
     }
-    
+
     contains (key) {
         return this.data ? key in this.data : false
     }
-    
-    destroy() {
+
+    destroy () {
         this.storage.clear()
     }
 
@@ -267,7 +267,7 @@ class VueSession {
     }
 }
 
-function createVueSession(options) {
+function createVueSession (options) {
     return new VueSession(options)
 }
 

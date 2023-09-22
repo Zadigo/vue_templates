@@ -2,13 +2,13 @@
 
 const { setupDevtoolsPlugin } = require('@vue/devtools-api')
 
-const DEBUG = (process.env.NODE_ENV !== 'production')
+// const DEBUG = (process.env.NODE_ENV !== 'production')
 
 // const storageSymbol = (DEBUG ? Symbol('vue-local-storage') : Symbol())
 
 // const storageSymbol = /*#__PURE__*/ Symbol('local')
 
-function setupDevtools(app, storage) {
+function setupDevtools (app, storage) {
     let devtoolsApi = null
     const devtools = {}
 
@@ -64,8 +64,8 @@ class VueLocalStorage {
         this.DEFAULT_KEY_NAME = 'vue_local'
         this.storage = localStorage
     }
-    
-    get data() {
+
+    get data () {
         var result = JSON.parse(this.storage.getItem(this.DEFAULT_KEY_NAME))
 
         if (!result) {
@@ -76,7 +76,7 @@ class VueLocalStorage {
         }
     }
 
-    _save(data) {
+    _save (data) {
         // Saves an element under the global session key
         this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
     }
@@ -109,11 +109,18 @@ class VueLocalStorage {
         return result
     }
 
-    retrieve(key) {
+    expire (key, value, timeout = 60) {
+        const currentDate = new Date
+        currentDate.setSeconds(currentDate.getSeconds() + timeout)
+        const data = { [`${key}`]: [value, timeout] }
+        this.create('expirations', data)
+    }
+
+    retrieve (key) {
         return this.data[key]
     }
-    
-    create(key, value) {
+
+    create (key, value) {
         var storedData = this.data
         storedData[key] = value
         this._save(storedData)
@@ -214,37 +221,35 @@ class VueLocalStorage {
         }
     }
 
-    remove(key) {
+    remove (key) {
         var result = this.data
         delete result[key]
         this._save(result)
     }
 
-    save(key, value) {
+    save (key, value) {
         this.storage.setItem(key, value)
     }
-    
-    all(app) {
+
+    install (app) {
         setupDevtools(app, this)
-        // app.provide(storageSymbol, this)
         app.config.globalProperties.$localstorage = this
         app.mixin({
             data: () => ({
                 localStorage: this.data
             })
         })
-
-        if (DEBUG) {
-            window.VueLocalStorage = this
-        }
+        window.VueLocalStorage = this
+        // if (DEBUG) {
+        // }
     }
 }
 
-function createLocalStorage () {
+function createVueLocalStorage () {
     return new VueLocalStorage()
 }
 
 export {
-    createLocalStorage,
+    createVueLocalStorage,
     VueLocalStorage
 }

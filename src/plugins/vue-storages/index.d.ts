@@ -5,7 +5,7 @@ declare type DictionnaryKey = {
 }
 
 /** Creates a VueLocalStorage instance that can be used by a Vue app */
-export declare function createLocalStorage(options?: BaseOptions): VueLocalStorage
+export declare function createVueLocalStorage(options?: BaseOptions): VueLocalStorage
 
 /** Creates a VueSession instance that can be used by a Vue app */
 export declare function createVueSession(options?: VueSessionOptions): VueSession
