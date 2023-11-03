@@ -109,13 +109,6 @@ class VueLocalStorage {
         return result
     }
 
-    expire (key, value, timeout = 60) {
-        const currentDate = new Date
-        currentDate.setSeconds(currentDate.getSeconds() + timeout)
-        const data = { [`${key}`]: [value, timeout] }
-        this.create('expirations', data)
-    }
-
     retrieve (key) {
         return this.data[key]
     }
