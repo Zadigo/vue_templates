@@ -224,7 +224,7 @@ class VueLocalStorage {
         this.storage.setItem(key, value)
     }
     
-    all(app) {
+    install(app) {
         setupDevtools(app, this)
         // app.provide(storageSymbol, this)
         app.config.globalProperties.$localstorage = this
