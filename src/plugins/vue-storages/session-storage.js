@@ -1,6 +1,6 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
-function setupDevtools(app, storage) {
+function setupDevtools (app, storage) {
     // let trackId = 0
     let devtoolsApi
     const devtools = {}
@@ -49,7 +49,7 @@ function setupDevtools(app, storage) {
                             value: storage.data
                         }
                     ]
-                }   
+                }
             }
         })
 
@@ -66,15 +66,15 @@ function setupDevtools(app, storage) {
 }
 
 class VueSession {
-    constructor (options) {
+    constructor(options) {
         const defaultOptions = options || {}
         const { sessionKey, persistent, initial } = defaultOptions
-        
+
         this.storage = sessionStorage
         this._history = []
-        
+
         this.DEFAULT_KEY_NAME = sessionKey || 'vue-session'
-        
+
         // TODO: Implement functionnalities for persistence
         // and for implementing initial data
         this.isPersistent = persistent || false
@@ -86,7 +86,7 @@ class VueSession {
             this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
         }
     }
-    
+
     get data () {
         return JSON.parse(this.storage.getItem(this.DEFAULT_KEY_NAME))
     }
@@ -108,7 +108,104 @@ class VueSession {
         this._history.push(['save', data])
         this.storage.setItem(this.DEFAULT_KEY_NAME, JSON.stringify(data))
     }
-    
+
+    _getValueForOperation (key) {
+        // Return the numeric value stored under a key
+        // to run a given operation
+        // var storedData = this.data
+        // let result = storedData[key]
+        const result = this.retrieve(key)
+
+        if (typeof result === 'undefined') {
+            return 0
+        }
+
+        if (typeof result !== 'number') {
+            throw new Error('Value for increment or decrement operation should be a number')
+        }
+        return result
+    }
+
+    _getList (key) {
+        // Returns the value of the key if the
+        // item is Array otherwise raises an error
+        var storedData = this.data
+        const result = storedData[key]
+        if (!Array.isArray(result)) {
+            throw new Error('Object is not an array')
+        }
+        return result
+    }
+
+    b64Create (key, value) {
+        const b64Value = btoa(value)
+        this.create(key, b64Value)
+    }
+
+    b64Retrieve (key) {
+        const result = this.retrieve(key)
+        return atob(result)
+    }
+
+    b64GetDelete (key) {
+        const result = this.getDelete(key)
+        return atob(result)
+    }
+
+    expire (key, value, timeout = 60) {
+        const currentDate = new Date
+        currentDate.setSeconds(currentDate.getSeconds() + timeout)
+        const data = { [`${key}`]: [value, currentDate] }
+        this.create('expirations', data)
+    }
+
+    persist (key) {
+        const data = this.retrieve('expirations')
+        const result = data[key]
+        delete data[key]
+        this.create(key, result[0])
+        this.create('expirations', data)
+    }
+
+    getOrExpire (key) {
+        const data = this.retrieve('expirations')
+
+        if (!data) {
+            return null
+        }
+
+        if (!Object.keys(data).includes(key)) {
+            return null
+        }
+
+        const value = data[key][0]
+        const expirationDate = new Date(data[key][1])
+        const currentDate = new Date()
+
+        if (currentDate > expirationDate) {
+            delete data[key]
+            return null
+        } else {
+            return value
+        }
+    }
+
+    getType (key) {
+        return typeof this.data[key]
+    }
+
+    rename (key, newKey) {
+        const data = this.data
+        const oldValue = this.retrieve(key)
+        delete data[key]
+        this._save(data)
+        this.create(newKey, oldValue)
+    }
+
+    retrieve (key) {
+        return this.data[key]
+    }
+
     create (key, value) {
         // this._precheck()
         const storedData = this.data
@@ -156,6 +253,28 @@ class VueSession {
         this.create(key, result)
     }
 
+    incrementDictKeyBy (key, keyToUpdate, k = 1) {
+        const result = this.getOrCreate(key, { [`${keyToUpdate}`]: 0 })
+        const dictToUpdate = result[1]
+        if (typeof dictToUpdate[keyToUpdate] !== 'number') {
+            dictToUpdate[keyToUpdate] = 0
+            // throw new Error('Value for increment or decrement operation should be a number')
+        }
+        dictToUpdate[keyToUpdate] = dictToUpdate[keyToUpdate] + k
+        this.create(key, dictToUpdate)
+    }
+
+    decrementDictKeyBy (key, keyToUpdate, k = 1) {
+        const result = this.getOrCreate(key, { [`${keyToUpdate}`]: 0 })
+        const dictToUpdate = result[1]
+        if (typeof dictToUpdate[keyToUpdate] !== 'number') {
+            dictToUpdate[keyToUpdate] = 0
+            // throw new Error('Value for increment or decrement operation should be a number')
+        }
+        dictToUpdate[keyToUpdate] = dictToUpdate[keyToUpdate] - k
+        this.create(key, dictToUpdate)
+    }
+
     getOrCreate (key, value) {
         const result = this.exists(key)
         let returnValue = null
@@ -175,6 +294,14 @@ class VueSession {
         const result = this._getList(key)
         result.push(value)
         this.create(key, result)
+    }
+
+    listPushUnique (key, value) {
+        const result = this._getList(key)
+        if (!result.includes(value)) {
+            result.push(value)
+            this.create(key, result)
+        }
     }
 
     defaultList (key, value) {
@@ -211,11 +338,6 @@ class VueSession {
         }
     }
 
-    retrieve (key) {
-        // this._precheck()
-        return this.data[key]
-    }
-
     remove (key) {
         var storedData = this.data
         delete storedData[key]
@@ -234,7 +356,7 @@ class VueSession {
             return false
         }
     }
-    
+
     clear () {
         // Fails silently if there is no
         // session in the storage
@@ -246,12 +368,12 @@ class VueSession {
             return false
         }
     }
-    
+
     contains (key) {
         return this.data ? key in this.data : false
     }
-    
-    destroy() {
+
+    destroy () {
         this.storage.clear()
     }
 
@@ -267,7 +389,7 @@ class VueSession {
     }
 }
 
-function createVueSession(options) {
+function createVueSession (options) {
     return new VueSession(options)
 }
 

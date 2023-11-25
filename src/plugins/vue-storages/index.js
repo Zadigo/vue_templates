@@ -1,8 +1,8 @@
-import { createLocalStorage, VueLocalStorage } from './local-storage'
+import { createVueLocalStorage, VueLocalStorage } from './local-storage'
 import { createVueSession, VueSession } from './session-storage'
 
 export {
-  createLocalStorage,
+  createVueLocalStorage,
   createVueSession,
   VueLocalStorage,
   VueSession
