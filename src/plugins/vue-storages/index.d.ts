@@ -1,8 +1,6 @@
 import { App, ComponentCustomProperties, Ref } from 'vue'
 
-declare type DictionnaryKey = {
-    key: string
-}
+declare type DictionnaryKey = { key: string }
 
 /** Creates a VueLocalStorage instance that can be used by a Vue app */
 export declare function createVueLocalStorage(options?: BaseOptions): VueLocalStorage
@@ -46,7 +44,7 @@ export declare interface VueLocalStorage {
      * @param value - number, array or dictionnary
      * @returns null
      */
-    create(key: DictionnaryKey, value: unknown): void
+    create(key: DictionnaryKey, value: any): void
     /**
      * Checks if a value exists in a dictionnary
      * 
@@ -105,7 +103,7 @@ export declare interface VueLocalStorage {
      * @param value - number, array or dictionnary
      * @returns any
      */
-    getOrCreate (key: DictionnaryKey, value: any): any
+    getOrCreate (key: DictionnaryKey, value: any): dictSetResult
     /**
      * Pushes a value in a list
      *
@@ -168,6 +166,8 @@ export declare interface VueSessionOptions extends BaseOptions {
  * data easily in the base Window session storage
  */
 export declare interface VueSession {
+    dictSetResult: [boolean, object]
+
     /** The default session key (defaults: vue-session) */
     readonly DEFAULT_KEY_NAME: string
     /**
@@ -207,7 +207,7 @@ export declare interface VueSession {
      * @param key - key under which to get the element
      * @returns string
      */
-    create(key: DictionnaryKey, value: unknown): void
+    create(key: DictionnaryKey, value: any): void
     /**
      * Saves a key in the local storage with an
      * expiration date
@@ -266,7 +266,7 @@ export declare interface VueSession {
      * @param key - key of the element to remove
      * @param defaultValue - key of the element to remove
      */
-    getOrCreate(key: DictionnaryKey, defaultValue: unknown): number | object
+    getOrCreate(key: DictionnaryKey, defaultValue: any): number | object
     /**
      * Tries to push the incoming element to an 
      * array stored under the given key
@@ -274,7 +274,40 @@ export declare interface VueSession {
      * @param key - key of the element to remove
      * @param value - value to add
      */
-    updateArray(key: DictionnaryKey, value: unknown): void
+    listPush(key: DictionnaryKey, value: any): void
+    /**
+     * Tries to push the incoming element to an 
+     * array stored under the given key ensuring
+     * that it is unique
+     *
+     * @param key - key of the element to remove
+     * @param value - value to add
+     */
+    listPushUnique(key: DictionnaryKey, value: any): void
+    /**
+     * Like listPush but will create a new list if it
+     * does not already exist
+     *
+     * @param key - key under which to save the element
+     * @param value - number, array or dictionnary
+     * @returns null
+     */
+    defaultList (key: DictionnaryKey, value: any): void
+    /**
+     * Merges two lists under a given key
+     *
+     * @param key - key under which to merge the elements
+     * @param values - array to merge
+     * @returns null
+     */
+    listMerge (key: DictionnaryKey, values: object): void
+    /**
+     * Counts the number of items under a given list
+     *
+     * @param key - key under which to merge the elements
+     * @returns number
+     */
+    listCount (key: DictionnaryKey): number
     /**
      * Toggle a boolean stored under a given key
      * 
@@ -322,6 +355,42 @@ export declare interface VueSession {
      * @returns null
      */
     getType (key: DictionnaryKey): string
+    /**
+     * Sets the value of a dictionnary stored under a
+     * given key in the storage
+     *
+     * @param key - key under which the dictionnary is located
+     * @param subKey - dictionnary key to set
+     * @param value - value to create
+     * @returns null
+     */
+    dictSet(key: string, subKey: string, value: any): void
+    /**
+     * Gets the value of a dictionnary stored under a
+     * given key in the storage
+     *
+     * @param key - storage key to get
+     * @param subKey - dictionnary key to get
+     * @returns any
+     */
+    dictGet(key: string, subKey: string): any
+    /**
+     * Clears all the entries from a dictionnary stored under a
+     * given key in the storage
+     *
+     * @param key - dictionnary to reset under storage key
+     * @returns null
+     */
+    dictClear(key: string): void
+    /**
+     * Removes a value from a dictionnary stored under a
+     * given key in the storage
+     *
+     * @param key - storage key to get
+     * @param subKey - dictionnary key to remove
+     * @returns any
+     */
+    dictRemove(key: string, subKey: string): any
 
     install(app: App): void
 }

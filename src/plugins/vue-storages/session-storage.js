@@ -377,6 +377,30 @@ class VueSession {
         this.storage.clear()
     }
 
+    dictSet (key, subKey, value) {
+        const data = this.getOrCreate(key, {})
+        const result = data[1]
+        result[subKey] = value
+        this.create(key, result)
+    }
+
+    dictGet (key, subKey) {
+        const data = this.retrieve(key) || {}
+        return data[subKey]
+    }
+
+    dictClear (key) {
+        this.create(key, {})
+    }
+
+    dictRemove (key, subKey) {
+        const data = this.retrieve(key) || {}
+        const previousData = Object.assign({}, data)
+        delete data[subKey]
+        this.create(key, data)
+        return previousData[subKey]
+    }
+
     install (app) {
         setupDevtools(app, this)
         app.config.globalProperties.$session = this
